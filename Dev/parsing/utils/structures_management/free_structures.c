@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_structure_management.c                       :+:      :+:    :+:   */
+/*   free_structures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 15:23:46 by lduheron          #+#    #+#             */
-/*   Updated: 2023/04/21 20:40:53 by lduheron         ###   ########.fr       */
+/*   Created: 2023/05/17 18:09:53 by lduheron          #+#    #+#             */
+/*   Updated: 2023/05/17 18:50:04 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "structures_management.h"
 
 void	ft_lstclear(t_tokens **lst)
 {
@@ -24,6 +24,18 @@ void	ft_lstclear(t_tokens **lst)
 	}
 }
 
+void	free_structures(t_data *data, t_tokens **tokens)
+{
+	free_data_structure(data);
+	free_token_structure(tokens);
+	// free_tree_structure(&tree);
+}
+
+void	free_data_structure(t_data *data)
+{
+	free(data->line);
+}
+
 // FREE TOKEN STRUCTURE : Free the elements of a t_tokens structure.
 
 void	free_token_structure(t_tokens **tokens)
@@ -32,10 +44,5 @@ void	free_token_structure(t_tokens **tokens)
 	ft_lstclear(tokens);
 }
 
-// INIT TOKEN STRUCTURE : Initialize the elements of a t_tokens structure.
-
-void	init_token_structure(t_tokens **tokens)
-{
-	ft_lstadd_back(tokens, ft_lstnew(0));
-	(*tokens)->type = N_DEF;
-}
+// void    free_tree_structure(t_tree **tree)
+// {}

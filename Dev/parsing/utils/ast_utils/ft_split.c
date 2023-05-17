@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 20:21:28 by lduheron          #+#    #+#             */
-/*   Updated: 2023/02/25 17:41:50 by lduheron         ###   ########.fr       */
+/*   Created: 2022/11/13 12:03:34 by lduheron          #+#    #+#             */
+/*   Updated: 2023/05/17 18:19:52 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ast_utils.h"
 
 int	wdcount(char const *s, char c)
 {
@@ -34,7 +34,7 @@ int	wdcount(char const *s, char c)
 	return (cpt);
 }
 
-static char	*ftdup(char *s, char c)
+static char	*ftdup(char const *s, char c)
 {
 	long	len;
 	char	*scopy;
@@ -42,7 +42,7 @@ static char	*ftdup(char *s, char c)
 	len = 0;
 	while (s[len] && s[len] != c)
 		len++;
-	scopy = malloc(sizeof(char) * (len + 2));
+	scopy = malloc(len + 1);
 	if (!scopy)
 		return (NULL);
 	scopy[len] = 0;
@@ -58,19 +58,19 @@ static void	ftfree(char **buffer, long i)
 {
 	while (i)
 	{
-		free(buffer[i]);
+		free (buffer[i]);
 		i--;
 	}
-	free(buffer);
+	free (buffer);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**buffer;
 	long	i;
 
 	i = 0;
-	buffer = malloc((wdcount(s, c) + 1) * sizeof(char *));
+	buffer = malloc((wdcount(s, c) + 1) * sizeof (char *));
 	if (!buffer)
 		return (NULL);
 	while (*s)

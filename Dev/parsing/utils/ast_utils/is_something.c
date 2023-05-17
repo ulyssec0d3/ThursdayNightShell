@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_something.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/04/21 20:42:28 by lduheron         ###   ########.fr       */
+/*   Created: 2023/05/11 16:12:35 by lduheron          #+#    #+#             */
+/*   Updated: 2023/05/17 18:19:52 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "ast_utils.h"
 
-//expand : , char **env
-
-int	main(int argc, char **argv)
+int	is_sign(char c)
 {
-	t_tokens	*tokens;
+	return (c == '+' || c == '-');
+}
 
-	tokens = NULL;
-	init_token_structure(&tokens);
-	if (argc == 2)
-		lexing(&tokens, argv[1]);
-	free_token_structure(&tokens);
-	return (0);
+int	is_pipe(char c)
+{
+	return (c == 124);
+}
+
+int	is_space(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\v');
+}
+
+int	ft_isalpha(int c)
+{
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
