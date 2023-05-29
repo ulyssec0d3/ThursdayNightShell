@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 17:21:08 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:51:37 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,20 @@ void	ft_print_lst_token(t_tokens *token)
 /// heredoc == nouveau fd[0].
 int	main(int argc, char **argv)
 {
-	t_data		data;
 	t_tokens	*tokens;
 	t_tree		*tree;
 
 	tokens = NULL;
 	tree = NULL;
-	init_structures(&data, &tokens, &tree, argv);
 	if (argc != 2)
 		return (0);
-	lexing(&data, &tokens);
+	lexing(&tokens, argv);
 	// here doc avant parsing meme si erreur ?
 	// if (error_syntax(token)== 0)
 	// 	ERROR_SYNTAX();
 	// else
 		// parsing(&tokens, &tree);
 	ft_print_lst_token(tokens);
-	free_structures(&data, &tokens);
+	free_structures(&tokens);
 	return (0);
 }

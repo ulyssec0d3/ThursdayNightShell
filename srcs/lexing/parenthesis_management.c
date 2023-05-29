@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:02:49 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:04:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:33:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ int	cpt_parenthesis(char c)
 // searches for the corresponding closing parenthesis and return 
 // the size of the buffer to parse.
 
-int	parenthesis_management(t_data *data)
+int	parenthesis_management(t_data_lexing *data_lexing)
 {
 	int	pos_tmp;
 	int	cpt;
 	int	size;
 
 	cpt = 1;
-	pos_tmp = data->pos + 1;
+	pos_tmp = data_lexing->pos + 1;
 	size = 1;
-	while (data->line[pos_tmp] && cpt != 0)
+	while (data_lexing->line[pos_tmp] && cpt != 0)
 	{
-		cpt += cpt_parenthesis(data->line[pos_tmp]);
+		cpt += cpt_parenthesis(data_lexing->line[pos_tmp]);
 		size++;
 		pos_tmp++;
 	}
