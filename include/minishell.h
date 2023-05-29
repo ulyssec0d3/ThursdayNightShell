@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulevallo <ulevallo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:22:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:20:18 by ulevallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <limits.h>
 # include <stdint.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdbool.h>
 
 ////////////////////// ENUM //////////////////////
 
@@ -95,7 +98,7 @@ typedef struct s_pipe
 ////////////////////// PROTOTYPES //////////////////////
 
 // Main.c
-int			main(int argc, char **argv);
+int			main(int argc, char **argv, char **env);
 
 ////////////////////// IN AST UTILS DIR //////////////////////
 // Ft_split.c
@@ -162,7 +165,7 @@ void		build_tree(t_tokens **token, t_tree **tree);
 void		parse_word(t_tokens **token, t_tree **tree);
 
 ////////////////////// IN STRUCTURES MANAGEMENT DIR //////////////////////
-// Init_structures.c 
+// Init_structures.c
 void		init_data_structure(t_data *data, char **argv);
 void		init_token_structure(t_tokens **tokens);
 void		init_structures(t_data *data, t_tokens **tokens, t_tree **tree,
