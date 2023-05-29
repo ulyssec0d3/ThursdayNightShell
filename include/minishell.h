@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/24 17:11:31 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:33:27 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,24 +81,29 @@ struct s_tokens {
 // a node, in which case it needs to be split into two branches : 
 // the left branch and the right branch.
 
-union u_tree_node_content
-{
-	struct t_leaf		leaf;
-	struct t_branch		node;
-}	t_tree_node_content;
+// union u_tree_node_content
+// {
+// 	struct t_leaf		leaf;
+// 	struct t_branch		node;
+// } ;
+
+// struct	s_tree {
+// 	u_tree_node_content	content;
+// 	enum e_type_exec	type;
+// };
+
+// struct s_branch {
+// 	struct s_tree	*left;
+// 	struct s_tree	*right;
+// };
+
+// struct s_leaf {
+// 	char	*arg;
+// };
 
 struct	s_tree {
-	t_tree_node_content	content;
+	int					content;
 	enum e_type_exec	type;
-};
-
-struct s_branch {
-	struct s_tree	*left;
-	struct s_tree	*right;
-};
-
-struct s_leaf {
-	char	*arg;
 };
 
 //////////////////////////////////////////////////////////////////
@@ -209,6 +214,7 @@ int			double_quote_management(t_data *data);
 
 // List_utils.c
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+void		ft_lstadd_back2(t_tokens *lst, t_tokens new);
 void		ft_lstadd_front(t_tokens **lst, t_tokens *new);
 int			ft_lstsize(t_tokens *lst);
 t_tokens	*ft_lstnew(char *content);
@@ -245,5 +251,6 @@ void		free_token_structure(t_tokens **tokens);
 void		free_structures(t_data *data, t_tokens **tokens);
 // void		free_tree_structure(t_tree **tree);
 void		ft_lstclear(t_tokens **lst);
+void	ft_print_lst_token(t_tokens *token);
 
 #endif

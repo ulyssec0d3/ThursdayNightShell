@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:08:03 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:04:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:21:00 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_tokens	*new_token(t_data *data, int type)
 	int		i;
 	int		size;
 
-	printf("ENTER NEW TOKEN\n");
 	i = data->pos;
 	content = NULL;
 	size = 1;
@@ -58,7 +57,6 @@ t_tokens	*new_token_word(t_data *data)
 	int		i;
 	int		size;
 
-	printf("ENTER NEW TOKEN CMD\n");
 	i = data->pos;
 	content = NULL;
 	size = 1;
@@ -80,10 +78,10 @@ t_tokens	*new_token_parenthesis(t_data *data)
 	int		i;
 	int		size;
 
-	printf("ENTER NEW TOKEN PARENTHESIS\n");
 	i = data->pos;
 	content = NULL;
 	size = parenthesis_management(data);
+
 	content = malloc(sizeof(char *) * (size + 1));
 	get_content(content, data->line, size, data->pos);
 	printf("content in parenthesis : %s\n", content);
@@ -98,11 +96,13 @@ t_tokens	*new_token_single_quote(t_data *data)
 	int		i;
 	int		size;
 
-	printf("ENTER NEW TOKEN SINGLE QUOTE\n");
+	// printf("ENTER NEW TOKEN SINGLE QUOTE\n");
 	i = data->pos;
 	content = NULL;
 	size = single_quote_management(data);
 	content = malloc(sizeof(char *) * (size + 1));
+	if (content == NULL)
+		return (NULL);
 	get_content(content, data->line, size, data->pos);
 	printf("content in single quote : %s\n", content);
 	return (add_new_token(content, 5));
@@ -116,7 +116,6 @@ t_tokens	*new_token_double_quote(t_data *data)
 	int		i;
 	int		size;
 
-	printf("ENTER NEW TOKEN DOUBLE QUOTE\n");
 	i = data->pos;
 	content = NULL;
 	size = double_quote_management(data);

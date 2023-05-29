@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:04:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:22:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ t_tokens	*add_new_token(char *content, int type)
 {
 	t_tokens	*new_elem;
 
-	printf("ENTER ADD NEW TOKEN\n");
 	new_elem = malloc (sizeof(t_tokens));
-	if (!new_elem)
+	if (new_elem == NULL)
 		return (NULL);
 	new_elem->type = type;
+	new_elem->len = ft_strlen(content);
 	new_elem->content = ft_strdup(content);
 	new_elem->next = NULL;
 	return (new_elem);
@@ -78,6 +78,26 @@ t_tokens	*which_new_token(t_data *data)
 	return (0);
 }
 
+
+void	ft_lstadd_back5(t_tokens **lst, t_tokens *new)
+{
+	t_tokens	*tmp;
+
+	// printf("ENTER LST ADD BACK CONTENT: %s\n", new->content);
+	tmp = *lst;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+		// printf("EXIT LST ADD BACK tmp->content : %s\n", tmp->content);
+		// printf("EXIT LST ADD BACK new tmp->type: %u\n", tmp->type);
+	}
+}
+
+
 // LEXING FUNCTION : This function parses the line in tokens
 // and store them in a linked list.
 
@@ -87,18 +107,18 @@ void	lexing(t_data *data, t_tokens **token)
 	t_tokens	*tmp_token;
 
 	len = 0;
-	printf("ENTER LEXING FUNCTION\n");
+	// printf("ENTER LEXING FUNCTION\n");
 	while (data->pos < data->len)
 	{
 		len = 0;
-		while (is_space(data->line[data->pos] == 1))
+		while (is_space(data->line[data->pos]) == 1)
 			data->pos++;
 		tmp_token = which_new_token(data);
 		if (tmp_token == NULL)
-			return (exit (1));
+			exit (1);
 		len = ft_strlen(tmp_token->content);
-		ft_lstadd_back(token, tmp_token);
+		ft_lstadd_back5(token, tmp_token);
 		data->pos += len;
-		free((*tmp_token).content);
+		// free(tmp_token);
 	}
 }

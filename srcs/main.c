@@ -6,30 +6,37 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:04:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:21:08 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_lst_token(t_tokens **token)
+void	ft_print_lst_token(t_tokens *token)
 {
 	t_tokens	*tmp;
 	int			i;
 
+	tmp = token;
 	i = 0;
-	tmp = *token;
-	printf("ENTER PRINT LST TOKEN \n");
-	if (tmp->content == NULL && tmp->next->content != NULL)
+	printf("PRINT LST TOKEN\n");
+	if (tmp == NULL)
 	{
-		printf("Le premier maillon est nul\n");
-		tmp = (*token)->next;
+		printf("List is empty.\n");
+		return ;
 	}
-	while (tmp->next)
+	if (tmp->content == NULL)
 	{
-		printf("LST CONTENT : %s\n", tmp->content);
+		printf("The first node is null.\n");
 		tmp = tmp->next;
-		i++;
+	}
+	while (tmp != NULL)
+	{
+		printf("TOKEN NUMBER %i\n", i);
+		printf("Content: %s\n", tmp->content);
+		printf("Type : %i\n", tmp->type);
+		printf("Len : %i\n\n", tmp->len);
+		tmp = tmp->next;
 	}
 }
 
@@ -46,12 +53,12 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	lexing(&data, &tokens);
-	// here doc avant parsing meme si erreur 
+	// here doc avant parsing meme si erreur ?
 	// if (error_syntax(token)== 0)
 	// 	ERROR_SYNTAX();
 	// else
 		// parsing(&tokens, &tree);
-	// ft_print_lst_token(&tokens);
+	ft_print_lst_token(tokens);
 	free_structures(&data, &tokens);
 	return (0);
 }
