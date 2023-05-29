@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 18:09:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 17:16:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:51:19 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,11 @@ void	ft_lstclear(t_tokens **lst)
 	}
 }
 
-void	free_structures(t_data *data, t_tokens **tokens)
+void	free_structures(t_tokens **tokens)
 {
-	free_data_structure(data);
 	free_token_structure(tokens);
-	// free_tree_structure(&tree);
 }
 
-void	free_data_structure(t_data *data)
-{
-	free(data->line);
-}
 
 // FREE TOKEN STRUCTURE : Free the elements of a t_tokens structure.
 
@@ -51,5 +45,3 @@ void	free_token_structure(t_tokens **tokens)
 	}
 }
 
-// void    free_tree_structure(t_tree **tree)
-// {}
