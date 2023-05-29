@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 19:02:59 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:55:58 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	build_tree(t_tokens **token, t_tree **tree)
 			parse_word();
 	}
 }
+
 
 // IS_LEAF : This function returns 1 if the token being parse is a leaf.
 // int	is_leaf()
