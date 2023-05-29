@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 17:22:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:26:31 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,6 @@ t_tokens	*which_new_token(t_data *data)
 	return (0);
 }
 
-
-void	ft_lstadd_back5(t_tokens **lst, t_tokens *new)
-{
-	t_tokens	*tmp;
-
-	// printf("ENTER LST ADD BACK CONTENT: %s\n", new->content);
-	tmp = *lst;
-	if (!*lst)
-		*lst = new;
-	else
-	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new;
-		// printf("EXIT LST ADD BACK tmp->content : %s\n", tmp->content);
-		// printf("EXIT LST ADD BACK new tmp->type: %u\n", tmp->type);
-	}
-}
-
-
 // LEXING FUNCTION : This function parses the line in tokens
 // and store them in a linked list.
 
@@ -117,7 +97,7 @@ void	lexing(t_data *data, t_tokens **token)
 		if (tmp_token == NULL)
 			exit (1);
 		len = ft_strlen(tmp_token->content);
-		ft_lstadd_back5(token, tmp_token);
+		ft_lstadd_back(token, tmp_token);
 		data->pos += len;
 		// free(tmp_token);
 	}
