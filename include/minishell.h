@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 19:01:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:51:18 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ void		parse_word(t_tokens **token, t_tree **tree);
 //////////////////////////////////////////////////////////////////
 
 // Init_structures.c 
-void		init_data_structure(t_data_lexing *data_lexing, char **argv);
+void		init_data_lexing_structure(t_data_lexing *data_lexing, char **argv);
 void		init_token_structure(t_tokens **tokens);
 // void		init_structures(t_tokens **tokens, t_tree **tree,
 // 				char **argv);

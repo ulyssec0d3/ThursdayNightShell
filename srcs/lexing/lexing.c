@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 18:56:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:11:10 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	lexing(t_tokens **token, char **argv)
 	t_tokens		*tmp_token;
 
 	len = 0;
-	init_data_structure(&data_lexing, argv);
+	init_data_lexing_structure(&data_lexing, argv);
 	// printf("ENTER LEXING FUNCTION\n");
 	while (data_lexing.pos < data_lexing.len)
 	{

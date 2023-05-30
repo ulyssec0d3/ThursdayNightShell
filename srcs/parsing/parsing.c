@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 19:55:58 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/30 12:14:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,39 @@ void	eat_token(t_tokens **tokens)
 
 void	build_tree(t_tokens **token, t_tree **tree)
 {
-	t_data_
-	int	nb_token;
+	t_data_parsing	data_parsing;
 
-	nb_token = ft_lstsize(token);
-	while (*token)
-	{	
-		if (is_special_type(*token)->type == 1)
-			parse_special_type();
+	init_data_parsing_structure(token);
+	while (data_parsing->nb_token > 0)
+	{
+		if ((*token)->type == 1)
+			
 		else
-			parse_word();
+			parse_special_type();
 	}
 }
-
-void	build_tree(t_tokens **token, t_tree **tree)
-{
-	
-	while (*token)
-	{	
-		if (is_special_type(*token)->type == 1)
-			parse_special_type();
-		else
-			parse_word();
-	}
-}
-
 
 // IS_LEAF : This function returns 1 if the token being parse is a leaf.
-// int	is_leaf()
-// {
-// 	if ()
-// 		return (1;)
-// 	return (0);
-// }
+int	is_leaf(t_token **token)
+{
+	if ()
+		return (1);
+	return (0);
+}
 
+void	parse_word(t_tokens **token, t_tree **tree)
+{
+	typedef struct cmd;
 
-// void    parse_word(t_tokens **token, t_tree **tree)
-// {}
+	cmd = NULL;
+	if (token.next->type && token.next->type != 0)
+	{
+		if (is_leaf == 0)
+			data_parsing->precedent_command = cmd;
+	}
+}
+
+void	init_data_parsing(t_data_parsing **data_parsing)
+{
+	data_parsing->nb_token = ft_lstsize(token);
+}
