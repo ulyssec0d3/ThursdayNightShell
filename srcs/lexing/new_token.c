@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:08:03 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 18:33:22 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:32:26 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ t_tokens	*new_token_parenthesis(t_data_lexing *data_lexing)
 	i = data_lexing->pos;
 	content = NULL;
 	size = parenthesis_management(data_lexing);
-
 	content = malloc(sizeof(char *) * (size + 1));
 	get_content(content, data_lexing->line, size, data_lexing->pos);
 	printf("content in parenthesis : %s\n", content);

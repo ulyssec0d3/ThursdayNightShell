@@ -22,7 +22,9 @@ SRCS        := \
 	lexing/new_token.c     \
 	lexing/parenthesis_management.c     \
 	lexing/quote_management.c     \
+	parsing/parse_type.c     \
 	parsing/parsing.c     \
+	parsing/utils.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

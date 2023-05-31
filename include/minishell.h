@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/30 11:51:18 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:20:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,14 @@ typedef struct s_branch						t_branch;
 
 typedef struct s_cmd
 {
-	char	*argv;
-	int		fd_in;
-	int		fd_out;
+	char	*cmd;
 }	t_cmd;
 
 typedef struct s_pipe
 {
-	int				type;
-	struct s_cmd	*cmd1;
-	struct s_cmd	*cmd2;
+	enum e_type_token	type;
+	struct s_cmd		*cmd1;
+	struct s_cmd		*cmd2;
 }	t_pipe;
 
 // typedef struct s_redirections
@@ -107,7 +105,7 @@ struct s_data_lexing {
 };
 
 struct	s_data_parsing {
-	struct s_cmd	preceding_command;
+	struct s_cmd	preceding_cmd;
 	int				nb_token;
 };
 
@@ -124,33 +122,31 @@ struct s_tokens {
 //																//
 //////////////////////////////////////////////////////////////////
 
-
 // The tree can contain two types of content : either it represents a simple
 // command, in which case the active value is a t_leaf structure. The concept
 // of a leaf signifies the end of a branch. Alternatively, it can represent
 // a node, in which case it needs to be split into two branches : 
 // the left branch and the right branch.
 
-union u_tree_node_content
-{
-	struct t_leaf		leaf;
-	struct t_branch		node;
-};
-
-struct	s_tree {
-	u_tree_node_content	content;
-	enum e_type_exec	type;
-};
-
 struct s_branch {
-	struct s_tree	*left;
-	struct s_tree	*right;
+	union t_tree_node_content	*left;
+	union t_tree_node_content	*right;
 };
 
 struct s_leaf {
 	char	*arg;
 };
 
+union u_tree_node_content
+{
+	t_leaf		leaf;
+	t_branch	branch;
+};
+
+struct	s_tree {
+	union t_tree_node_content	content;
+	enum e_type_exec			type;
+};
 
 // (this is not a structure that I use, its to silence some warnings
 // when I only want to work n the lexing.)
@@ -251,11 +247,17 @@ t_tokens	*ft_lstlast(t_tokens *lst);
 //																//
 //////////////////////////////////////////////////////////////////
 
-// Parsing.c
-void		eat_token(t_tokens **tokens);
-void		build_tree(t_tokens **token, t_tree **tree);
+// Parse_type.c
+t_tree_node_content	parse_pipe(t_tokens *tokens, t_data_parsing *data_parsing);
 void		parse_word(t_tokens **token, t_tree **tree);
 
+// Parsing.c
+void		init_data_parsing(t_data_parsing *data_parsing, t_tokens **token);
+void		build_tree(t_tokens **token, t_tree **tree);
+
+// Utils.c
+void		eat_token(t_tokens **tokens);
+int			is_leaf(t_tokens **token);
 
 //////////////////////////////////////////////////////////////////
 //																//
