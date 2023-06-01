@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/31 17:20:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:24:13 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ enum e_type_token
 typedef struct s_data_lexing				t_data_lexing;
 typedef struct s_data_parsing				t_data_parsing;
 typedef struct s_tokens						t_tokens;
-typedef struct s_tree						t_tree;
-typedef union u_tree_node_content			t_tree_node_content;
-typedef struct s_leaf						t_leaf;
-typedef struct s_branch						t_branch;
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -78,7 +74,6 @@ typedef struct s_cmd
 
 typedef struct s_pipe
 {
-	enum e_type_token	type;
 	struct s_cmd		*cmd1;
 	struct s_cmd		*cmd2;
 }	t_pipe;
@@ -128,6 +123,11 @@ struct s_tokens {
 // a node, in which case it needs to be split into two branches : 
 // the left branch and the right branch.
 
+typedef struct s_leaf						t_leaf;
+typedef struct s_branch						t_branch;
+typedef union u_tree_node_content			t_tree_node_content;
+typedef struct s_tree						t_tree;
+
 struct s_branch {
 	union t_tree_node_content	*left;
 	union t_tree_node_content	*right;
@@ -144,8 +144,8 @@ union u_tree_node_content
 };
 
 struct	s_tree {
-	union t_tree_node_content	content;
-	enum e_type_exec			type;
+	t_tree_node_content	content;
+	enum e_type_exec	type;
 };
 
 // (this is not a structure that I use, its to silence some warnings
@@ -248,8 +248,10 @@ t_tokens	*ft_lstlast(t_tokens *lst);
 //////////////////////////////////////////////////////////////////
 
 // Parse_type.c
-t_tree_node_content	parse_pipe(t_tokens *tokens, t_data_parsing *data_parsing);
-void		parse_word(t_tokens **token, t_tree **tree);
+// t_tree_node_content	
+void	parse_pipe(t_data_parsing *data_parsing, t_tokens **token);
+void		parse_word(t_data_parsing *data_parsing, t_tokens **token,
+				t_tree **tree);
 
 // Parsing.c
 void		init_data_parsing(t_data_parsing *data_parsing, t_tokens **token);

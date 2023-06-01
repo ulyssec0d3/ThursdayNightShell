@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 18:51:37 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:29:13 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	main(int argc, char **argv)
 	// if (error_syntax(token)== 0)
 	// 	ERROR_SYNTAX();
 	// else
-		// parsing(&tokens, &tree);
 	ft_print_lst_token(tokens);
+	build_tree(&tokens, &tree);
 	free_structures(&tokens);
 	return (0);
 }
