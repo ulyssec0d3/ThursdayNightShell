@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:34:54 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 20:11:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:40:39 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_data_lexing_structure(t_data_lexing *data_lexing, char **argv)
 // 	(*token)->type = N_DEF;
 // }
 
-// void	init_structures(t_data_lexing *data_lexing, t_tokens **tokens, t_tree **tree,
-// 	char **argv)
+// void	init_structures(t_data_lexing *data_lexing, t_tokens **tokens,
+// 			t_tree **tree, char **argv)
 // {
 // 	init_data_lexing_structure(data_lexing, argv);
 // 	(void)tree;

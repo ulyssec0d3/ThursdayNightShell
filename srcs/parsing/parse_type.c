@@ -6,17 +6,18 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 09:36:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:41:39 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_word(t_data_parsing *data_parsing, t_tokens **token, t_tree **tree)
+void	parse_word(t_data_parsing *data_parsing, t_tokens **token,
+			t_tree **tree)
 {
 	t_cmd	cmd;
-	(void)tree;
 
+	(void) tree;
 	cmd.cmd = (*token)->content;
 	data_parsing->preceding_cmd = cmd;
 	eat_token(token);
@@ -35,9 +36,9 @@ void	parse_word(t_data_parsing *data_parsing, t_tokens **token, t_tree **tree)
 // t_tree_node_content
 void	parse_pipe(t_data_parsing *data_parsing, t_tokens **token)
 {
-	// t_tree_node_content	node;
 	t_pipe				pipe;
-	
+	// t_tree_node_content	node;
+
 	pipe.cmd1 = &data_parsing->preceding_cmd;
 	eat_token(token);
 	pipe.cmd2->cmd = (*token)->content;
