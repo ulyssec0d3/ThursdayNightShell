@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 10:02:13 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:56:12 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_word(t_data_parsing *data_parsing, t_tokens **token,
 	data_parsing->preceding_cmd = cmd;
 	eat_token(token);
 	data_parsing->nb_token -= 1;
-	printf("simple cmd : %s\n", cmd.cmd);
+	printf("Simple cmd : %s\n", cmd.cmd);
 	// if ((*token)->next && (*token)->next->type != 0)
 	// {
 	// 	if (is_leaf(token) == 0)

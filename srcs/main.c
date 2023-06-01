@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 10:00:56 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:05:06 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_print_lst_token(t_tokens *token)
 		printf("Type : %i\n", tmp->type);
 		printf("Len : %i\n\n", tmp->len);
 		tmp = tmp->next;
+		i++;
 	}
 }
 
@@ -55,8 +56,10 @@ int	main(int argc, char **argv)
 	// if (error_syntax(token)== 0)
 	// 	ERROR_SYNTAX();
 	// else
-	ft_print_lst_token(tokens);
 	build_tree(&tokens, &tree);
+	if (tokens)
+		ft_print_lst_token(tokens);
+	// free(tokens);
 	free_structures(&tokens);
 	return (0);
 }
