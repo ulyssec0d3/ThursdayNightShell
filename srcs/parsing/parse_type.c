@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 09:41:39 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:02:13 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ void	parse_pipe(t_data_parsing *data_parsing, t_tokens **token)
 	data_parsing->nb_token -= 2;
 	// node.leaf = pipe;
 	printf("pipe.cmd1 : %s, pipe.cmd2 : %s\n", pipe.cmd1->cmd, pipe.cmd2->cmd);
+	free(pipe.cmd2->cmd);
+	free(pipe.cmd1->cmd);
+	// free(pipe);
 	// return (node);
 }

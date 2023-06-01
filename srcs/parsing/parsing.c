@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 09:23:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 10:01:33 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	build_tree(t_tokens **token, t_tree **tree)
 	t_data_parsing	data_parsing;
 
 	init_data_parsing(&data_parsing, token);
-	while (data_parsing.nb_token > 0)
+	while (data_parsing.nb_token > 1)
 	{
 		if ((*token)->type == 1)
 			parse_word(&data_parsing, token, tree);

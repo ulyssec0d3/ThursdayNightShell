@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 09:33:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:54:29 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	eat_token(t_tokens **tokens)
 
 	tmp = NULL;
 	tmp = *tokens;
+	if (!tmp)
+		return ;
 	if (tokens)
 		*tokens = (*tokens)->next;
 	free(tmp);
