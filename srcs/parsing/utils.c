@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 09:54:29 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:19:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,3 @@ void	eat_token(t_tokens **tokens)
 		*tokens = (*tokens)->next;
 	free(tmp);
 }
-
-// void	ft_remove_first_node(t_stack **stack)
-// {
-// 	t_stack	*head;
-
-// 	head = NULL;
-// 	head = *stack;
-// 	if (stack)
-// 		*stack = (*stack)->next;
-// 	free(head);
-// }
-
-// // IS_LEAF : This function returns 1 if the token being parse is a leaf.
-// int	is_leaf(t_tokens **token)
-// {
-// 	if (!token->next)
-// 		return (1);
-// 	return (0);
-// }

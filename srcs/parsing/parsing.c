@@ -6,30 +6,19 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 10:01:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:25:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data_parsing(t_data_parsing *data_parsing, t_tokens **token)
+void	build_tree(t_tokens **token, t_root **tree)
 {
-	data_parsing->nb_token = ft_lstsize(*token);
-}
-
-// Token is the list obtained after lexing.
-// Tree is the list containing the tree.
-
-void	build_tree(t_tokens **token, t_tree **tree)
-{
-	t_data_parsing	data_parsing;
-
-	init_data_parsing(&data_parsing, token);
-	while (data_parsing.nb_token > 1)
-	{
-		if ((*token)->type == 1)
-			parse_word(&data_parsing, token, tree);
-		else
-			parse_pipe(&data_parsing, token);
-	}
+	// while ()
+	// {
+		if ((*token)->next->type != 1)
+			parse_command(token, tree);
+		// else
+		// 	parse_pipe(&data_parsing, token);
+	// }
 }

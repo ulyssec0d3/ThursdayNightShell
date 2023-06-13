@@ -6,48 +6,54 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/01 16:56:12 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/13 16:32:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_word(t_data_parsing *data_parsing, t_tokens **token,
-			t_tree **tree)
+void	get_arg(t_tokens **token, t_command_node *cmd)
 {
-	t_cmd	cmd;
+	int	i_arg;
+	int	i_red;
+
+	i_arg = 0;
+	i_red = 0;
+	while ((*token)->type != 1)
+	{
+		if ((*token)->type == WORD)
+			cmd->argument[i_arg] = (*token)->content; // malloc attention
+		else
+		{
+			cmd->redirections[i_red] = (*token)->content;
+			cmd->redirections_type[i_red] = (*token)->type;
+			cmd->argument[i_arg] = (*cmd).redirections[i_red];
+			i_red++;
+		}
+		i_arg++;
+		eat_token(token);
+	}
+}
+
+// faire une fonction qui compte le nombre d'arg a malloc pour parse command.
+
+void	parse_command(t_tokens **token, t_root **tree)
+{
+	t_command_node	cmd;
 
 	(void) tree;
+	cmd.redirections = NULL;
 	cmd.cmd = (*token)->content;
-	data_parsing->preceding_cmd = cmd;
 	eat_token(token);
-	data_parsing->nb_token -= 1;
-	printf("Simple cmd : %s\n", cmd.cmd);
-	// if ((*token)->next && (*token)->next->type != 0)
-	// {
-	// 	if (is_leaf(token) == 0)
-	// 		data_parsing->preceding_cmd = cmd;
-	// 	else
-	// 		add_to_tree(tree, cmd);
-	// 	eat_token(token);
-	// }
+	get_arg(token, &cmd);
 }
 
-// t_tree_node_content
-void	parse_pipe(t_data_parsing *data_parsing, t_tokens **token)
-{
-	t_pipe				pipe;
-	// t_tree_node_content	node;
+// void	parse_pipe(t_tokens **token, t_root **tree)
+// {
+// 	t_operator_node	node;
 
-	pipe.cmd1 = &data_parsing->preceding_cmd;
-	eat_token(token);
-	pipe.cmd2->cmd = (*token)->content;
-	eat_token(token);
-	data_parsing->nb_token -= 2;
-	// node.leaf = pipe;
-	printf("pipe.cmd1 : %s, pipe.cmd2 : %s\n", pipe.cmd1->cmd, pipe.cmd2->cmd);
-	free(pipe.cmd2->cmd);
-	free(pipe.cmd1->cmd);
-	// free(pipe);
-	// return (node);
-}
+// 	node.type = PIPE_;
+// 	node.cmd1 = tree;
+// 	eat_token(token);
+// 	node.cmd2 = parse_command(token, tree);
+// }
