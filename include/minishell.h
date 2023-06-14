@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:27:44 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:51:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 enum e_type_exec
 {
-	COMMAND,
-	PIPE_,
+	COMMAND_NODE,
+	OPERATOR_NODE
 } ;
 
 enum e_type_token
@@ -130,6 +130,12 @@ struct s_root
 	t_command_node		tree;
 };
 
+union u_ast
+{
+	t_command_node	cmd;
+	t_operator_node	operator;
+};
+
 //////////////////////////////////////////////////////////////////
 //																//
 //																//
@@ -148,6 +154,7 @@ void		ft_print_lst_token(t_tokens *token);
 //																//
 //////////////////////////////////////////////////////////////////
 
+// Expand.c
 char		*extract_value(char *str);
 void		substitute_value(t_root *tree);
 int			search_substitute_variable(char *str);
