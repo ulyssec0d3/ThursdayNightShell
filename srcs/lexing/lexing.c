@@ -6,13 +6,13 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 18:56:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:44:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// NEW TOKEN : Creates a new token (Like a ft_lstnew but with type).
+// ADD NEW TOKEN : Creates a new token (Like a ft_lstnew but with type).
 
 t_tokens	*add_new_token(char *content, int type)
 {
@@ -28,31 +28,35 @@ t_tokens	*add_new_token(char *content, int type)
 	return (new_elem);
 }
 
+// NEW TOKEN : Create a new token when then input 
+// is not a word, a quote, or a parenthesis.
+
+t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
+{
+	char	*content;
+
+	content = NULL;
+	content = malloc(sizeof(char *) * (size + 1));
+	get_content(content, data_lexing->line, size, data_lexing->pos);
+	return (add_new_token(content, type));
+}
+
 // FIND TYPE : Returns the type of the input.
 
 int	find_type(t_data_lexing **data_lexing)
 {
 	int	type;
 
-	type = N_DEF;
-	if (ft_isalpha((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+	if (is_alpha((*data_lexing)->line[(*data_lexing)->pos]) == 1)
 		type = WORD;
 	else if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
-	{
-		type = PIPE_SIGN;
-		if ((*data_lexing)->line[(*data_lexing)->pos + 1] == 124)
-			type = OR_SIGN;
-	}
-	else if ((*data_lexing)->line[(*data_lexing)->pos] == 40)
-		type = O_PARENTHESIS;
-	else if ((*data_lexing)->line[(*data_lexing)->pos] == 41)
-		type = C_PARENTHESIS;
+		type = PIPE;
 	else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
 		type = SINGLE_QUOTE;
 	else if (is_double_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
 		type = DOUBLE_QUOTE;
-	// else if (ft_strncmp(pos_tmp, "&&", 2) == 0)
-	// 	type = AND_SIGN;
+	else
+		type = is_redirection(*data_lexing);
 	return (type);
 }
 
@@ -65,16 +69,17 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 	int			type;
 
 	type = find_type(&data_lexing);
+	printf("type :  %i\n", type);
 	if (type == WORD)
-		return (new_token_word(data_lexing));
+		return (lexing_word(data_lexing));
+	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
+		return (lexing_redirection(data_lexing, type, 1));
+	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
+		return (lexing_redirection(data_lexing, type, 2));
 	else if (type == SINGLE_QUOTE)
-		return (new_token_single_quote(data_lexing));
-	// else if (type == DOUBLE_QUOTE)
-	// 	return (new_token_double_quote(data_lexing));
-	else if (type == O_PARENTHESIS)
-		return (new_token_parenthesis(data_lexing));
-	else
-		return (new_token(data_lexing, type));
+		return (lexing_single_quote(data_lexing));
+	else if (type == DOUBLE_QUOTE)
+		return (lexing_double_quote(data_lexing));
 	return (0);
 }
 
@@ -88,8 +93,7 @@ void	lexing(t_tokens **token, char **argv)
 	t_tokens		*tmp_token;
 
 	len = 0;
-	init_data_structure(&data_lexing, argv);
-	// printf("ENTER LEXING FUNCTION\n");
+	init_data_lexing_structure(&data_lexing, argv);
 	while (data_lexing.pos < data_lexing.len)
 	{
 		len = 0;

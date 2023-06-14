@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:30:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/29 17:26:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:33:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 		tmp->next = new;
 	}
 }
-
 
 void	ft_lstadd_front(t_tokens **lst, t_tokens *new)
 {
