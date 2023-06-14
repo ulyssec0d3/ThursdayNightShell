@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:24:14 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:21:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,11 @@ t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 	int	size;
 
 	data_lexing->pos += size_redirection;
-	// if (is_space(data_lexing->pos) == 1)
-	// {
-	// 	printf("test/n");
-	// 	data_lexing->pos += 1;
-	// }
+	if (is_space(data_lexing->line[data_lexing->pos]) == 1)
+		data_lexing->pos += 1;
 	i = data_lexing->pos;
 	size = 0;
-	while (is_space(data_lexing->line[i]) == 0 && data_lexing->line[i])
+	while (is_space(data_lexing->line[i] && data_lexing->line[i]) == 0)
 	{
 		i++;
 		size++;
@@ -59,7 +56,7 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing)
 
 	i = data_lexing->pos;
 	size = 0;
-	while (is_space(data_lexing->line[i]) == 0 && data_lexing->line[i])
+	while (is_space(data_lexing->line[i]) && data_lexing->line[i] == 0)
 	{
 		i++;
 		size++;

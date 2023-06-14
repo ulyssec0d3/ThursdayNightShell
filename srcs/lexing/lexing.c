@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:25:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:44:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 	int			type;
 
 	type = find_type(&data_lexing);
+	printf("type :  %i\n", type);
 	if (type == WORD)
 		return (lexing_word(data_lexing));
 	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
