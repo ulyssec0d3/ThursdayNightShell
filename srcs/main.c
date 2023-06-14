@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 14:38:22 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:40:47 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,26 @@ void	print_cmd_node(t_command_node *cmd)
 {
 	int	j;
 
+	printf("Enter in print cmd node\n");
 	j = 0;
-	while (cmd->argument[j])
+	if (cmd->argument != NULL)
 	{
-		printf("Argument[%i] : %s\n", j, cmd->argument[j]);
-		j++;
+		// while (cmd->argument[j])
+		while (j < 3)
+		{
+			printf("Argument[%i] : %s\n", j, cmd->argument[j]);
+			j++;
+		}
 	}
 	j = 0;
-	while (cmd->redirections[j])
+	if (cmd->redirections != NULL)
 	{
-		printf("Redirection[%i] : %s\n", j, cmd->redirections[j]);
-		printf("Redirection_type[%i] : %i\n", j, (cmd->redirections_type[j][0]));
-		j++;
+		while (cmd->redirections[j])
+		{
+			printf("Redirection[%i] : %s\n", j, cmd->redirections[j]);
+			printf("Redirection_type[%i] : %i\n", j, (cmd->redirections_type[j][0]));
+			j++;
+		}
 	}
 }
 

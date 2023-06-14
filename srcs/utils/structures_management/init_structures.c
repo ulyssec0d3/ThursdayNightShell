@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:34:54 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 14:31:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:37:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ void	init_command_node(t_tokens **token, t_command_node *cmd)
 	int				i_arg;
 	int				i_red;
 
+	printf("Enter init command node\n");
 	tmp = *token;
 	i_arg = 0;
 	i_red = 0;
-	while ((*tmp).type != 1)
+	while (tmp && (*tmp).type != PIPE)
 	{
 		if ((*tmp).type == WORD)
 			i_arg++;
@@ -37,11 +38,25 @@ void	init_command_node(t_tokens **token, t_command_node *cmd)
 			i_red++;
 		tmp = tmp->next;
 	}
-	if (i_arg > 0)
-		cmd->argument = (char **)malloc(sizeof (char *) * i_arg);
-	if (i_red > 0)
+	// printf("in init command node, i_arg : %i, i_red : %i\n", i_arg, i_red);
+	if (i_arg == 0)
+		cmd->argument = NULL;
+	else
+		cmd->argument = (char **)malloc(sizeof (char *) * (i_arg + 1));
+	if (cmd->argument == NULL)
+		return ;
+	if (i_red == 0)
 	{
-		cmd->redirections = (char **)malloc(sizeof (char *) * i_red); // +1 pour le \n.
-		cmd->redirections_type = (int **)malloc(sizeof (int) * i_red); // +1
-	}	
+		cmd->redirections = NULL;
+		cmd->redirections_type = NULL;
+	}
+	else
+	{
+		cmd->redirections = (char **)malloc(sizeof (char *) * (i_red + 1));
+		if (cmd->redirections == NULL)
+			return ;
+		cmd->redirections_type = (int **)malloc(sizeof (int *) * (i_red + 1));
+		if (cmd->redirections_type == NULL)
+			return ;
+	}
 }
