@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 16:32:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:33:47 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ void	get_arg(t_tokens **token, t_command_node *cmd)
 	while ((*token)->type != 1)
 	{
 		if ((*token)->type == WORD)
-			cmd->argument[i_arg] = (*token)->content; // malloc attention
+		{
+			cmd->argument[i_arg] = ft_strdup((*token)->content);
+			i_arg++;
+		}
 		else
 		{
-			cmd->redirections[i_red] = (*token)->content;
-			cmd->redirections_type[i_red] = (*token)->type;
-			cmd->argument[i_arg] = (*cmd).redirections[i_red];
+			cmd->redirections[i_red] = ft_strdup((*token)->content);
+			cmd->redirections_type[i_red] = (int *)((*token)->type);
 			i_red++;
 		}
-		i_arg++;
 		eat_token(token);
 	}
 }
@@ -42,10 +43,12 @@ void	parse_command(t_tokens **token, t_root **tree)
 	t_command_node	cmd;
 
 	(void) tree;
-	cmd.redirections = NULL;
-	cmd.cmd = (*token)->content;
+	init_command_node(token, &cmd);
+	cmd.cmd = ft_strdup((*token)->content);
 	eat_token(token);
 	get_arg(token, &cmd);
+	print_cmd_node(&cmd);
+	free_command_node(&cmd);
 }
 
 // void	parse_pipe(t_tokens **token, t_root **tree)
@@ -56,4 +59,11 @@ void	parse_command(t_tokens **token, t_root **tree)
 // 	node.cmd1 = tree;
 // 	eat_token(token);
 // 	node.cmd2 = parse_command(token, tree);
+// }
+
+
+
+// void	init_root(t_tree **root)
+// {
+
 // }

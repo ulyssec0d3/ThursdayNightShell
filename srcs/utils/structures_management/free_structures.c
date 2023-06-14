@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 18:09:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/31 16:33:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:35:46 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ void	ft_lstclear(t_tokens **lst)
 		free(*lst);
 		*lst = tmp;
 	}
+}
+
+void	free_command_node(t_command_node *cmd)
+{
+	int	i;
+
+	free(cmd->cmd);
+	i = -1;
+	while (cmd->argument[i++])
+		free(cmd->argument[i]);
+	i = -1;
+	while (cmd->redirections[i++])
+		free(cmd->redirections[i]);
+	i = -1;
+	while (cmd->redirections_type[i++])
+		free(cmd->redirections_type[i]);
 }
 
 void	free_structures(t_tokens **tokens)

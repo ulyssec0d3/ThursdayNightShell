@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 10:51:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:33:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ struct s_command_node {
 	char	*cmd;
 	char	**argument;
 	char	**redirections;
-	int		*redirections_type;
+	int		**redirections_type;
 };
 
 struct s_operator_node {
@@ -147,6 +147,7 @@ union u_ast
 // Main.c
 int			main(int argc, char **argv);
 void		ft_print_lst_token(t_tokens *token);
+void		print_cmd_node(t_command_node *cmd);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -265,8 +266,10 @@ t_tokens	*ft_lstlast(t_tokens *lst);
 
 // Init_structures.c 
 void		init_data_lexing_structure(t_data_lexing *data_lexing, char **argv);
+void		init_command_node(t_tokens **token, t_command_node *cmd);
 
 // Free_structures.c
+void		free_command_node(t_command_node *cmd);
 void		free_token_structure(t_tokens **tokens);
 void		free_structures(t_tokens **tokens);
 void		ft_lstclear(t_tokens **lst);

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 11:42:01 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:38:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,36 @@ void	ft_print_lst_token(t_tokens *token)
 	}
 }
 
-/// heredoc == nouveau fd[0].
+// void	print_ast(t_root **tree)
+// {
+// 	int	i; // nb nodes
+
+// 	i = 0;
+// 	while (ast->next)
+// 	{
+// 		printf();
+// 	}
+// }
+
+void	print_cmd_node(t_command_node *cmd)
+{
+	int	j;
+
+	j = 0;
+	while (cmd->argument[j])
+	{
+		printf("Argument[%i] : %s\n", j, cmd->argument[j]);
+		j++;
+	}
+	j = 0;
+	while (cmd->redirections[j])
+	{
+		printf("Redirection[%i] : %s\n", j, cmd->redirections[j]);
+		printf("Redirection_type[%i] : %i\n", j, (cmd->redirections_type[j][0]));
+		j++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_tokens	*tokens;
@@ -52,14 +81,11 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	lexing(&tokens, argv);
-	// here doc avant parsing meme si erreur ?
-	// if (error_syntax(token)== 0)
-	// 	ERROR_SYNTAX();
-	// else
 	if (tokens)
 		ft_print_lst_token(tokens);
-	// build_tree(&tokens, &tree);
-	// free(tokens);
+	build_tree(&tokens, &tree);
 	free_structures(&tokens);
+	if (tokens)
+		free(tokens);
 	return (0);
 }
