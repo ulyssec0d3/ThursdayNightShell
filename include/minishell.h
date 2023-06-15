@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 12:32:56 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 22:51:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include <stdio.h>
 # include <limits.h>
 # include <stdint.h>
+
+//////////////////////////////////////////////////////////////////
+//																//
+//							DEFINE								//
+//																//
+//////////////////////////////////////////////////////////////////
+
+# define ERROR_MALLOC -1
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -115,7 +123,7 @@ struct s_command_node {
 	char	*cmd;
 	char	**argument;
 	char	**redirections;
-	int		**redirections_type;
+	int		*redirections_type;
 };
 
 struct s_ast {
@@ -194,18 +202,30 @@ int			int_strchr(const char *s, int start, int c);
 //////////////////////////////////////////////////////////////////
 
 // Parse_operator_type.c
-void		init_cmd_arg(t_command_node *cmd, int i_arg);
-void		init_cmd_redirections(t_command_node *cmd, int i_red);
-void		init_command_node(t_tokens **token, t_command_node *cmd);
+void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);
+t_tokens	*ft_lstnew_ast_node(char *content);
+void		init_cmd_redirections(t_ast *ast, int i_red);
+void		init_command_node(t_tokens **token, t_ast *ast);
+void		init_cmd_arg(t_ast *ast, int i_arg);
 void		free_command_node(t_command_node *cmd);
 
-// Parse_type.c
-void		get_arg(t_tokens **token, t_command_node *cmd);
-t_ast		parse_command(t_tokens **token);
+// Parse_cmd_node_save.c
+// void		get_arg(t_tokens **token, t_command_node *cmd);
+// void		parse_command(t_tokens **token, t_ast *ast);
 t_ast		parse_pipe(t_tokens **token);
 
+// Parse_cmd_node_save.c
+void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);
+t_tokens	*ft_lstnew_ast_node(char *content);
+void		parse_command(t_tokens **token, t_ast **ast);
+void		get_arg(t_tokens **token, t_command_node *cmd);
+// void		init_command_node(t_tokens **token, t_command_node *cmd);
+// void		init_cmd_redirections(t_command_node *cmd, int i_red);
+// void		init_cmd_arg(t_command_node *cmd, int i_arg);
+
+
 // Parsing.c
-void		build_tree(t_ast *ast, t_tokens **token);
+void		build_tree(t_ast **ast, t_tokens **token);
 
 // Utils.c
 void		eat_token(t_tokens **tokens);

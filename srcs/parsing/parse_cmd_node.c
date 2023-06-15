@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 12:27:58 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 22:50:38 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,37 @@
 
 /// remplacer les return ; par des codes d'erreurs.
 
-void	init_cmd_arg(t_command_node *cmd, int i_arg)
+void	init_cmd_arg(t_ast *ast, int i_arg)
 {
 	if (i_arg == 0)
-		cmd->argument = NULL;
+		(*ast).cmd->argument = NULL;
 	else
-		cmd->argument = (char **)malloc(sizeof (char *) * (i_arg + 1));
-	if (cmd->argument == NULL)
-		return ;
+	{
+		(ast)->cmd->argument = (char **)malloc(sizeof (char *) * (i_arg + 1));
+		// if ((ast)->cmd->argument == NULL)
+		// 	return (ERROR_MALLOC);
+	}
 }
 
-void	init_cmd_redirections(t_command_node *cmd, int i_red)
+void	init_cmd_redirections(t_ast *ast, int i_red)
 {
 	if (i_red == 0)
 	{
-		cmd->redirections = NULL;
-		cmd->redirections_type = NULL;
+		(ast)->cmd->redirections = NULL;
+		(ast)->cmd->redirections_type = NULL;
 	}
 	else
 	{
-		cmd->redirections = (char **)malloc(sizeof (char *) * (i_red + 1));
-		if (cmd->redirections == NULL)
-			return ;
-		cmd->redirections_type = (int **)malloc(sizeof (int *) * (i_red + 1));
-		if (cmd->redirections_type == NULL)
-			return ;
+		(ast)->cmd->redirections = malloc(sizeof (char *) * (i_red + 1));
+		// if ((ast)->cmd->redirections == NULL)
+		// 	return (ERROR_MALLOC);
+		(ast)->cmd->redirections_type = malloc(sizeof (int) * (i_red + 1));
+		// if ((ast)->cmd->redirections_type == NULL)
+		// 	return (ERROR_MALLOC);
 	}
 }
 
-void	init_command_node(t_tokens **token, t_command_node *cmd)
+void	init_command_node(t_tokens **token, t_ast *ast)
 {
 	t_tokens		*tmp;
 	int				i_arg;
@@ -50,7 +52,10 @@ void	init_command_node(t_tokens **token, t_command_node *cmd)
 
 	i_arg = 0;
 	i_red = 0;
-	cmd->cmd = ft_strdup((*token)->content);
+	ast->cmd = malloc(sizeof(t_command_node));
+	// if (!(ast->cmd))
+	// 	return (ERROR_MALLOC);
+	(*ast).cmd->cmd = ft_strdup((*token)->content);
 	eat_token(token);
 	tmp = *token;
 	while (tmp && (*tmp).type != PIPE)
@@ -61,9 +66,8 @@ void	init_command_node(t_tokens **token, t_command_node *cmd)
 			i_red++;
 		tmp = tmp->next;
 	}
-	// printf("in init command node, i_arg : %i, i_red : %i\n", i_arg, i_red);
-	init_cmd_arg(cmd, i_arg);
-	init_cmd_redirections(cmd, i_red);
+	init_cmd_arg(ast, i_arg);
+	init_cmd_redirections(ast, i_red);
 }
 
 void	get_arg(t_tokens **token, t_command_node *cmd)
@@ -74,35 +78,45 @@ void	get_arg(t_tokens **token, t_command_node *cmd)
 	i_arg = 0;
 	i_red = 0;
 	printf("Enter in get arg\n");
-	// printf("In get arg, token content : %s, token type : %i\n", (*token)->content, (int)(*token)->type);
-	while (token && (*token)->type != PIPE)
+	while (*token && (*token)->type != PIPE)
 	{
 		if ((*token)->type == WORD)
 		{
-			// cmd->argument[i_arg] = malloc(sizeof (char *) * ((*token)->len + 1));
 			cmd->argument[i_arg] = ft_strdup((*token)->content);
-			i_arg++;
+			i_arg += 1;
 		}
 		else
 		{
 			cmd->redirections[i_red] = ft_strdup((*token)->content);
-			cmd->redirections_type[i_red] = (int *)((*token)->type);
+			cmd->redirections_type[i_red] = ((*token)->type);
 			i_red++;
 		}
 		eat_token(token);
 	}
+	cmd->argument[i_arg] = NULL;
+	cmd->redirections[i_red] = NULL;
+	cmd->redirections_type[i_red] = 0;
 }
 
-t_ast	parse_command(t_tokens **token)
+void	parse_command(t_tokens **token, t_ast **ast)
 {
-	t_ast	ast_node;
+	t_ast	*tmp;
 
 	printf("Enter in parse command\n");
-	ast_node.type = COMMAND_NODE;
-	ast_node.next = NULL;
-	init_command_node(token, ast_node.cmd);
-	get_arg(token, ast_node.cmd);
-	print_cmd_node(ast_node.cmd);
+	tmp = malloc(sizeof(t_ast));
+	tmp->type = COMMAND_NODE;
+	tmp->cmd = NULL;
+	tmp->next = NULL;
+	tmp->cmd = malloc(sizeof(t_command_node));
+	// if (!tmp->cmd)
+	// 	return (ERROR_MALLOC);
+	printf("%p\n", &tmp);
+	init_command_node(token, tmp);
+	get_arg(token, tmp->cmd);
+	if (!tmp)
+		printf("PB \n \n \n");
+	print_cmd_node(tmp->cmd);
+	ft_lstadd_back_ast_node(ast, tmp);
+	// print_cmd_node(tmp->cmd);
 	// free_command_node(&cmd);
-	return (ast_node);
 }

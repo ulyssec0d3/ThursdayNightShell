@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 12:38:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 22:54:05 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,29 +55,54 @@ void	print_ast(t_ast *ast)
 	}
 }
 
+// void	print_cmd_node_m(t_command_node *cmd)
+// {
+// 	int	i;
+
+// 	printf("Enter in print cmd node\n");
+// 	i = 0;
+// 	if (cmd->argument != NULL)
+// 	{
+// 		while (cmd->argument[i])
+// 		{
+// 			printf("Argument[%i] : %s\n", i, cmd->argument[i]);
+// 			i++;
+// 		}
+// 	}
+// 	i = 0;
+// 	if (cmd->redirections != NULL)
+// 	{
+// 		while (cmd->redirections[i])
+// 		{
+// 			printf("Redirection[%i] : %s\n", i, cmd->redirections[i]);
+// 			printf("Redirection_type[%i] : %i\n", i, *(cmd->redirections_type[i]));
+// 			i++;
+// 		}
+// 	}
+// }
+
 void	print_cmd_node(t_command_node *cmd)
 {
-	int	j;
+	int	i;
 
 	printf("Enter in print cmd node\n");
-	j = 0;
+	i = 0;
 	if (cmd->argument != NULL)
 	{
-		// while (cmd->argument[j])
-		while (j < 3)
+		while (cmd->argument[i])
 		{
-			printf("Argument[%i] : %s\n", j, cmd->argument[j]);
-			j++;
+			printf("Argument[%i] : %s\n", i, cmd->argument[i]);
+			i++;
 		}
 	}
-	j = 0;
+	i = 0;
 	if (cmd->redirections != NULL)
 	{
-		while (cmd->redirections[j])
+		while (cmd->redirections[i])
 		{
-			printf("Redirection[%i] : %s\n", j, cmd->redirections[j]);
-			printf("Redirection_type[%i] : %i\n", j, (cmd->redirections_type[j][0]));
-			j++;
+			printf("Redirection[%i] : %s\n", i, cmd->redirections[i]);
+			printf("Redirection_type[%i] : %i\n", i, (cmd->redirections_type[i]));
+			i++;
 		}
 	}
 }
@@ -88,14 +113,17 @@ int	main(int argc, char **argv)
 	t_ast		*ast;
 
 	token = NULL;
+	ast = malloc(sizeof(t_ast));
+	if (!ast)
+		return (ERROR_MALLOC);
 	ast = NULL;
 	if (argc != 2)
 		return (0);
 	lexing(&token, argv);
-	if (token)
-		ft_print_lst_token(token);
-	build_tree(ast, &token);
-	print_ast(ast);
+	// if (token)
+	// 	ft_print_lst_token(token);
+	build_tree(&ast, &token);
+	// print_ast(ast);
 	// free_structures(&tokens);
 	// if (tokens)
 	// 	free(tokens);

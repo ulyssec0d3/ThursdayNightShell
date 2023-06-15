@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 10:50:01 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 22:26:35 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	free_command_node(t_command_node *cmd)
 		while (cmd->redirections[i++])
 			free(cmd->redirections[i]);
 	}
-	i = -1;
-	if (cmd->redirections_type != NULL)
-	{
-		while (cmd->redirections_type[i++])
-			free(cmd->redirections_type[i]);
-	}
+	// i = -1;
+	// if (cmd->redirections_type != NULL)
+	// {
+	// 	while (cmd->redirections_type[i++])
+	// 		free(cmd->redirections_type[i]);
+	// }
 }
