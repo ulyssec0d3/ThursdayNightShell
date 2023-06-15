@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 22:51:48 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:18:32 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,12 @@ struct s_ast {
 
 // Main.c
 int			main(int argc, char **argv);
+
+// Print_ast.c
 void		ft_print_lst_token(t_tokens *token);
 void		print_cmd_node(t_command_node *cmd);
+void		print_ast(t_ast *ast);
+
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -229,6 +233,7 @@ void		build_tree(t_ast **ast, t_tokens **token);
 
 // Utils.c
 void		eat_token(t_tokens **tokens);
+void		free_ast(t_ast **ast);
 
 //////////////////////////////////////////////////////////////////
 //																//
