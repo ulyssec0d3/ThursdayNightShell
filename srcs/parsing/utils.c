@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:19:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:50:01 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,30 @@ void	eat_token(t_tokens **tokens)
 	if (tokens)
 		*tokens = (*tokens)->next;
 	free(tmp);
+}
+
+void	free_command_node(t_command_node *cmd)
+{
+	int	i;
+
+	free(cmd->cmd);
+	i = 0;
+	while (i < 3)
+	{
+		free(cmd->argument[i]);
+		i++;
+	}
+	free(cmd->argument);
+	i = -1;
+	if (cmd->redirections != NULL)
+	{
+		while (cmd->redirections[i++])
+			free(cmd->redirections[i]);
+	}
+	i = -1;
+	if (cmd->redirections_type != NULL)
+	{
+		while (cmd->redirections_type[i++])
+			free(cmd->redirections_type[i]);
+	}
 }

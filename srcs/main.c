@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 16:40:47 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:38:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ void	ft_print_lst_token(t_tokens *token)
 	}
 }
 
-// void	print_ast(t_root **tree)
-// {
-// 	int	i; // nb nodes
+void	print_ast(t_ast *ast)
+{
+	t_ast	tmp;
 
-// 	i = 0;
-// 	while (ast->next)
-// 	{
-// 		printf();
-// 	}
-// }
+	tmp = *ast;
+	while (ast->next)
+	{
+		printf("type : %i", tmp.type);
+		if (tmp.type == COMMAND_NODE)
+			print_cmd_node(tmp.cmd);
+		ast = ast->next;
+	}
+}
 
 void	print_cmd_node(t_command_node *cmd)
 {
@@ -81,19 +84,20 @@ void	print_cmd_node(t_command_node *cmd)
 
 int	main(int argc, char **argv)
 {
-	t_tokens	*tokens;
-	t_root		*tree;
+	t_tokens	*token;
+	t_ast		*ast;
 
-	tokens = NULL;
-	tree = NULL;
+	token = NULL;
+	ast = NULL;
 	if (argc != 2)
 		return (0);
-	lexing(&tokens, argv);
-	if (tokens)
-		ft_print_lst_token(tokens);
-	build_tree(&tokens, &tree);
-	free_structures(&tokens);
-	if (tokens)
-		free(tokens);
+	lexing(&token, argv);
+	if (token)
+		ft_print_lst_token(token);
+	build_tree(ast, &token);
+	print_ast(ast);
+	// free_structures(&tokens);
+	// if (tokens)
+	// 	free(tokens);
 	return (0);
 }

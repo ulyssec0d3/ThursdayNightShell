@@ -21,7 +21,8 @@ SRCS        := \
 	lexing/parenthesis_management.c     \
 	lexing/quote_management.c     \
 	lexing/utils.c     \
-	parsing/parse_type.c     \
+	parsing/parse_cmd_node.c     \
+	parsing/parse_operator_node.c \
 	parsing/parsing.c     \
 	parsing/utils.c		\
 	# expand/expand.c
