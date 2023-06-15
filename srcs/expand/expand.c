@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:11:07 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:03:50 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*extract_value(char *str)
 	return (value);
 }
 
-void	substitute_value(t_root *tree)
+void	substitute_value(t_ast *tree)
 {
 	char	*variable;
 	char	*substitute;
@@ -87,7 +87,7 @@ int	search_substitute_variable(char *str)
 	return (0);
 }
 
-void	expand(t_root **tree)
+void	expand(t_ast **tree)
 {
 	t_tree	*tmp;
 

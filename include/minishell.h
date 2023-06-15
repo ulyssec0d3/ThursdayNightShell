@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 10:51:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:32:56 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 enum e_type_exec
 {
 	COMMAND_NODE,
-	OPERATOR_NODE
+	PIPE_NODE
 } ;
 
 enum e_type_token
@@ -109,31 +109,19 @@ struct s_tokens {
 // Root node : root node, where I start my program.
 
 typedef struct s_command_node				t_command_node;
-typedef struct s_operator_node				t_operator_node;
-typedef struct s_root						t_root;
+typedef struct s_ast						t_ast;
 
 struct s_command_node {
 	char	*cmd;
 	char	**argument;
 	char	**redirections;
-	int		*redirections_type;
+	int		**redirections_type;
 };
 
-struct s_operator_node {
-	enum e_type_exec	type;
-	t_command_node		cmd1;
-	t_command_node		cmd2;
-};
-
-struct s_root
-{
-	t_command_node		tree;
-};
-
-union u_ast
-{
-	t_command_node	cmd;
-	t_operator_node	operator;
+struct s_ast {
+	enum e_type_exec			type;
+	t_command_node		*cmd;
+	t_ast				*next;
 };
 
 //////////////////////////////////////////////////////////////////
@@ -147,6 +135,7 @@ union u_ast
 // Main.c
 int			main(int argc, char **argv);
 void		ft_print_lst_token(t_tokens *token);
+void		print_cmd_node(t_command_node *cmd);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -156,9 +145,9 @@ void		ft_print_lst_token(t_tokens *token);
 
 // Expand.c
 char		*extract_value(char *str);
-void		substitute_value(t_root *tree);
+void		substitute_value(t_ast *tree);
 int			search_substitute_variable(char *str);
-void		expand(t_root **tree);
+void		expand(t_ast **tree);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -204,13 +193,19 @@ int			int_strchr(const char *s, int start, int c);
 //																//
 //////////////////////////////////////////////////////////////////
 
+// Parse_operator_type.c
+void		init_cmd_arg(t_command_node *cmd, int i_arg);
+void		init_cmd_redirections(t_command_node *cmd, int i_red);
+void		init_command_node(t_tokens **token, t_command_node *cmd);
+void		free_command_node(t_command_node *cmd);
+
 // Parse_type.c
 void		get_arg(t_tokens **token, t_command_node *cmd);
-void		parse_command(t_tokens **token, t_root **tree);
-void		parse_pipe(t_tokens **token, t_root **tree);
+t_ast		parse_command(t_tokens **token);
+t_ast		parse_pipe(t_tokens **token);
 
 // Parsing.c
-void		build_tree(t_tokens **token, t_root **tree);
+void		build_tree(t_ast *ast, t_tokens **token);
 
 // Utils.c
 void		eat_token(t_tokens **tokens);
