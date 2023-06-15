@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 22:49:07 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 22:50:38 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,3 @@ void	parse_command(t_tokens **token, t_ast **ast)
 	// print_cmd_node(tmp->cmd);
 	// free_command_node(&cmd);
 }
-
-// malloc tous les noeuds
-// proteger tous les mallocs 
