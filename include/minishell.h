@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 00:12:05 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:58:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,17 @@ struct s_command_node {
 
 struct s_ast {
 	enum e_type_exec			type;
-	t_command_node		*cmd;
-	t_ast				*next;
+	t_command_node				*cmd;
+	t_ast						*next;
 };
 
-// Expand_structure
+// Expand_structures
+typedef struct s_env_lst
+{
+	char		*content;
+	s_env_lst	next;
+}	t_env_lst;
+
 
 typedef struct s_expand
 {
@@ -141,7 +147,6 @@ typedef struct s_expand
 	int			i;
 	int			j;
 }		t_expand;
-
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -164,6 +169,9 @@ void		print_ast(t_ast **ast);
 //              			IN EXPAND DIR   		            //
 //																//
 //////////////////////////////////////////////////////////////////
+
+// Env.c
+
 
 // Expand.c
 char		*extract_value(char *str);
@@ -275,7 +283,6 @@ void		ft_lstadd_front(t_tokens **lst, t_tokens *new);
 int			ft_lstsize(t_tokens *lst);
 t_tokens	*ft_lstnew(char *content);
 t_tokens	*ft_lstlast(t_tokens *lst);
-
 
 //////////////////////////////////////////////////////////////////
 //																//

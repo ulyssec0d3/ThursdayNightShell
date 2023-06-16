@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 00:09:54 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:24:33 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,6 @@ int	parse_command(t_ast **ast, t_tokens **token)
 	if (flag != TRUE)
 		return (flag);
 	get_arg(token, tmp->cmd);
-	// print_cmd_node(tmp->cmd);
-	// if ((*token))
-	// {
-	// 	printf("%s\n", (*token)->content);
-	// 	printf("%i\n", (*token)->type);
-	// }
 	ft_lstadd_back_ast_node(ast, tmp);
 	return (TRUE);
 }
