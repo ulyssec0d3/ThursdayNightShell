@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 23:31:53 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:37:23 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_command_node(t_command_node *cmd)
 			i++;
 		}
 		free(cmd->redirections);
-		free(cmd->redirections_type);	
+		free(cmd->redirections_type);
 	}
 }
 
