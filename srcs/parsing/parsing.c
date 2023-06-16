@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 18:37:08 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:09:13 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,23 @@ t_tokens	*ft_lstnew_ast_node(char *content)
 	return (new_elem);
 }
 
-void	build_tree(t_ast **ast, t_tokens **token)
+int	parsing(t_ast **ast, t_tokens **token)
 {
-	// int i = 0;
-	// printf("Enter in build tree\n");
-	// while (i < 1)
-	// {
-		if ((*token)->next->type != PIPE)
-			parse_command(token, ast);
-		else
-			parse_pipe(token);
-		// ast = (*ast).next;
-		// ast = malloc(sizeof(t_ast));
-		// ast add back
-	// 	i++;
-	// }
-}
+	int	flag;
 
-/////// PROTEGER TOUS LES MALLOCS !!!! ///////// 
+	flag = TRUE;
+	while (*token != NULL)
+	{
+		if ((*token)->type != PIPE)
+			flag = parse_command(ast, token);
+		else
+		{
+			// if (*ast == NULL)
+			// 	return (error);
+			parse_pipe(ast, token);
+		}
+		if (flag != TRUE)
+			return (flag);
+	}
+	return (flag);
+}

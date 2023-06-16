@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 22:51:48 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:58:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 
 //////////////////////////////////////////////////////////////////
 //																//
-//							DEFINE								//
+//							FLAG ERROR							//
 //																//
 //////////////////////////////////////////////////////////////////
 
+# define TRUE 1
 # define ERROR_MALLOC -1
 
 //////////////////////////////////////////////////////////////////
@@ -128,9 +129,24 @@ struct s_command_node {
 
 struct s_ast {
 	enum e_type_exec			type;
-	t_command_node		*cmd;
-	t_ast				*next;
+	t_command_node				*cmd;
+	t_ast						*next;
 };
+
+// Expand_structures
+typedef struct s_env_lst
+{
+	char		*content;
+	s_env_lst	next;
+}	t_env_lst;
+
+
+typedef struct s_expand
+{
+	char		*new_arg;
+	int			i;
+	int			j;
+}		t_expand;
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -142,14 +158,20 @@ struct s_ast {
 
 // Main.c
 int			main(int argc, char **argv);
+
+// Print_ast.c
 void		ft_print_lst_token(t_tokens *token);
 void		print_cmd_node(t_command_node *cmd);
+void		print_ast(t_ast **ast);
 
 //////////////////////////////////////////////////////////////////
 //																//
 //              			IN EXPAND DIR   		            //
 //																//
 //////////////////////////////////////////////////////////////////
+
+// Env.c
+
 
 // Expand.c
 char		*extract_value(char *str);
@@ -202,33 +224,23 @@ int			int_strchr(const char *s, int start, int c);
 //////////////////////////////////////////////////////////////////
 
 // Parse_operator_type.c
-void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);
-t_tokens	*ft_lstnew_ast_node(char *content);
-void		init_cmd_redirections(t_ast *ast, int i_red);
-void		init_command_node(t_tokens **token, t_ast *ast);
-void		init_cmd_arg(t_ast *ast, int i_arg);
-void		free_command_node(t_command_node *cmd);
+void		parse_pipe(t_ast **ast, t_tokens **token);
 
-// Parse_cmd_node_save.c
-// void		get_arg(t_tokens **token, t_command_node *cmd);
-// void		parse_command(t_tokens **token, t_ast *ast);
-t_ast		parse_pipe(t_tokens **token);
-
-// Parse_cmd_node_save.c
-void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);
-t_tokens	*ft_lstnew_ast_node(char *content);
-void		parse_command(t_tokens **token, t_ast **ast);
+// Parse_cmd_node.c
+int			init_cmd_tab(t_ast *ast, int i_arg, int i_red);
+int			init_command_node(t_tokens **token, t_ast *ast);
 void		get_arg(t_tokens **token, t_command_node *cmd);
-// void		init_command_node(t_tokens **token, t_command_node *cmd);
-// void		init_cmd_redirections(t_command_node *cmd, int i_red);
-// void		init_cmd_arg(t_command_node *cmd, int i_arg);
-
+int			parse_command(t_ast **ast, t_tokens **token);
 
 // Parsing.c
-void		build_tree(t_ast **ast, t_tokens **token);
+void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);
+t_tokens	*ft_lstnew_ast_node(char *content);
+int			parsing(t_ast **ast, t_tokens **token);
 
 // Utils.c
 void		eat_token(t_tokens **tokens);
+void		free_ast(t_ast **ast);
+void		free_command_node(t_command_node *cmd);
 
 //////////////////////////////////////////////////////////////////
 //																//

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 12:03:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:43:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ ATTENTION NESTED EXPANSIONS
 */
 
 // EXPAND, getenv autorisé
-
-// typedef struct  s_expand_env
-// {
-//     char *content;
-//     s_expand_env next;
-// } t_expand_env ;
 
 char	*extract_value(char *str)
 {
