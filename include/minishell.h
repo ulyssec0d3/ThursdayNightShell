@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 00:58:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 14:13:15 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ struct s_ast {
 typedef struct s_env_lst
 {
 	char		*content;
-	s_env_lst	next;
+	struct s_env_lst	*next;
 }	t_env_lst;
 
 
@@ -157,7 +157,7 @@ typedef struct s_expand
 //////////////////////////////////////////////////////////////////
 
 // Main.c
-int			main(int argc, char **argv);
+int			main(int argc, char **argv, char **env);
 
 // Print_ast.c
 void		ft_print_lst_token(t_tokens *token);

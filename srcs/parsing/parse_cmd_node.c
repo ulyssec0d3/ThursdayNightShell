@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 00:24:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 14:14:19 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,11 @@ int	init_command_node(t_tokens **token, t_ast *ast)
 	int				flag;
 
 	flag = TRUE;
-	i_arg = 0;
+	i_arg = -1;
 	i_red = 0;
 	ast->cmd = malloc(sizeof(t_command_node));
 	if (!(ast->cmd))
 		return (ERROR_MALLOC);
-	(*ast).cmd->cmd = ft_strdup((*token)->content);
-	eat_token(token);
 	tmp = *token;
 	while (tmp && (*tmp).type != PIPE)
 	{
@@ -76,7 +74,9 @@ void	get_arg(t_tokens **token, t_command_node *cmd)
 	i_red = 0;
 	while (*token && (*token)->type != PIPE)
 	{
-		if ((*token)->type == WORD)
+		if ((*token)->type == WORD && cmd->cmd == NULL)	
+			cmd->cmd = ft_strdup((*token)->content);
+		else if ((*token)->type == WORD)
 		{
 			cmd->argument[i_arg] = ft_strdup((*token)->content);
 			i_arg += 1;
