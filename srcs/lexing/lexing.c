@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 12:11:21 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:55:18 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,22 @@ int	find_type(t_data_lexing **data_lexing)
 {
 	int	type;
 
-	if (is_alpha((*data_lexing)->line[(*data_lexing)->pos]) == 1)
-		type = WORD;
-	else if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
+	if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
 		type = PIPE;
 	else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
 		type = SINGLE_QUOTE;
 	else if (is_double_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
 		type = DOUBLE_QUOTE;
-	else
+	else if (is_redirection(*data_lexing) != N_DEF)
 		type = is_redirection(*data_lexing);
+	else if (is_word(*data_lexing) == 1)
+		type = WORD;
 	return (type);
 }
 
+	// else (is_alpha((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+	// 	type = WORD;
+		
 // WHICH NEW TOKEN : This function creates a token depending on the type
 // of the input. The double quote token cannot be implemented for now
 // as it would be considered as a new arg and my main only handle argv[1].

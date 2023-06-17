@@ -26,6 +26,7 @@ SRCS        := \
 	parsing/parse_operator_node.c \
 	parsing/parsing.c     \
 	parsing/utils.c		\
+	expand/env.c	\
 	# expand/expand.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)

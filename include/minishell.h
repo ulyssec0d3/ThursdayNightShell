@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 14:13:15 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:48:35 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,9 @@ struct s_ast {
 // Expand_structures
 typedef struct s_env_lst
 {
-	char		*content;
+	char				*content;
 	struct s_env_lst	*next;
 }	t_env_lst;
-
 
 typedef struct s_expand
 {
@@ -171,13 +170,16 @@ void		print_ast(t_ast **ast);
 //////////////////////////////////////////////////////////////////
 
 // Env.c
-
+int			expand(t_ast **ast, char **env);
+void		print_env_lst(t_env_lst **env_lst);
+int			get_size_env(char **env, t_env_lst **env_lst);
+void		ft_lstadd_back_env_lst(t_env_lst **env_lst, t_env_lst *new);
 
 // Expand.c
 char		*extract_value(char *str);
 void		substitute_value(t_ast *tree);
 int			search_substitute_variable(char *str);
-void		expand(t_ast **tree);
+
 
 //////////////////////////////////////////////////////////////////
 //																//

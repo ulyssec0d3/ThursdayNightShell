@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 10:27:02 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:48:54 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,20 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing)
 		size++;
 	}
 	return (new_token(data_lexing, WORD, size));
+}
+
+int	search_substitute_variable(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((is_dollar(str[i]) == 1) && str[i + 1])
+			if (str[i - 1] && is_single_quote(str[i - 1])
+				&& str[i + 1] && is_single_quote(str[i + 1]))
+				return (1);
+		i++;
+	}
+	return (0);
 }

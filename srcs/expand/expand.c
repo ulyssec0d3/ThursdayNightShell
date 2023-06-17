@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 00:43:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:47:43 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ ATTENTION NESTED EXPANSIONS
 */
 
 // EXPAND, getenv autorisé
+
 
 char	*extract_value(char *str)
 {
@@ -81,17 +82,26 @@ int	search_substitute_variable(char *str)
 	return (0);
 }
 
-void	expand(t_ast **tree)
-{
-	t_tree	*tmp;
 
-	tmp = *tree;
-	while (tree)
-	{
-		if (search_substitute_variable(tmp->value) == 1)
-			substitute_value(tmp->value);
-		tmp = tmp->next;
-	}
+
+// int	expand(t_ast **ast, char **env)
+// {
+	
+// }
+
+void	expand_2(t_ast **ast)
+{
+	// t_tree	*tmp;
+
+	// tmp = *tree;
+	// while (tree)
+	// {
+	// 	if (search_substitute_variable(tmp->value) == 1)
+	// 		substitute_value(tmp->value);
+	// 	tmp = tmp->next;
+	// }
+	void(ast);
+	t_env_lst	*env_lst;
 }
 
 // cas ou le dollar sont dans les singles quotes. 

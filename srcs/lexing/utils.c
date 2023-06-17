@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:18:37 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:00:01 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ int	get_content(char *dst, char *src, unsigned int size, unsigned int start)
 	return (0);
 }
 
+// IS_WORD : Check if the given string respects
+// the conditions to be qualified as a word (command or argument).
+
+/*
+is alpaha okay 
+is pas is sace
+peut etre un - $
+
+int	is_word(t_data_lexing **s_data_lexing)
+{
+	int cpy_pos;
+
+	cpy_pos = data_lexing->pos;
+	while (is_space(data_lexing->line[cpy_pos]) == 0)
+	{
+		if ()
+	}
+	return (1);
+}
+*/
+
 // IS_REDIRECTION : This functions returns 0 if the given string 
 // contains a redirection, else, it returns the corresponding 
 // enum_type_token code.
@@ -54,7 +75,7 @@ int	is_redirection(t_data_lexing *data_lexing)
 	else if (ft_strncmp(string, ">", 1) == 0)
 		type = SIMPLE_OUT;
 	else
-		type = 0;
+		type = N_DEF;
 	free (string);
 	return (type);
 }
