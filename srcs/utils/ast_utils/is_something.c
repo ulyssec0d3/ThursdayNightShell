@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 16:12:35 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/12 17:07:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:14:14 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,9 @@ int	is_sign(char c)
 int	is_space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\v');
+}
+
+int	is_number(int c)
+{
+	return (c >= '0' && c <= '9');
 }

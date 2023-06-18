@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 14:27:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:52:50 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parsing(t_ast **ast, t_tokens **token)
 {
 	int	flag;
 
-	flag = TRUE;
+	flag = SUCCESS;
 	while (*token != NULL)
 	{
 		if ((*token)->type != PIPE)
@@ -43,7 +43,7 @@ int	parsing(t_ast **ast, t_tokens **token)
 			// 	return (error);
 			parse_pipe(ast, token);
 		}
-		if (flag != TRUE)
+		if (flag != SUCCESS)
 			return (flag);
 	}
 	return (flag);

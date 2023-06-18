@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 19:55:18 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 00:06:17 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
 
 	content = NULL;
 	content = malloc(sizeof(char *) * (size + 1));
+	if (!content)
+		return (NULL);
 	get_content(content, data_lexing->line, size, data_lexing->pos);
 	return (add_new_token(content, type));
 }
@@ -47,6 +49,7 @@ int	find_type(t_data_lexing **data_lexing)
 {
 	int	type;
 
+	type = N_DEF;
 	if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
 		type = PIPE;
 	else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
@@ -55,25 +58,21 @@ int	find_type(t_data_lexing **data_lexing)
 		type = DOUBLE_QUOTE;
 	else if (is_redirection(*data_lexing) != N_DEF)
 		type = is_redirection(*data_lexing);
-	else if (is_word(*data_lexing) == 1)
+	else if (is_metacharacter((*data_lexing)->line[(*data_lexing)->pos]) == 0)
 		type = WORD;
 	return (type);
 }
 
-	// else (is_alpha((*data_lexing)->line[(*data_lexing)->pos]) == 1)
-	// 	type = WORD;
-		
 // WHICH NEW TOKEN : This function creates a token depending on the type
 // of the input. The double quote token cannot be implemented for now
 // as it would be considered as a new arg and my main only handle argv[1].
-
 t_tokens	*which_new_token(t_data_lexing *data_lexing)
 {
 	int			type;
 
 	type = find_type(&data_lexing);
 	if (type == WORD)
-		return (lexing_word(data_lexing));
+		return (lexing_word(data_lexing, WORD));
 	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
 		return (lexing_redirection(data_lexing, type, 1));
 	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
@@ -89,7 +88,6 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 
 // LEXING FUNCTION : This function parses the line in tokens
 // and store them in a linked list.
-
 void	lexing(t_tokens **token, char **argv)
 {
 	int				len;
@@ -104,8 +102,8 @@ void	lexing(t_tokens **token, char **argv)
 		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
-		if (tmp_token == NULL)
-			exit (1);
+		// if (tmp_token == NULL)
+			// return (NULL);
 		len = ft_strlen(tmp_token->content);
 		ft_lstadd_back(token, tmp_token);
 		data_lexing.pos += len;

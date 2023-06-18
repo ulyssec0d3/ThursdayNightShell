@@ -11,6 +11,7 @@ OBJ_DIR     := obj
 SRCS        := \
 	main.c          \
 	print_ast.c   \
+	utils/error_management.c     \
 	utils/ast_utils/ft_strjoin.c     \
 	utils/ast_utils/is_something.c     \
 	utils/ast_utils/libft_utils.c      \

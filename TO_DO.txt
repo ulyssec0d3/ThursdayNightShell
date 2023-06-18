@@ -1,7 +1,8 @@
 Things to do
 - Redefinir les conditions de is word.
 - env.
-
+- revoir code erreur syntax.
+- ls|wc
 
 
 TO-DO AVANT DE PUSH SUR LE GITHUB DEV

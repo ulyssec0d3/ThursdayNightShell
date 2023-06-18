@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 14:14:19 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:52:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	init_cmd_tab(t_ast *ast, int i_arg, int i_red)
 		if ((ast)->cmd->redirections_type == NULL)
 			return (ERROR_MALLOC);
 	}
-	return (TRUE);
+	return (SUCCESS);
 }
 
 int	init_command_node(t_tokens **token, t_ast *ast)
@@ -46,7 +46,7 @@ int	init_command_node(t_tokens **token, t_ast *ast)
 	int				i_red;
 	int				flag;
 
-	flag = TRUE;
+	flag = SUCCESS;
 	i_arg = -1;
 	i_red = 0;
 	ast->cmd = malloc(sizeof(t_command_node));
@@ -74,7 +74,7 @@ void	get_arg(t_tokens **token, t_command_node *cmd)
 	i_red = 0;
 	while (*token && (*token)->type != PIPE)
 	{
-		if ((*token)->type == WORD && cmd->cmd == NULL)	
+		if ((*token)->type == WORD && cmd->cmd == NULL)
 			cmd->cmd = ft_strdup((*token)->content);
 		else if ((*token)->type == WORD)
 		{
@@ -112,9 +112,9 @@ int	parse_command(t_ast **ast, t_tokens **token)
 	if (!tmp->cmd)
 		return (ERROR_MALLOC);
 	flag = init_command_node(token, tmp);
-	if (flag != TRUE)
+	if (flag != SUCCESS)
 		return (flag);
 	get_arg(token, tmp->cmd);
 	ft_lstadd_back_ast_node(ast, tmp);
-	return (TRUE);
+	return (SUCCESS);
 }

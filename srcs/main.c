@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 19:46:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:55:08 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 2)
 		return (0);
+	lexing(&token, argv);
+	if (token)
+		ft_print_lst_token(token);
 	ast = malloc(sizeof(t_ast));
 	if (!ast)
 		return (ERROR_MALLOC);
 	ast = NULL;
 	token = NULL;
-	lexing(&token, argv);
-	if (token)
-		ft_print_lst_token(token);
 	// parsing(&ast, &token);
 	// print_ast(&ast);
 	// get_env(env);

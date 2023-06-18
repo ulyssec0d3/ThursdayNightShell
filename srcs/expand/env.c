@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 00:42:33 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 19:47:16 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/18 14:52:44 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_size_env(char **env, t_env_lst **env_lst)
 		ft_lstadd_back_env_lst(env_lst, tmp);
 		i++;
 	}
-	return (TRUE);
+	return (SUCCESS);
 }
 
 void	print_env_lst(t_env_lst **env_lst)
@@ -77,7 +77,5 @@ int	expand(t_ast **ast, char **env)
 	get_size_env(env, &env_lst);
 	// fill_env_lst(env, &env_lst);
 	print_env_lst(&env_lst);
-	return (TRUE);
+	return (SUCCESS);
 }
-
-

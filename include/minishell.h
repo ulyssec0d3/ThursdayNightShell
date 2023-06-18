@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/17 19:48:35 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 00:06:31 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 //																//
 //////////////////////////////////////////////////////////////////
 
-# define TRUE 1
+# define SUCCESS 1
 # define ERROR_MALLOC -1
+# define ERROR_SYNTAX 2
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -52,7 +53,7 @@ enum e_type_token
 	SIMPLE_IN, // < infile
 	SIMPLE_OUT, // > Append
 	DOUBLE_IN, // << limiter // \n >> Truncate
-	DOUBLE_OUT
+	DOUBLE_OUT,
 } ;
 
 //////////////////////////////////////////////////////////////////
@@ -180,7 +181,6 @@ char		*extract_value(char *str);
 void		substitute_value(t_ast *tree);
 int			search_substitute_variable(char *str);
 
-
 //////////////////////////////////////////////////////////////////
 //																//
 //                   	  IN LEXING DIR              	        //
@@ -192,7 +192,7 @@ t_tokens	*lexing_double_quote(t_data_lexing *data_lexing);
 t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 				int size_redirection);
 t_tokens	*lexing_single_quote(t_data_lexing *data_lexing);
-t_tokens	*lexing_word(t_data_lexing *data_lexing);
+t_tokens	*lexing_word(t_data_lexing *data_lexing, int type);
 
 // Lexing.c
 t_tokens	*add_new_token(char *content, int type);
@@ -217,7 +217,9 @@ int			double_quote_management(t_data_lexing *data_lexing);
 int			get_content(char *dst, char *src, unsigned int size,
 				unsigned int start);
 int			is_redirection(t_data_lexing *data_lexing);
+int			is_word(t_data_lexing *data_lexing);
 int			int_strchr(const char *s, int start, int c);
+int			is_metacharacter(char c);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -250,6 +252,10 @@ void		free_command_node(t_command_node *cmd);
 //																//
 //////////////////////////////////////////////////////////////////
 
+// Error_management.c
+void		free_data_lexing(t_data_lexing *data_lexing);
+void		error_in_lexing(t_data_lexing *data_lexing, int code);
+
 //////////////////////////////////////////////////////////////////
 //																//
 //                 	  	IN AST UTILS DIR   	                    //
@@ -265,6 +271,7 @@ int			is_dollar(char c);
 int			is_pipe(char c);
 int			is_sign(char c);
 int			is_space(char c);
+int			is_number(int c);
 
 // Libft_utils.c
 char		*ft_strchr(const char *s, int c);
