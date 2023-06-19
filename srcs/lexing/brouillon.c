@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_something.c                                     :+:      :+:    :+:   */
+/*   brouillon.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 16:12:35 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 15:41:00 by lduheron         ###   ########.fr       */
+/*   Created: 2023/06/19 18:16:43 by lduheron          #+#    #+#             */
+/*   Updated: 2023/06/19 18:16:44 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// int	search_substitute_variable(char *str)
+// {
+// 	int	i;
 
-int	is_alpha(int c)
-{
-	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
-}
-
-int	is_dollar(char c)
-{
-	return (c == 36);
-}
-
-int	is_pipe(char c)
-{
-	return (c == 124);
-}
-
-int	is_sign(char c)
-{
-	return (c == '+' || c == '-');
-}
-
-int	is_space(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\v');
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if ((is_dollar(str[i]) == 1) && str[i + 1])
+// 			if (str[i - 1] && is_single_quote(str[i + 1])
+// 				&& str[i + 1] && is_single_quote(str[i + 1]))
+// 				return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }

@@ -6,13 +6,14 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 00:01:47 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:08:43 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Is_operator : this function checks if the first character of a string is valid
+// Is_operator : this function checks if the first character of a
+// string is valid.
 
 int	is_operator(char c)
 {
@@ -52,6 +53,8 @@ void	check_syntax(t_tokens **tokens)
 // void	check_consistency(t_tokens **token)
 // {
 /*
+	if (type == PIPE)
+	
 -- rien apres les operateurs.
 -- quote pas fermees.
 */

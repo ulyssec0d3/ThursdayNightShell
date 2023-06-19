@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/18 17:20:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:40:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	free_data_lexing(t_data_lexing *data_lexing)
 {
 	free(data_lexing->line);
-	// free(data_lexing);
 }
 
 void	error_in_lexing(t_data_lexing *data_lexing, int code)

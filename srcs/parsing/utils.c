@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/15 23:37:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:13:58 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,59 @@ void	eat_token(t_tokens **tokens)
 	free(tmp);
 }
 
-void	free_command_node(t_command_node *cmd)
+void	free_command_node(t_command_node *cmd_node)
 {
 	int	i;
 
-	free(cmd->cmd);
+	free(cmd_node->cmd);
 	i = 0;
-	if (cmd->argument != NULL)
+	if (cmd_node->argument != NULL)
 	{
-		while (cmd->argument[i])
+		while (cmd_node->argument[i])
 		{
-			free(cmd->argument[i]);
+			free(cmd_node->argument[i]);
 			i++;
 		}
-		free(cmd->argument);
+		free(cmd_node->argument);
 	}
 	i = 0;
-	if (cmd->redirections != NULL)
+	if (cmd_node->redirections != NULL)
 	{
-		while (cmd->redirections[i])
+		while (cmd_node->redirections[i])
 		{
-			free(cmd->redirections[i]);
+			free(cmd_node->redirections[i]);
 			i++;
 		}
-		free(cmd->redirections);
-		free(cmd->redirections_type);
+		free(cmd_node->redirections);
+		free(cmd_node->redirections_type);
 	}
 }
 
 void	free_ast(t_ast **ast)
 {
 	t_ast	*tmp;
+	int		i;
 
+	i = 0;
 	while (*ast)
 	{
-		tmp = (*ast)->next;
+		if ((*ast)->next)
+			tmp = (*ast)->next;
+		else
+			break ;
 		if ((*ast)->type == COMMAND_NODE)
 		{
-			free_command_node((*ast)->cmd);
-			free((*ast)->cmd);
+			free_command_node((*ast)->cmd_node);
+			free((*ast)->cmd_node);
 		}
 		free(*ast);
+		i += 1;
 		*ast = tmp;
+	}
+	if ((*ast)->type == COMMAND_NODE)
+	{
+		i += 1;
+		free_command_node((*ast)->cmd_node);
+		free((*ast)->cmd_node);
 	}
 }

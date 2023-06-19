@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 00:06:31 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:16:16 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ enum e_type_token
 	PIPE,
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE,
-	SIMPLE_IN, // < infile
-	SIMPLE_OUT, // > Append
-	DOUBLE_IN, // << limiter // \n >> Truncate
+	SIMPLE_IN,
+	SIMPLE_OUT,
+	DOUBLE_IN,
 	DOUBLE_OUT,
 } ;
 
@@ -63,27 +63,6 @@ enum e_type_token
 //																//
 //																//
 //////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////
-//																//
-//						EXEC STRUCTURES							//
-//																//
-//////////////////////////////////////////////////////////////////
-
-// typedef struct s_pipe
-// {
-// 	struct s_cmd		*cmd1;
-// 	struct s_cmd		*cmd2;
-// }	t_pipe;
-
-// typedef struct s_redirections
-// {
-// 	int		type;
-// 	char	*cmd1;
-// 	char	*cmd2;
-// 	int		mode;
-// 	int		fd;
-// }	t_redirections;
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -124,13 +103,15 @@ typedef struct s_ast						t_ast;
 struct s_command_node {
 	char	*cmd;
 	char	**argument;
+	char	**argument_subst;
 	char	**redirections;
 	int		*redirections_type;
+	int		*redirections_subst;
 };
 
 struct s_ast {
 	enum e_type_exec			type;
-	t_command_node				*cmd;
+	t_command_node				*cmd_node;
 	t_ast						*next;
 };
 
@@ -193,13 +174,14 @@ t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 				int size_redirection);
 t_tokens	*lexing_single_quote(t_data_lexing *data_lexing);
 t_tokens	*lexing_word(t_data_lexing *data_lexing, int type);
+t_tokens	*which_new_token(t_data_lexing *data_lexing);
 
 // Lexing.c
 t_tokens	*add_new_token(char *content, int type);
 t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
 int			find_type(t_data_lexing **data_lexing);
-t_tokens	*which_new_token(t_data_lexing *data_lexing);
 void		lexing(t_tokens **token, char **argv);
+t_tokens	*new_token_pipe(void);
 
 // Parenthesis_management.c
 int			cpt_parenthesis(char c);
@@ -229,12 +211,14 @@ int			is_metacharacter(char c);
 
 // Parse_operator_type.c
 void		parse_pipe(t_ast **ast, t_tokens **token);
+int			parse_command(t_ast **ast, t_tokens **token);
 
 // Parse_cmd_node.c
-int			init_cmd_tab(t_ast *ast, int i_arg, int i_red);
+void		set_command_node_to_null(t_command_node *cmd_node);
+int			init_arg_tab(t_ast *ast, int i_arg);
+int			init_redir_tab(t_ast *ast, int i_redir);
 int			init_command_node(t_tokens **token, t_ast *ast);
 void		get_arg(t_tokens **token, t_command_node *cmd);
-int			parse_command(t_ast **ast, t_tokens **token);
 
 // Parsing.c
 void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 00:06:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:54:06 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
 	return (add_new_token(content, type));
 }
 
+t_tokens	*new_token_pipe(void)
+{
+	t_tokens	*new_elem;
+
+	new_elem = malloc (sizeof(t_tokens));
+	if (new_elem == NULL)
+		return (NULL);
+	new_elem->type = PIPE;
+	new_elem->len = 1;
+	new_elem->content = NULL;
+	new_elem->next = NULL;
+	return (new_elem);
+}
+
 // FIND TYPE : Returns the type of the input.
 
 int	find_type(t_data_lexing **data_lexing)
@@ -63,29 +77,6 @@ int	find_type(t_data_lexing **data_lexing)
 	return (type);
 }
 
-// WHICH NEW TOKEN : This function creates a token depending on the type
-// of the input. The double quote token cannot be implemented for now
-// as it would be considered as a new arg and my main only handle argv[1].
-t_tokens	*which_new_token(t_data_lexing *data_lexing)
-{
-	int			type;
-
-	type = find_type(&data_lexing);
-	if (type == WORD)
-		return (lexing_word(data_lexing, WORD));
-	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
-		return (lexing_redirection(data_lexing, type, 1));
-	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
-		return (lexing_redirection(data_lexing, type, 2));
-	else if (type == SINGLE_QUOTE)
-		return (lexing_single_quote(data_lexing));
-	else if (type == DOUBLE_QUOTE)
-		return (lexing_double_quote(data_lexing));
-	else if (type == PIPE)
-		return (new_token(data_lexing, PIPE, 1));
-	return (0);
-}
-
 // LEXING FUNCTION : This function parses the line in tokens
 // and store them in a linked list.
 void	lexing(t_tokens **token, char **argv)
@@ -104,7 +95,7 @@ void	lexing(t_tokens **token, char **argv)
 		tmp_token = which_new_token(&data_lexing);
 		// if (tmp_token == NULL)
 			// return (NULL);
-		len = ft_strlen(tmp_token->content);
+		len = tmp_token->len;
 		ft_lstadd_back(token, tmp_token);
 		data_lexing.pos += len;
 	}

@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_something_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 18:16:55 by lduheron         ###   ########.fr       */
+/*   Created: 2023/06/19 15:41:24 by lduheron          #+#    #+#             */
+/*   Updated: 2023/06/19 15:43:03 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+int	is_number(int c)
 {
-	t_tokens	*token;
-	t_ast		*ast;
+	return (c >= '0' && c <= '9');
+}
 
-	if (argc != 2)
-		return (0);
-	token = NULL;
-	lexing(&token, argv);
-	// if (token)
-	// 	ft_print_lst_token(token);
-	// ast = malloc(sizeof(t_ast));
-	// if (!ast)
-	// 	return (ERROR_MALLOC);
-	ast = NULL;
-	parsing(&ast, &token);
-	print_ast(&ast);
-	(void)env;
-	// get_env(env);
-	// (void)argv;
-	// expand(&ast, env);
-	free_ast(&ast);
-	free(ast);
+// IS_METACHARACTER : This function returns 1, if the character sent
+// is a metacharacter : |&;<>\()`\n\tspace
+// A metacharacter causes termination of a word unless it is quoted.
+
+int	is_metacharacter(char c)
+{
+	if (c == ' ' || c == '\n' || c == '\t'
+		|| c == 38 || c == 59 || c == 60 || c == 62
+		|| c == 92 || c == 96 || is_parenthesis(c) == 1 || is_pipe(c) == 1)
+		return (1);
 	return (0);
 }

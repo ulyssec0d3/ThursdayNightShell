@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 00:07:23 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:53:21 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,25 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 	return (new_token(data_lexing, type, size));
 }
 
-// int	search_substitute_variable(char *str)
-// {
-// 	int	i;
+// WHICH NEW TOKEN : This function creates a token depending on the type
+// of the input. The double quote token cannot be implemented for now
+// as it would be considered as a new arg and my main only handle argv[1].
+t_tokens	*which_new_token(t_data_lexing *data_lexing)
+{
+	int			type;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if ((is_dollar(str[i]) == 1) && str[i + 1])
-// 			if (str[i - 1] && is_single_quote(str[i + 1])
-// 				&& str[i + 1] && is_single_quote(str[i + 1]))
-// 				return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	type = find_type(&data_lexing);
+	if (type == WORD)
+		return (lexing_word(data_lexing, WORD));
+	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
+		return (lexing_redirection(data_lexing, type, 1));
+	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
+		return (lexing_redirection(data_lexing, type, 2));
+	else if (type == SINGLE_QUOTE)
+		return (lexing_single_quote(data_lexing));
+	else if (type == DOUBLE_QUOTE)
+		return (lexing_double_quote(data_lexing));
+	else if (type == PIPE)
+		return (new_token_pipe());
+	return (0);
+}

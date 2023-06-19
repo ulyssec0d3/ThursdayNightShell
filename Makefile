@@ -14,6 +14,7 @@ SRCS        := \
 	utils/error_management.c     \
 	utils/ast_utils/ft_strjoin.c     \
 	utils/ast_utils/is_something.c     \
+	utils/ast_utils/is_something_2.c     \
 	utils/ast_utils/libft_utils.c      \
 	utils/ast_utils/list_utils.c     \
 	utils/structures_management/free_structures.c     \
