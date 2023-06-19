@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 18:16:16 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:46:24 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ typedef struct s_ast						t_ast;
 struct s_command_node {
 	char	*cmd;
 	char	**argument;
-	char	**argument_subst;
+	int		*argument_subst;
 	char	**redirections;
 	int		*redirections_type;
-	int		*redirections_subst;
+	int		*redir_subst;
 };
 
 struct s_ast {
@@ -213,11 +213,16 @@ int			is_metacharacter(char c);
 void		parse_pipe(t_ast **ast, t_tokens **token);
 int			parse_command(t_ast **ast, t_tokens **token);
 
-// Parse_cmd_node.c
+// Init_command_node.c
 void		set_command_node_to_null(t_command_node *cmd_node);
 int			init_arg_tab(t_ast *ast, int i_arg);
 int			init_redir_tab(t_ast *ast, int i_redir);
 int			init_command_node(t_tokens **token, t_ast *ast);
+int			is_substitutable(char *str);
+
+// Get_arg.c
+int			fill_arg(t_command_node *cmd_node, char *content, int i);
+int			fill_redirection(t_command_node *cmd_node, char *content, int type, int i);
 void		get_arg(t_tokens **token, t_command_node *cmd);
 
 // Parsing.c

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 14:00:08 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:26:10 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,6 @@ ATTENTION NESTED EXPANSIONS
 */
 
 // EXPAND, getenv autorisé
-// IS_SUBSTITUTABLE : if is  
-
-int	is_substitutable(char *str, int start)
-{
-	int	i;
-	int	size;
-
-	i = start;
-	size = 0;
-	while (is_alpha(str[i]) == 1 || is_number(str[i]) == 1 || str[i] == 95)
-	{
-		i++;
-		size++;
-	}
-	return (size);
-}
 
 char	*extract_value(char *str)
 {
@@ -97,17 +81,17 @@ int	search_substitute_variable(char *str)
 	return (0);
 }
 
-int	expand(t_ast **ast)
-{
-	t_ast	*tmp;
+// int	expand(t_ast **ast)
+// {
+// 	t_ast	*tmp;
 
-	tmp = *ast;
-	while (tmp)
-	{
-		if (is_dollar())
-	}
-}
-// 
+// 	tmp = *ast;
+// 	while (tmp)
+// 	{
+// 		if (is_dollar())
+// 	}
+// }
+// // 
 // void	expand_2(t_ast **ast)
 // {
 // 	// t_tree	*tmp;

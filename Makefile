@@ -24,7 +24,8 @@ SRCS        := \
 	lexing/parenthesis_management.c     \
 	lexing/quote_management.c     \
 	lexing/utils.c     \
-	parsing/parse_cmd_node.c     \
+	parsing/get_arg.c     \
+	parsing/init_command_node.c     \
 	parsing/parse_operator_node.c \
 	parsing/parsing.c     \
 	parsing/utils.c		\

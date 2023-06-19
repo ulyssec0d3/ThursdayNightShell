@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:02:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 16:50:12 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:49:54 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_cmd_node(t_command_node *cmd_node)
 		while (cmd_node->argument[i])
 		{
 			printf("Argument[%i] : %s\n", i, cmd_node->argument[i]);
-			// printf("Argument_subst[%i] : %s\n", i, cmd_node->argument_subst[i]);
+			printf("Argument_subst[%i] : %d\n\n", i, cmd_node->argument_subst[i]);
 			i++;
 		}
 	}
@@ -62,9 +62,9 @@ void	print_cmd_node(t_command_node *cmd_node)
 		while (cmd_node->redirections[i])
 		{
 			printf("Redirection[%i] : %s\n", i, cmd_node->redirections[i]);
-			printf("Redirection_type[%i] : %i\n", i,
+			printf("Redirection_type[%i] : %i\n\n", i,
 				(cmd_node->redirections_type[i]));
-			// printf("Redirections_subst[%i] : %i\n", i, cmd_node->redirections_subst);
+			printf("Redir_subst[%i] : %i\n", i, cmd_node->redir_subst[i]);
 			i++;
 		}
 	}
@@ -73,17 +73,21 @@ void	print_cmd_node(t_command_node *cmd_node)
 void	print_ast(t_ast **ast)
 {
 	t_ast	*tmp;
+	int		i;
 
 	printf("\nPRINT AST : \n\n");
 	tmp = *ast;
+	i = 0;
 	while (tmp)
 	{
+		printf(" ----- NODE %i ----- \n", i);
 		printf("type : %i\n", tmp->type);
 		if (tmp->type == COMMAND_NODE)
 			print_cmd_node(tmp->cmd_node);
 		printf("\n\n");
 		if (!tmp->next)
 			break ;
+		i++;
 		tmp = tmp->next;
 	}
 }
