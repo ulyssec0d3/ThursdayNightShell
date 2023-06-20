@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 14:08:43 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:19:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,61 @@
 // Is_operator : this function checks if the first character of a
 // string is valid.
 
-int	is_operator(char c)
-{
-	if (ft_strncmp(c, ">", 1) == 0)
-		return (1);
-	if (ft_strncmp(c, "<", 1) == 0)
-		return (1);
-	if (ft_strncmp(c, "|", 1) == 0)
-		return (1);
-	return (0);
-}
+// int	is_operator(char c)
+// {
+// 	if (ft_strncmp(c, ">", 1) == 0)
+// 		return (1);
+// 	if (ft_strncmp(c, "<", 1) == 0)
+// 		return (1);
+// 	if (ft_strncmp(c, "|", 1) == 0)
+// 		return (1);
+// 	return (0);
+// }
 
-int	check_content_redirection(t_tokens *tmp)
-{
-	if (tmp->type == SIMPLE_IN || tmp->type == SIMPLE_OUT
-		|| tmp->type == DOUBLE_IN || tmp->type == DOUBLE_OUT)
-		if (is_word(tmp->content) == 1)
-			return (0);
-	return (1);
-}
+// int	check_content_redirection(t_tokens *tmp)
+// {
+// 	int	i;
 
-void	check_syntax(t_tokens **tokens)
+// 	i = 0;
+// 	if (tmp->type == SIMPLE_IN || tmp->type == SIMPLE_OUT
+// 		|| tmp->type == DOUBLE_IN || tmp->type == DOUBLE_OUT)
+// 		if (is_word(tmp->content[i]) == 1)
+// 			return (0);
+// 	return (1);
+// }
+
+void	check_syntax(t_tokens **token)
 {
 	t_tokens	*tmp;
 
-	tmp = *tokens;
+	tmp = *token;
+	if (tmp->type == PIPE)
+		error_syntax(token);
 	while (tmp)
 	{
-		if (token->next->type == PIPE)
-			if (token->type == PIPE || token->next->next == PIPE)
-				error_syntax(tokens);
-		if (check_content_redirection(tmp) == 0)
-			error_redirection(tokens, tmp);
+		if (tmp->next)
+		{
+			if (tmp->next->type == PIPE)
+				if (!(tmp->next->next) || tmp->type == PIPE
+					|| tmp->next->next->type == PIPE)
+					error_syntax(token);
+		}
+		else
+			if (tmp->type == PIPE)
+				error_syntax(token);
+		tmp = tmp->next;
+		// if (check_content_redirection(tmp) == 0)
+		// 	error_redirection(token, tmp);
 	}
 }
 
 // void	check_consistency(t_tokens **token)
 // {
+// }
+
 /*
 	if (type == PIPE)
 	
 -- rien apres les operateurs.
 -- quote pas fermees.
 */
-// }
-//

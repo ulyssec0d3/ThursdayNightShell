@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 19:46:24 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:20:28 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	is_substitutable(char *str)
 	}
 	return (size);
 }
-
 
 // FILL_ARG :
 

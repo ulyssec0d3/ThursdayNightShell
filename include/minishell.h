@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 19:46:24 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:20:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,9 @@ int			search_substitute_variable(char *str);
 //																//
 //////////////////////////////////////////////////////////////////
 
+// Error_syntax.c
+void		check_syntax(t_tokens **tokens);
+
 // Lexing_type.c
 t_tokens	*lexing_double_quote(t_data_lexing *data_lexing);
 t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
@@ -222,7 +225,8 @@ int			is_substitutable(char *str);
 
 // Get_arg.c
 int			fill_arg(t_command_node *cmd_node, char *content, int i);
-int			fill_redirection(t_command_node *cmd_node, char *content, int type, int i);
+int			fill_redirection(t_command_node *cmd_node, char *content,
+				int type, int i);
 void		get_arg(t_tokens **token, t_command_node *cmd);
 
 // Parsing.c
@@ -244,6 +248,7 @@ void		free_command_node(t_command_node *cmd);
 // Error_management.c
 void		free_data_lexing(t_data_lexing *data_lexing);
 void		error_in_lexing(t_data_lexing *data_lexing, int code);
+void		error_syntax(t_tokens **tokens);
 
 //////////////////////////////////////////////////////////////////
 //																//

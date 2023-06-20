@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:07:06 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 18:14:45 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:28:50 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	parse_command(t_ast **ast, t_tokens **token)
 	t_ast	*tmp;
 	int		flag;
 
-	// printf("Enter in parse command\n");
 	tmp = malloc(sizeof(t_ast));
 	if (!tmp)
 		return (ERROR_MALLOC);
@@ -36,7 +35,6 @@ void	parse_pipe(t_ast **ast, t_tokens **token)
 {
 	t_ast	*tmp;
 
-	// printf("Enter parse pipe\n");
 	tmp = malloc(sizeof(t_ast));
 	tmp->type = PIPE_NODE;
 	tmp->cmd_node = NULL;

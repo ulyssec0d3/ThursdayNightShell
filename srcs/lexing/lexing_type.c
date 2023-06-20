@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 15:53:21 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:26:45 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 	}
 	if ((flag_d_quote % 2) != 0 || (flag_s_quote % 2) != 0)
 	{
-		printf("minishell: error syntax (quote open)");
-		// return ;
-		// return (NULL);
+		printf("minishell: error syntax (quote open)"); //RETURN
 	}
 	return (new_token(data_lexing, type, size));
 }
