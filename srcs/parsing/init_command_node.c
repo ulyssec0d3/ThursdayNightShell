@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:32:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 19:46:24 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:33:02 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	set_command_node_to_null(t_command_node *cmd_node)
 {
-	cmd_node->cmd = NULL;
 	cmd_node->argument = NULL;
 	cmd_node->argument_subst = NULL;
 	cmd_node->redirections = NULL;
@@ -61,7 +60,7 @@ int	init_command_node(t_tokens **token, t_ast *ast)
 	int				flag;
 
 	flag = SUCCESS;
-	i_arg = -1;
+	i_arg = 0;
 	i_redir = 0;
 	ast->cmd_node = malloc(sizeof(t_command_node));
 	if (!(ast->cmd_node))

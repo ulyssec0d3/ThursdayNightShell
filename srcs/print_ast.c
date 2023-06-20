@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:02:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 19:49:54 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:56:09 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void	print_cmd_node(t_command_node *cmd_node)
 {
 	int	i;
 
-	i = 0;
-	printf("cmd : %s\n", cmd_node->cmd);
+	i = 1;
+	printf("cmd : %s\n", cmd_node->argument[0]);
+	printf("cmd sybst : %d\n", cmd_node->argument_subst[0]);
 	if (cmd_node->argument != NULL)
 	{
 		while (cmd_node->argument[i])
@@ -62,9 +63,9 @@ void	print_cmd_node(t_command_node *cmd_node)
 		while (cmd_node->redirections[i])
 		{
 			printf("Redirection[%i] : %s\n", i, cmd_node->redirections[i]);
-			printf("Redirection_type[%i] : %i\n\n", i,
+			printf("Redirection_type[%i] : %i\n", i,
 				(cmd_node->redirections_type[i]));
-			printf("Redir_subst[%i] : %i\n", i, cmd_node->redir_subst[i]);
+			printf("Redir_subst[%i] : %i\n\n", i, cmd_node->redir_subst[i]);
 			i++;
 		}
 	}

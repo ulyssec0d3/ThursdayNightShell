@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 11:25:06 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:36:27 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	free_redir_in_node(t_command_node *cmd_node)
 
 void	free_command_node(t_command_node *cmd_node)
 {
-	free(cmd_node->cmd);
 	if (cmd_node->argument != NULL)
 		free_arg_in_node(cmd_node);
 	if (cmd_node->redirections != NULL)

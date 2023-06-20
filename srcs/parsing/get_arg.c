@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 11:20:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:56:25 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	is_substitutable(char *str)
 	while (str[i] && is_dollar(str[i]) == 0)
 		i++;
 	if (!str[i])
+	{
+		printf("Nothing to substitute here\n");
 		return (0);
+	}
 	size = 0;
 	i++;
 	while (is_alpha(str[i]) == 1 || is_number(str[i]) == 1 || str[i] == 95)
@@ -33,6 +36,7 @@ int	is_substitutable(char *str)
 		size++;
 		i++;
 	}
+	// printf("Size to substitute : %i\n", size);
 	return (size);
 }
 
@@ -53,24 +57,8 @@ int	fill_redirection(t_command_node *cmd_node, char *content, int type, int i)
 	return (1);
 }
 
-void	get_arg(t_tokens **token, t_command_node *cmd_node)
+void	set_last_c(t_command_node *cmd_node, int i_arg, int i_redir)
 {
-	int	i_arg;
-	int	i_redir;
-
-	i_arg = 0;
-	i_redir = 0;
-	while (*token && (*token)->type != PIPE)
-	{
-		if ((*token)->type == WORD && cmd_node->cmd == NULL)
-			cmd_node->cmd = ft_strdup((*token)->content);
-		else if ((*token)->type == WORD)
-			i_arg += fill_arg(cmd_node, (*token)->content, i_arg);
-		else
-			i_redir += fill_redirection(cmd_node, (*token)->content,
-					(*token)->type, i_redir);
-		eat_token(token);
-	}
 	if (cmd_node->argument != NULL)
 	{
 		cmd_node->argument[i_arg] = NULL;
@@ -81,4 +69,23 @@ void	get_arg(t_tokens **token, t_command_node *cmd_node)
 		cmd_node->redirections[i_redir] = NULL;
 		cmd_node->redirections_type[i_redir] = 0;
 	}
+}
+
+void	get_arg(t_tokens **token, t_command_node *cmd_node)
+{
+	int	i_arg;
+	int	i_redir;
+
+	i_arg = 0;
+	i_redir = 0;
+	while (*token && (*token)->type != PIPE)
+	{
+		if ((*token)->type == WORD)
+			i_arg += fill_arg(cmd_node, (*token)->content, i_arg);
+		else
+			i_redir += fill_redirection(cmd_node, (*token)->content,
+					(*token)->type, i_redir);
+		eat_token(token);
+	}
+	set_last_c(cmd_node, i_arg, i_redir);
 }

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/19 19:26:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:30:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,67 +31,75 @@ ATTENTION NESTED EXPANSIONS
 
 // EXPAND, getenv autorisé
 
-char	*extract_value(char *str)
+// char	*extract_value_draft(char *str)
+// {
+// 	int		i;
+// 	int		len;
+// 	int		start;
+// 	char	*value;
+
+// 	i = 0;
+// 	len = 0;
+// 	while (str[i] && str[i] != 36)
+// 		i++;
+// 	start = i;
+// 	if (is_single_quote(str[i]) == 1)
+// 	{
+// 		while (str[i++] && is_single_quote(str[i]) == 0)
+// 			len++;
+// 	}
+// 	else if (is_parenthesis(str[i]) == 1)
+// 		len = is_in_parenthesis(str, start);
+// 	value = (char *)malloc(sizeof(char) * (len + 1));
+// 	get_content(value, str, start, len);
+// 	return (value);
+// }
+
+
+char	*extract_value(char **content, int size)
 {
-	int		i;
-	int		len;
-	int		start;
-	char	*value;
+	int	i;
+	int	value;
 
 	i = 0;
-	len = 0;
-	while (str[i] && str[i] != 36)
-		i++;
-	start = i;
-	if (is_single_quote(str[i]) == 1)
-	{
-		while (str[i++] && is_single_quote(str[i]) == 0)
-			len++;
-	}
-	else if (is_parenthesis(str[i]) == 1)
-		len = is_in_parenthesis(str, start);
-	value = (char *)malloc(sizeof(char) * (len + 1));
-	get_content(value, str, start, len);
-	return (value);
 }
 
-void	substitute_value(t_ast *tree)
+void	substitute_value(t_command_node *cmd_node, int i)
 {
 	char	*variable;
 	char	*substitute;
 
-	variable = extract_value(tree->value);
+	variable = extract_value(cmd_node->argument[i], cmd_node->argument_subst[i]);
 	substitute = get_env(variable);
-	// search_and_replace(tree, variable, substitute);
+	search_and_replace(tree, variable, substitute);
 }
 
-int	search_substitute_variable(char *str)
+int	substitute_arg(t_command_node *cmd_node)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (cmd_node->argument_subst && cmd_node->argument_subst[i])
 	{
-		if ((is_dollar(str[i]) == 1) && str[i + 1])
-			if (str[i - 1] && is_single_quote(str[i - 1])
-				&& str[i + 1] && is_single_quote(str[i + 1]))
-				return (1);
+		if (cmd_node->argument_subst[i] != 0)
+			substitute_value(cmd->node, i);
 		i++;
 	}
-	return (0);
 }
 
-// int	expand(t_ast **ast)
-// {
-// 	t_ast	*tmp;
+int	expand(t_ast **ast)
+{
+	t_ast	*tmp;
 
-// 	tmp = *ast;
-// 	while (tmp)
-// 	{
-// 		if (is_dollar())
-// 	}
-// }
-// // 
+	tmp = *ast;
+	while (tmp)
+	{
+		if (tmp->type == COMMAND_NODE)
+			substitute_arg(tmp->cmd_node);
+		tmp = tmp->next;
+	}
+}
+
 // void	expand_2(t_ast **ast)
 // {
 // 	// t_tree	*tmp;
