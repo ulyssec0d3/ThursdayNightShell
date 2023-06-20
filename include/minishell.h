@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 15:46:03 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:24:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 //																//
 //////////////////////////////////////////////////////////////////
 
-# define SUCCESS 1
-# define ERROR_MALLOC -1
-# define ERROR_SYNTAX 2
+// In or out quote.
+
+# define OUT 0
+# define IN 1
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -56,6 +57,13 @@ enum e_type_token
 	DOUBLE_OUT,
 } ;
 
+enum e_error
+{
+	SUCCESS,
+	ERROR_MALLOC,
+	ERROR_SYNTAX
+} ;
+
 //////////////////////////////////////////////////////////////////
 //																//
 //																//
@@ -74,7 +82,7 @@ typedef struct s_data_lexing				t_data_lexing;
 typedef struct s_tokens						t_tokens;
 
 struct s_data_lexing {
-	// int		flag;
+	int		flag;
 	char	*line;
 	int		pos;
 	int		len;
@@ -139,6 +147,7 @@ typedef struct s_expand
 
 // Main.c
 int			main(int argc, char **argv, char **env);
+int	check_line(t_data_lexing *data_lexing, char *str);
 
 // Print_ast.c
 void		ft_print_lst_token(t_tokens *token);

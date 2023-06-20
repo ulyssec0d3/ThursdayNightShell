@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 15:47:19 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:27:21 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
 
 	content = NULL;
 	content = malloc(sizeof(char *) * (size + 1));
-	if (!content)
+	if (content == NULL)
+	{
+		free(content);
 		return (NULL);
+	}
 	get_content(content, data_lexing->line, size, data_lexing->pos);
 	return (add_new_token(content, type));
 }
@@ -66,10 +69,10 @@ int	find_type(t_data_lexing **data_lexing)
 	type = N_DEF;
 	if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
 		type = PIPE;
-	// else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
-	// 	type = SINGLE_QUOTE;
-	// else if (is_double_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
-	// 	type = DOUBLE_QUOTE;
+	else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+		type = SINGLE_QUOTE;
+	else if (is_double_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+		type = DOUBLE_QUOTE;
 	else if (is_redirection(*data_lexing) != N_DEF)
 		type = is_redirection(*data_lexing);
 	else if (is_metacharacter((*data_lexing)->line[(*data_lexing)->pos]) == 0)
@@ -87,17 +90,20 @@ void	lexing(t_tokens **token, char **argv)
 
 	len = 0;
 	init_data_lexing_structure(&data_lexing, argv);
-	while (data_lexing.pos < data_lexing.len) // && flag == SUCCESS
+	check_line(&data_lexing, data_lexing.line);
+	data_lexing.flag = SUCCESS;
+	while (data_lexing.pos < data_lexing.len)
 	{
 		len = 0;
 		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
-		// if (tmp_token == NULL)
-			// return (NULL);
+		if (tmp_token == NULL)
+			error_in_lexing(&data_lexing, ERROR_MALLOC);
 		len = tmp_token->len;
 		ft_lstadd_back(token, tmp_token);
 		data_lexing.pos += len;
 	}
 	free(data_lexing.line);
+	// return (1);
 }

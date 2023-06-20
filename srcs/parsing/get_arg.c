@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 14:56:25 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:25:06 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	is_substitutable(char *str)
 		size++;
 		i++;
 	}
-	// printf("Size to substitute : %i\n", size);
 	return (size);
 }
 

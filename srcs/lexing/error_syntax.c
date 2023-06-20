@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 11:19:28 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:27:02 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,56 @@ void	check_syntax(t_tokens **token)
 -- rien apres les operateurs.
 -- quote pas fermees.
 */
+
+// int	forbidden_character(char *str)
+// {
+// 	int		i;
+// 	char	*forbidden;
+
+// 	i = 0;
+// 	forbidden = "&()";
+// 	if ()
+// }
+
+int	check_line(t_data_lexing *data_lexing, char *str)
+{
+	int	i;
+	int	flag_in_d_quote;
+	int	flag_in_s_quote;
+
+	i = 0;
+	flag_in_d_quote = OUT;
+	flag_in_s_quote = OUT;
+	while (str[i])
+	{
+		if (is_single_quote(str[i]) == 1)
+		{
+			flag_in_s_quote = IN;
+			while (str[i] && is_single_quote(str[i]) == 0)
+				i++;
+			if (is_single_quote(str[i]) == 1)
+			{
+				flag_in_s_quote = OUT;
+				i++;
+			}
+		}
+		if (is_double_quote(str[i]) == 1)
+		{
+			flag_in_d_quote = IN;
+			while (str[i] && is_double_quote(str[i]) == 0)
+				i++;
+			if (is_double_quote(str[i]) == 1)
+			{
+				flag_in_d_quote = OUT;
+				i++;
+			}
+		}
+		i++;
+	}
+	if (flag_in_d_quote == IN || flag_in_s_quote == IN)
+	{
+		printf("problem quote\n");
+		error_in_lexing(data_lexing, ERROR_SYNTAX);
+	}
+	return (1);
+}

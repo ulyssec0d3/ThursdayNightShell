@@ -6,11 +6,13 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:32:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 14:33:02 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:33:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// allouer une taille de 100int 
 
 void	set_command_node_to_null(t_command_node *cmd_node)
 {

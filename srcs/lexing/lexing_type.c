@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 15:47:53 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:12:27 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 // LEXING_*.c : Find the adequate size of the content and returns the token.
 
-// t_tokens	*lexing_double_quote(t_data_lexing *data_lexing)
-// {
-// 	int		size;
+t_tokens	*lexing_double_quote(t_data_lexing *data_lexing)
+{
+	int		size;
 
-// 	size = double_quote_management(data_lexing);
-// 	return (new_token(data_lexing, DOUBLE_QUOTE, size));
-// }
+	size = double_quote_management(data_lexing->line, data_lexing->pos);
+	return (new_token(data_lexing, WORD, size));
+}
 
 t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 	int size_redirection)
@@ -31,13 +31,13 @@ t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 	return (lexing_word(data_lexing, type));
 }
 
-// t_tokens	*lexing_single_quote(t_data_lexing *data_lexing)
-// {
-// 	int		size;
+t_tokens	*lexing_single_quote(t_data_lexing *data_lexing)
+{
+	int		size;
 
-// 	size = single_quote_management(data_lexing);
-// 	return (new_token(data_lexing, SINGLE_QUOTE, size));
-// }
+	size = single_quote_management(data_lexing->line, data_lexing->pos);
+	return (new_token(data_lexing, WORD, size));
+}
 
 // t_tokens	*lexing_word_v1(t_data_lexing *data_lexing, int type)
 // {
@@ -98,10 +98,10 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 		return (lexing_redirection(data_lexing, type, 1));
 	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
 		return (lexing_redirection(data_lexing, type, 2));
-	// else if (type == SINGLE_QUOTE)
-	// 	return (lexing_single_quote(data_lexing));
-	// else if (type == DOUBLE_QUOTE)
-	// 	return (lexing_double_quote(data_lexing));
+	else if (type == SINGLE_QUOTE)
+		return (lexing_single_quote(data_lexing));
+	else if (type == DOUBLE_QUOTE)
+		return (lexing_double_quote(data_lexing));
 	else if (type == PIPE)
 		return (new_token_pipe());
 	return (0);
