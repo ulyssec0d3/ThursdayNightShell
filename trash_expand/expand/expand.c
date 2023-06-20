@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 14:30:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:27:07 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ ATTENTION NESTED EXPANSIONS
 // 	get_content(value, str, start, len);
 // 	return (value);
 // }
-
 
 char	*extract_value(char **content, int size)
 {

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 11:57:08 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:47:19 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	find_type(t_data_lexing **data_lexing)
 	type = N_DEF;
 	if ((*data_lexing)->line[(*data_lexing)->pos] == 124)
 		type = PIPE;
-	else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
-		type = SINGLE_QUOTE;
-	else if (is_double_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
-		type = DOUBLE_QUOTE;
+	// else if (is_single_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+	// 	type = SINGLE_QUOTE;
+	// else if (is_double_quote((*data_lexing)->line[(*data_lexing)->pos]) == 1)
+	// 	type = DOUBLE_QUOTE;
 	else if (is_redirection(*data_lexing) != N_DEF)
 		type = is_redirection(*data_lexing);
 	else if (is_metacharacter((*data_lexing)->line[(*data_lexing)->pos]) == 0)
@@ -87,7 +87,7 @@ void	lexing(t_tokens **token, char **argv)
 
 	len = 0;
 	init_data_lexing_structure(&data_lexing, argv);
-	while (data_lexing.pos < data_lexing.len)
+	while (data_lexing.pos < data_lexing.len) // && flag == SUCCESS
 	{
 		len = 0;
 		while (is_space(data_lexing.line[data_lexing.pos]) == 1)

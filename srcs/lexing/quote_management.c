@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:58:52 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:24:35 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:44:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ int	is_quote(char c)
 // searches for the closing single quote and return 
 // the size of the buffer to parse.
 
-int	single_quote_management(t_data_lexing *data_lexing)
+int	single_quote_management(char *line, int start)
 {
-	int	pos_tmp;
+	int	i;
 	int	size;
 
-	pos_tmp = data_lexing->pos + 1;
+	i = start + 1;
 	size = 1;
-	while (data_lexing->line[pos_tmp]
-		&& is_single_quote(data_lexing->line[pos_tmp]) == 0)
+	while (line[i] && is_single_quote(line[i]) == 0)
 	{
 		size++;
-		pos_tmp++;
+		i++;
 	}
 	return (size + 1);
 }
@@ -55,18 +54,17 @@ int	single_quote_management(t_data_lexing *data_lexing)
 // searches for the closing single quote and return 
 // the size of the buffer to parse.
 
-int	double_quote_management(t_data_lexing *data_lexing)
+int	double_quote_management(char *line, int start)
 {
-	int	pos_tmp;
+	int	i;
 	int	size;
 
-	pos_tmp = data_lexing->pos + 1;
+	i = start + 1;
 	size = 1;
-	while (data_lexing->line[pos_tmp]
-		&& is_double_quote(data_lexing->line[pos_tmp]) == 0)
+	while (line[i] && is_double_quote(line[i]) == 0)
 	{
 		size++;
-		pos_tmp++;
+		i++;
 	}
 	return (size + 1);
 }

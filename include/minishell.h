@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 14:31:35 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:46:03 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data_lexing				t_data_lexing;
 typedef struct s_tokens						t_tokens;
 
 struct s_data_lexing {
+	// int		flag;
 	char	*line;
 	int		pos;
 	int		len;
@@ -194,8 +195,8 @@ int			parenthesis_management(t_data_lexing *data_lexing);
 int			is_double_quote(char c);
 int			is_single_quote(char c);
 int			is_quote(char c);
-int			single_quote_management(t_data_lexing *data_lexing);
-int			double_quote_management(t_data_lexing *data_lexing);
+int			double_quote_management(char *line, int start);
+int			single_quote_management(char *line, int start);
 
 // Utils.c
 int			get_content(char *dst, char *src, unsigned int size,

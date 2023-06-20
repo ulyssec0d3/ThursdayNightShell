@@ -8,6 +8,7 @@ Things to do
         free quand error quote in lexing word
         pipe error
 
+/// quote avancer jusau'a la suivamte() && || & sauf si entre quote
 pb : cmd1 argv$subsit\ute
 
 TO-DO AVANT DE PUSH SUR LE GITHUB DEV
