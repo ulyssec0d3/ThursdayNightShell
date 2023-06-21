@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:19:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:05:43 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,70 @@ void	eat_token(t_tokens **tokens)
 	if (tokens)
 		*tokens = (*tokens)->next;
 	free(tmp);
+}
+
+void	free_arg_in_node(t_command_node *cmd_node)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_node->argument[i])
+	{
+		free(cmd_node->argument[i]);
+		i++;
+	}
+	free(cmd_node->argument_subst);
+	free(cmd_node->argument);
+}
+
+void	free_redir_in_node(t_command_node *cmd_node)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_node->redir[i])
+	{
+		free(cmd_node->redir[i]);
+		i++;
+	}
+	free(cmd_node->redir);
+	free(cmd_node->redir_type);
+	free(cmd_node->redir_sub);
+}
+
+void	free_command_node(t_command_node *cmd_node)
+{
+	if (cmd_node->argument != NULL)
+		free_arg_in_node(cmd_node);
+	if (cmd_node->redir != NULL)
+		free_redir_in_node(cmd_node);
+}
+
+void	free_cmd_lst(t_cmd_lst **cmd_lst)
+{
+	t_cmd_lst	*tmp;
+	int			i;
+
+	i = 0;
+	while (*cmd_lst)
+	{
+		if ((*cmd_lst)->next)
+			tmp = (*cmd_lst)->next;
+		else
+			break ;
+		if ((*cmd_lst)->type == COMMAND_NODE)
+		{
+			free_command_node((*cmd_lst)->cmd_node);
+			free((*cmd_lst)->cmd_node);
+		}
+		free(*cmd_lst);
+		i += 1;
+		*cmd_lst = tmp;
+	}
+	if ((*cmd_lst)->type == COMMAND_NODE)
+	{
+		i += 1;
+		free_command_node((*cmd_lst)->cmd_node);
+		free((*cmd_lst)->cmd_node);
+	}
 }

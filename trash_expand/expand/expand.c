@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:11:07 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ When recreating a shell, implementing the "expand" functionality
 involves identifying variables and command substitutions in the 
 input command or expression, evaluating them, and replacing them
 with their respective values or output before executing the command.
-The AST can help in representing and manipulating the parsed structure
+The cmd_lst can help in representing and manipulating the parsed structure
 of the command, allowing for efficient expansion and evaluation of variables
 and command substitutions.
 $(HOME) or $`HOME`.
@@ -31,75 +31,89 @@ ATTENTION NESTED EXPANSIONS
 
 // EXPAND, getenv autorisé
 
-// typedef struct  s_expand_env
+// char	*extract_value_draft(char *str)
 // {
-//     char *content;
-//     s_expand_env next;
-// } t_expand_env ;
+// 	int		i;
+// 	int		len;
+// 	int		start;
+// 	char	*value;
 
-char	*extract_value(char *str)
+// 	i = 0;
+// 	len = 0;
+// 	while (str[i] && str[i] != 36)
+// 		i++;
+// 	start = i;
+// 	if (is_single_quote(str[i]) == 1)
+// 	{
+// 		while (str[i++] && is_single_quote(str[i]) == 0)
+// 			len++;
+// 	}
+// 	else if (is_parenthesis(str[i]) == 1)
+// 		len = is_in_parenthesis(str, start);
+// 	value = (char *)malloc(sizeof(char) * (len + 1));
+// 	get_content(value, str, start, len);
+// 	return (value);
+// }
+
+char	*extract_value(char **content, int size)
 {
-	int		i;
-	int		len;
-	int		start;
-	char	*value;
+	int	i;
+	int	value;
 
 	i = 0;
-	len = 0;
-	while (str[i] && str[i] != 36)
-		i++;
-	start = i;
-	if (is_single_quote(str[i]) == 1)
-	{
-		while (str[i++] && is_single_quote(str[i]) == 0)
-			len++;
-	}
-	else if (is_parenthesis(str[i]) == 1)
-		len = is_in_parenthesis(str, start);
-	value = (char *)malloc(sizeof(char) * (len + 1));
-	get_content(value, str, start, len);
-	return (value);
 }
 
-void	substitute_value(t_root *tree)
+void	substitute_value(t_command_node *cmd_node, int i)
 {
 	char	*variable;
 	char	*substitute;
 
-	variable = extract_value(tree->value);
+	variable = extract_value(cmd_node->argument[i], cmd_node->argument_subst[i]);
 	substitute = get_env(variable);
-	// search_and_replace(tree, variable, substitute);
+	search_and_replace(tree, variable, substitute);
 }
 
-int	search_substitute_variable(char *str)
+int	substitute_arg(t_command_node *cmd_node)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (cmd_node->argument_subst && cmd_node->argument_subst[i])
 	{
-		if ((is_dollar(str[i]) == 1) && str[i + 1])
-			if (str[i - 1] && is_single_quote(str[i - 1])
-				&& str[i + 1] && is_single_quote(str[i + 1]))
-				return (1);
+		if (cmd_node->argument_subst[i] != 0)
+			substitute_value(cmd->node, i);
 		i++;
 	}
-	return (0);
 }
 
-void	expand(t_root **tree)
+int	expand(t_cmd_lst **cmd_lst)
 {
-	t_tree	*tmp;
+	t_cmd_lst	*tmp;
 
-	tmp = *tree;
-	while (tree)
+	tmp = *cmd_lst;
+	while (tmp)
 	{
-		if (search_substitute_variable(tmp->value) == 1)
-			substitute_value(tmp->value);
+		if (tmp->type == COMMAND_NODE)
+			substitute_arg(tmp->cmd_node);
 		tmp = tmp->next;
 	}
 }
 
+// void	expand_2(t_cmd_lst **cmd_lst)
+// {
+// 	// t_tree	*tmp;
+// 
+// 	// tmp = *tree;
+// 	// while (tree)
+// 	// {
+// 	// 	if (search_substitute_variable(tmp->value) == 1)
+// 	// 		substitute_value(tmp->value);
+// 	// 	tmp = tmp->next;
+// 	// }
+// 	void(cmd_lst);
+// 	t_env_lst	*env_lst;
+// }
+// 
 // cas ou le dollar sont dans les singles quotes. 
 // si on fait les bonus = expand pendant l'exec.
 // echo $PWD != echo $PWD != echo $PWD1

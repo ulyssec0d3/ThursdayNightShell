@@ -6,11 +6,14 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:34:44 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:18:37 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:42:45 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// GET_CONTENT : This function copies "size" characters from src
+// to dst from the position "start".
 
 int	get_content(char *dst, char *src, unsigned int size, unsigned int start)
 {
@@ -54,7 +57,7 @@ int	is_redirection(t_data_lexing *data_lexing)
 	else if (ft_strncmp(string, ">", 1) == 0)
 		type = SIMPLE_OUT;
 	else
-		type = 0;
+		type = N_DEF;
 	free (string);
 	return (type);
 }

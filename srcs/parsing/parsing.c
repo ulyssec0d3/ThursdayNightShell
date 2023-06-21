@@ -6,46 +6,45 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/14 11:40:30 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	build_tree(t_tokens **token, t_root **tree)
-// {
-// 	while ((*token))
-// 	{
-// 		if ((*token)->next->type != 1)
-// 			parse_command(token, tree);
-// 		else
-// 			parse_pipe(&data_parsing, token);
-// 	}
-// }
+void	ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new)
+{
+	t_cmd_lst	*tmp;
 
-// void	print_ast(t_root **tree)
-// {
-// 	int	i; // nb nodes
+	tmp = NULL;
+	tmp = *cmd_lst;
+	if (!*cmd_lst)
+		*cmd_lst = new;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
 
-// 	i = 0;
-// 	while (ast->next)
-// 	{
-// 		printf();
-// 	}
-// }
+// if (*cmd_lst == NULL)
+// 	return (error);
+int	parsing(t_cmd_lst **cmd_lst, t_tokens **token)
+{
+	int	flag;
 
-// int j;
-
-// j = 0;
-// while (argument[j])
-// {
-// 	printf("Argument[%i] : %s\n", j, argument[j]);
-// 	j++;
-// }
-// j = 0;
-// while (redirections[j])
-// {
-// 	redirections[j] = 
-// 	printf("\n", redirections_type[j]);
-// 	j++;
-// }
+	flag = SUCCESS;
+	while (*token != NULL)
+	{
+		if ((*token)->type != PIPE)
+			flag = parse_command(cmd_lst, token);
+		else
+		{
+			parse_pipe(cmd_lst, token);
+		}
+		if (flag != SUCCESS)
+			return (flag);
+	}
+	return (flag);
+}
