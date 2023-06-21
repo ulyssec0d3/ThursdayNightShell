@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 14:36:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:05:43 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,49 +47,49 @@ void	free_redir_in_node(t_command_node *cmd_node)
 	int	i;
 
 	i = 0;
-	while (cmd_node->redirections[i])
+	while (cmd_node->redir[i])
 	{
-		free(cmd_node->redirections[i]);
+		free(cmd_node->redir[i]);
 		i++;
 	}
-	free(cmd_node->redirections);
-	free(cmd_node->redirections_type);
-	free(cmd_node->redir_subst);
+	free(cmd_node->redir);
+	free(cmd_node->redir_type);
+	free(cmd_node->redir_sub);
 }
 
 void	free_command_node(t_command_node *cmd_node)
 {
 	if (cmd_node->argument != NULL)
 		free_arg_in_node(cmd_node);
-	if (cmd_node->redirections != NULL)
+	if (cmd_node->redir != NULL)
 		free_redir_in_node(cmd_node);
 }
 
-void	free_ast(t_ast **ast)
+void	free_cmd_lst(t_cmd_lst **cmd_lst)
 {
-	t_ast	*tmp;
-	int		i;
+	t_cmd_lst	*tmp;
+	int			i;
 
 	i = 0;
-	while (*ast)
+	while (*cmd_lst)
 	{
-		if ((*ast)->next)
-			tmp = (*ast)->next;
+		if ((*cmd_lst)->next)
+			tmp = (*cmd_lst)->next;
 		else
 			break ;
-		if ((*ast)->type == COMMAND_NODE)
+		if ((*cmd_lst)->type == COMMAND_NODE)
 		{
-			free_command_node((*ast)->cmd_node);
-			free((*ast)->cmd_node);
+			free_command_node((*cmd_lst)->cmd_node);
+			free((*cmd_lst)->cmd_node);
 		}
-		free(*ast);
+		free(*cmd_lst);
 		i += 1;
-		*ast = tmp;
+		*cmd_lst = tmp;
 	}
-	if ((*ast)->type == COMMAND_NODE)
+	if ((*cmd_lst)->type == COMMAND_NODE)
 	{
 		i += 1;
-		free_command_node((*ast)->cmd_node);
-		free((*ast)->cmd_node);
+		free_command_node((*cmd_lst)->cmd_node);
+		free((*cmd_lst)->cmd_node);
 	}
 }

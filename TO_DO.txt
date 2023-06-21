@@ -4,7 +4,7 @@ Things to do
 - Sortie d'erreur + free. // ajouter un flag d'erreur dans la def de data lexing  et ensuite dans while flag == SUCCESS
 - Free
 - Erreur syntax :
-        pb content redirections. ">"
+        pb content redir. ">"
         free quand error quote in lexing word
         pipe error
 

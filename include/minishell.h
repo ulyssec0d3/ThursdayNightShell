@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 22:24:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:05:55 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +107,20 @@ struct s_tokens {
 // Root node : root node, where I start my program.
 
 typedef struct s_command_node				t_command_node;
-typedef struct s_ast						t_ast;
+typedef struct s_cmd_lst					t_cmd_lst;
 
 struct s_command_node {
 	char	**argument;
 	int		*argument_subst;
-	char	**redirections;
-	int		*redirections_type;
-	int		*redir_subst;
+	char	**redir;
+	int		*redir_type;
+	int		*redir_sub;
 };
 
-struct s_ast {
+struct s_cmd_lst {
 	enum e_type_exec			type;
 	t_command_node				*cmd_node;
-	t_ast						*next;
+	t_cmd_lst					*next;
 };
 
 // Expand_structures
@@ -147,12 +147,12 @@ typedef struct s_expand
 
 // Main.c
 int			main(int argc, char **argv, char **env);
-int	check_line(t_data_lexing *data_lexing, char *str);
+void		check_line(t_data_lexing *data_lexing, char *str);
 
-// Print_ast.c
+// Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);
 void		print_cmd_node(t_command_node *cmd);
-void		print_ast(t_ast **ast);
+void		print_cmd_lst(t_cmd_lst **cmd_lst);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -161,14 +161,14 @@ void		print_ast(t_ast **ast);
 //////////////////////////////////////////////////////////////////
 
 // Env.c
-int			expand(t_ast **ast, char **env);
+int			expand(t_cmd_lst **cmd_lst, char **env);
 void		print_env_lst(t_env_lst **env_lst);
 int			get_size_env(char **env, t_env_lst **env_lst);
 void		ft_lstadd_back_env_lst(t_env_lst **env_lst, t_env_lst *new);
 
 // Expand.c
 char		*extract_value(char *str);
-void		substitute_value(t_ast *tree);
+void		substitute_value(t_cmd_lst *tree);
 int			search_substitute_variable(char *str);
 
 //////////////////////////////////////////////////////////////////
@@ -222,14 +222,14 @@ int			is_metacharacter(char c);
 //////////////////////////////////////////////////////////////////
 
 // Parse_operator_type.c
-void		parse_pipe(t_ast **ast, t_tokens **token);
-int			parse_command(t_ast **ast, t_tokens **token);
+void		parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token);
+int			parse_command(t_cmd_lst **cmd_lst, t_tokens **token);
 
 // Init_command_node.c
 void		set_command_node_to_null(t_command_node *cmd_node);
-int			init_arg_tab(t_ast *ast, int i_arg);
-int			init_redir_tab(t_ast *ast, int i_redir);
-int			init_command_node(t_tokens **token, t_ast *ast);
+int			init_arg_tab(t_cmd_lst *cmd_lst, int i_arg);
+int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
+int			init_command_node(t_tokens **token, t_cmd_lst *cmd_lst);
 int			is_substitutable(char *str);
 
 // Get_arg.c
@@ -239,13 +239,13 @@ int			fill_redirection(t_command_node *cmd_node, char *content,
 void		get_arg(t_tokens **token, t_command_node *cmd);
 
 // Parsing.c
-void		ft_lstadd_back_ast_node(t_ast **ast, t_ast *new);
-t_tokens	*ft_lstnew_ast_node(char *content);
-int			parsing(t_ast **ast, t_tokens **token);
+void		ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new);
+t_tokens	*ft_lstnew_cmd_lst_node(char *content);
+int			parsing(t_cmd_lst **cmd_lst, t_tokens **token);
 
 // Utils.c
 void		eat_token(t_tokens **tokens);
-void		free_ast(t_ast **ast);
+void		free_cmd_lst(t_cmd_lst **cmd_lst);
 void		free_command_node(t_command_node *cmd);
 
 //////////////////////////////////////////////////////////////////
@@ -261,7 +261,7 @@ void		error_syntax(t_tokens **tokens);
 
 //////////////////////////////////////////////////////////////////
 //																//
-//                 	  	IN AST UTILS DIR   	                    //
+//                 	  	IN cmd_lst UTILS DIR   	                    //
 //																//
 //////////////////////////////////////////////////////////////////
 
@@ -291,10 +291,8 @@ int			ft_strlen(char *str);
 // List_utils.c
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
 void		ft_lstadd_back2(t_tokens *lst, t_tokens new);
-void		ft_lstadd_front(t_tokens **lst, t_tokens *new);
 int			ft_lstsize(t_tokens *lst);
 t_tokens	*ft_lstnew(char *content);
-t_tokens	*ft_lstlast(t_tokens *lst);
 
 //////////////////////////////////////////////////////////////////
 //																//

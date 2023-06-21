@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 21:41:09 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:05:10 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 int	main(int argc, char **argv, char **env)
 {
 	t_tokens	*token;
-	t_ast		*ast;
+	t_cmd_lst	*cmd_lst;
 
 	if (argc != 2)
 		return (0);
 	token = NULL;
-	ast = NULL;
+	cmd_lst = NULL;
 	lexing(&token, argv);
 	// if (token)
 	// 	ft_print_lst_token(token);
 	check_syntax(&token);
-	parsing(&ast, &token);
-	print_ast(&ast);
+	// parsing(&cmd_lst, &token);
+	// print_cmd_lst(&cmd_lst);
 	(void)env;
 	// get_env(env);
-	// expand(&ast, env);
-	free_ast(&ast);
-	free(ast);
+	// expand(&cmd_lst, env);
+	// free_cmd_lst(&cmd_lst);
+	// free(cmd_lst);
 	return (0);
 }

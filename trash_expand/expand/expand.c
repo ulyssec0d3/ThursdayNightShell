@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:07 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ When recreating a shell, implementing the "expand" functionality
 involves identifying variables and command substitutions in the 
 input command or expression, evaluating them, and replacing them
 with their respective values or output before executing the command.
-The AST can help in representing and manipulating the parsed structure
+The cmd_lst can help in representing and manipulating the parsed structure
 of the command, allowing for efficient expansion and evaluation of variables
 and command substitutions.
 $(HOME) or $`HOME`.
@@ -86,11 +86,11 @@ int	substitute_arg(t_command_node *cmd_node)
 	}
 }
 
-int	expand(t_ast **ast)
+int	expand(t_cmd_lst **cmd_lst)
 {
-	t_ast	*tmp;
+	t_cmd_lst	*tmp;
 
-	tmp = *ast;
+	tmp = *cmd_lst;
 	while (tmp)
 	{
 		if (tmp->type == COMMAND_NODE)
@@ -99,7 +99,7 @@ int	expand(t_ast **ast)
 	}
 }
 
-// void	expand_2(t_ast **ast)
+// void	expand_2(t_cmd_lst **cmd_lst)
 // {
 // 	// t_tree	*tmp;
 // 
@@ -110,7 +110,7 @@ int	expand(t_ast **ast)
 // 	// 		substitute_value(tmp->value);
 // 	// 	tmp = tmp->next;
 // 	// }
-// 	void(ast);
+// 	void(cmd_lst);
 // 	t_env_lst	*env_lst;
 // }
 // 

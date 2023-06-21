@@ -10,13 +10,13 @@ SRC_DIR     := srcs
 OBJ_DIR     := obj
 SRCS        := \
 	main.c	\
-	print_ast.c 	\
+	print_cmd_lst.c 	\
 	utils/error_management.c	\
-	utils/ast_utils/ft_strjoin.c	\
-	utils/ast_utils/is_something.c	\
-	utils/ast_utils/is_something_2.c	\
-	utils/ast_utils/libft_utils.c	\
-	utils/ast_utils/list_utils.c	\
+	utils/cmd_lst_utils/ft_strjoin.c	\
+	utils/cmd_lst_utils/is_something.c	\
+	utils/cmd_lst_utils/is_something_2.c	\
+	utils/cmd_lst_utils/libft_utils.c	\
+	utils/cmd_lst_utils/list_utils.c	\
 	utils/structures_management/free_structures.c	\
 	utils/structures_management/init_structures.c	\
 	lexing/error_syntax.c	\

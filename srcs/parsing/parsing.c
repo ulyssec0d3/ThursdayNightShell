@@ -6,20 +6,20 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 11:29:18 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstadd_back_ast_node(t_ast **ast, t_ast *new)
+void	ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new)
 {
-	t_ast	*tmp;
+	t_cmd_lst	*tmp;
 
 	tmp = NULL;
-	tmp = *ast;
-	if (!*ast)
-		*ast = new;
+	tmp = *cmd_lst;
+	if (!*cmd_lst)
+		*cmd_lst = new;
 	else
 	{
 		while (tmp->next != NULL)
@@ -28,9 +28,9 @@ void	ft_lstadd_back_ast_node(t_ast **ast, t_ast *new)
 	}
 }
 
-// if (*ast == NULL)
+// if (*cmd_lst == NULL)
 // 	return (error);
-int	parsing(t_ast **ast, t_tokens **token)
+int	parsing(t_cmd_lst **cmd_lst, t_tokens **token)
 {
 	int	flag;
 
@@ -38,10 +38,10 @@ int	parsing(t_ast **ast, t_tokens **token)
 	while (*token != NULL)
 	{
 		if ((*token)->type != PIPE)
-			flag = parse_command(ast, token);
+			flag = parse_command(cmd_lst, token);
 		else
 		{
-			parse_pipe(ast, token);
+			parse_pipe(cmd_lst, token);
 		}
 		if (flag != SUCCESS)
 			return (flag);

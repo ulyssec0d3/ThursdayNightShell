@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 21:25:06 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:03:55 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,23 @@ int	fill_arg(t_command_node *cmd_node, char *content, int i)
 
 int	fill_redirection(t_command_node *cmd_node, char *content, int type, int i)
 {
-	cmd_node->redirections[i] = ft_strdup(content);
-	cmd_node->redirections_type[i] = type;
-	cmd_node->redir_subst[i] = is_substitutable(cmd_node->redirections[i]);
+	cmd_node->redir[i] = ft_strdup(content);
+	cmd_node->redir_type[i] = type;
+	cmd_node->redir_sub[i] = is_substitutable(cmd_node->redir[i]);
 	return (1);
 }
 
-void	set_last_c(t_command_node *cmd_node, int i_arg, int i_redir)
+void	set_lcmd_lst_c(t_command_node *cmd_node, int i_arg, int i_redir)
 {
 	if (cmd_node->argument != NULL)
 	{
 		cmd_node->argument[i_arg] = NULL;
 		cmd_node->argument_subst[i_arg] = 0;
 	}
-	if (cmd_node->redirections != NULL)
+	if (cmd_node->redir != NULL)
 	{
-		cmd_node->redirections[i_redir] = NULL;
-		cmd_node->redirections_type[i_redir] = 0;
+		cmd_node->redir[i_redir] = NULL;
+		cmd_node->redir_type[i_redir] = 0;
 	}
 }
 
@@ -86,5 +86,5 @@ void	get_arg(t_tokens **token, t_command_node *cmd_node)
 					(*token)->type, i_redir);
 		eat_token(token);
 	}
-	set_last_c(cmd_node, i_arg, i_redir);
+	set_lcmd_lst_c(cmd_node, i_arg, i_redir);
 }

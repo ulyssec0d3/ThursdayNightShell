@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_ast.c                                        :+:      :+:    :+:   */
+/*   print_cmd_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 23:02:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 21:24:40 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:29:15 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ void	ft_print_lst_token(t_tokens *token)
 	{
 		printf("List is empty.\n");
 		return ;
-	}
-	if (tmp->content == NULL)
-	{
-		printf("The first node is null.\n");
-		tmp = tmp->next;
 	}
 	while (tmp != NULL)
 	{
@@ -58,26 +53,26 @@ void	print_cmd_node(t_command_node *cmd_node)
 		}
 	}
 	i = 0;
-	if (cmd_node->redirections != NULL)
+	if (cmd_node->redir != NULL)
 	{
-		while (cmd_node->redirections[i])
+		while (cmd_node->redir[i])
 		{
-			printf("Redirection[%i] : %s\n", i, cmd_node->redirections[i]);
+			printf("Redirection[%i] : %s\n", i, cmd_node->redir[i]);
 			printf("Redirection_type[%i] : %i\n", i,
-				(cmd_node->redirections_type[i]));
-			printf("Redir_subst[%i] : %i\n\n", i, cmd_node->redir_subst[i]);
+				(cmd_node->redir_type[i]));
+			printf("redir_sub[%i] : %i\n\n", i, cmd_node->redir_sub[i]);
 			i++;
 		}
 	}
 }
 
-void	print_ast(t_ast **ast)
+void	print_cmd_lst(t_cmd_lst **cmd_lst)
 {
-	t_ast	*tmp;
-	int		i;
+	t_cmd_lst	*tmp;
+	int			i;
 
-	printf("\nPRINT AST : \n\n");
-	tmp = *ast;
+	printf("\nPRINT cmd_lst : \n\n");
+	tmp = *cmd_lst;
 	i = 0;
 	while (tmp)
 	{

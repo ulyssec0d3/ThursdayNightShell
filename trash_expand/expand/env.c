@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 00:42:33 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/18 14:52:44 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	print_env_lst(t_env_lst **env_lst)
 	}
 }
 
-int	expand(t_ast **ast, char **env)
+int	expand(t_cmd_lst **cmd_lst, char **env)
 {
 	t_env_lst	*env_lst;
 
-	(void)ast;
+	(void)cmd_lst;
 	env_lst = malloc(sizeof(t_env_lst));
 	if (!env)
 		return (ERROR_MALLOC);

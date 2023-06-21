@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 22:27:21 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:52:33 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,16 @@ t_tokens	*add_new_token(char *content, int type)
 	if (new_elem == NULL)
 		return (NULL);
 	new_elem->type = type;
-	new_elem->len = ft_strlen(content);
-	new_elem->content = ft_strdup(content);
+	if (content != NULL)
+	{
+		new_elem->len = ft_strlen(content);
+		new_elem->content = ft_strdup(content);
+	}
+	else
+	{
+		new_elem->len = 0;
+		new_elem->content = NULL;
+	}
 	new_elem->next = NULL;
 	return (new_elem);
 }
@@ -36,13 +44,16 @@ t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
 	char	*content;
 
 	content = NULL;
-	content = malloc(sizeof(char *) * (size + 1));
-	if (content == NULL)
+	if (size > 0)
 	{
-		free(content);
-		return (NULL);
+		content = malloc(sizeof(char *) * (size + 1));
+		if (content == NULL)
+		{
+			free(content);
+			return (NULL);
+		}
+		get_content(content, data_lexing->line, size, data_lexing->pos);
 	}
-	get_content(content, data_lexing->line, size, data_lexing->pos);
 	return (add_new_token(content, type));
 }
 
@@ -98,12 +109,11 @@ void	lexing(t_tokens **token, char **argv)
 		while (is_space(data_lexing.line[data_lexing.pos]) == 1)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
-		if (tmp_token == NULL)
+		if (tmp_token == 0)
 			error_in_lexing(&data_lexing, ERROR_MALLOC);
 		len = tmp_token->len;
 		ft_lstadd_back(token, tmp_token);
 		data_lexing.pos += len;
 	}
 	free(data_lexing.line);
-	// return (1);
 }
