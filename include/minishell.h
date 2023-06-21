@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:28:08 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:08:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_expand
 // Main.c
 int			main(int argc, char **argv, char **env);
 void		check_line(t_data_lexing *data_lexing, char *str);
+int	is_substitutable_save(char *str);
 
 // Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);
@@ -230,7 +231,7 @@ void		set_command_node_to_null(t_command_node *cmd_node);
 int			init_arg_tab(t_cmd_lst *cmd_lst, int i_arg);
 int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
 int			init_command_node(t_tokens **token, t_cmd_lst *cmd_lst);
-int			is_substitutable(char *str);
+int			is_substitutable(char *str, int i_dollar);
 
 // Get_arg.c
 int			fill_arg(t_command_node *cmd_node, char *content, int i);

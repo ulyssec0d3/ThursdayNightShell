@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:22:38 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:21:39 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,4 @@ int	main(int argc, char **argv, char **env)
 	// free(cmd_lst);
 	return (0);
 }
+// dollarentre simple quote = pas de subst saud si simple quote dans double quote.
