@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 18:17:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ int	is_substitutable(char *str, int i_dollar)
 	i = 0;
 	cpt_dollar = 0;
 	size = 0;
-	// printf("test i %d\n", i);
 	while (cpt_dollar < i_dollar)
 	{
-		// printf("test i %d\n", i);
 		while (str[i] && is_dollar(str[i]) == 0)
 			i++;
 		if (!str[i])
@@ -74,12 +72,9 @@ int	is_substitutable(char *str, int i_dollar)
 			printf("Nothing to substitute here\n");
 			return (-2);
 		}
-		// printf("test c %c", str[i]);
 		i++;
 		cpt_dollar++;
-		// printf("cpt %d\n", cpt_dollar);
 	}
-	
 	while (str[i] && (is_alpha(str[i]) == 1 || is_number(str[i]) == 1 || str[i] == 95))
 	{
 		size++;
@@ -98,16 +93,12 @@ int	fill_arg(t_command_node *cmd_node, char *content, int i)
 	j = 0;
 	nb_subst = nb_dollar(content);
 	cmd_node->argument[i] = ft_strdup(content);
-	cmd_node->argument_subst[i] = malloc(sizeof (int) * (nb_subst + 1));
-	cmd_node->argument_subst[i][nb_subst] = -2;
-	// printf("nb subst : %d\n", nb_subst);
+	cmd_node->arg_subst[i] = malloc(sizeof (int) * (nb_subst + 1));
+	cmd_node->arg_subst[i][nb_subst] = -2;
 	while (j < nb_subst)
 	{
-		// printf("i : %d\n", i);
-		// printf("j : %d\n", j);
-		cmd_node->argument_subst[i][j] = -5;
-		cmd_node->argument_subst[i][j] = is_substitutable(cmd_node->argument[i], j + 1);
-		// printf("j : %d\n", j);
+		cmd_node->arg_subst[i][j] = -5;
+		cmd_node->arg_subst[i][j] = is_substitutable(cmd_node->argument[i], j + 1);
 		j++;
 	}
 	return (1);
@@ -120,13 +111,13 @@ int	fill_redirection(t_command_node *cmd_node, char *content, int type, int i)
 	cmd_node->redir_sub[i] = 0;
 	return (1);
 }
-// is_substitutable(cmd_node->redir[i]);
+
 void	set_lcmd_lst_c(t_command_node *cmd_node, int i_arg, int i_redir)
 {
 	if (cmd_node->argument != NULL)
 	{
 		cmd_node->argument[i_arg] = NULL;
-		cmd_node->argument_subst[i_arg] = 0;
+		cmd_node->arg_subst[i_arg] = 0;
 	}
 	if (cmd_node->redir != NULL)
 	{

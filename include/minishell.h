@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 18:08:34 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_cmd_lst					t_cmd_lst;
 
 struct s_command_node {
 	char	**argument;
-	int		**argument_subst;
+	int		**arg_subst;
 	char	**redir;
 	int		*redir_type;
 	int		*redir_sub;
@@ -148,7 +148,7 @@ typedef struct s_expand
 // Main.c
 int			main(int argc, char **argv, char **env);
 void		check_line(t_data_lexing *data_lexing, char *str);
-int	is_substitutable_save(char *str);
+int			is_substitutable_save(char *str);
 
 // Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);

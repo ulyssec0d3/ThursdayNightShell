@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:32:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:38:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	set_command_node_to_null(t_command_node *cmd_node)
 {
 	cmd_node->argument = NULL;
-	cmd_node->argument_subst = NULL;
+	cmd_node->arg_subst = NULL;
 	cmd_node->redir = NULL;
 	cmd_node->redir_type = NULL;
 	cmd_node->redir_sub = NULL;
@@ -30,8 +30,8 @@ int	init_arg_tab(t_cmd_lst *cmd_lst, int i_arg)
 		cmd_lst->cmd_node->argument = malloc(sizeof (char *) * (i_arg + 1));
 		if (cmd_lst->cmd_node->argument == NULL)
 			return (ERROR_MALLOC);
-		cmd_lst->cmd_node->argument_subst = malloc(sizeof (int *) * (i_arg + 1));
-		if (cmd_lst->cmd_node->argument_subst == NULL)
+		cmd_lst->cmd_node->arg_subst = malloc(sizeof (int *) * (i_arg + 1));
+		if (cmd_lst->cmd_node->arg_subst == NULL)
 			return (ERROR_MALLOC);
 	}
 	return (SUCCESS);

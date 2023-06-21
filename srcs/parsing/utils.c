@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:05:43 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	free_arg_in_node(t_command_node *cmd_node)
 		free(cmd_node->argument[i]);
 		i++;
 	}
-	free(cmd_node->argument_subst);
+	free(cmd_node->arg_subst);
 	free(cmd_node->argument);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	substitute_value(t_command_node *cmd_node, int i)
 	char	*variable;
 	char	*substitute;
 
-	variable = extract_value(cmd_node->argument[i], cmd_node->argument_subst[i]);
+	variable = extract_value(cmd_node->argument[i], cmd_node->arg_subst[i]);
 	substitute = get_env(variable);
 	search_and_replace(tree, variable, substitute);
 }
@@ -78,9 +78,9 @@ int	substitute_arg(t_command_node *cmd_node)
 	int	i;
 
 	i = 0;
-	while (cmd_node->argument_subst && cmd_node->argument_subst[i])
+	while (cmd_node->arg_subst && cmd_node->arg_subst[i])
 	{
-		if (cmd_node->argument_subst[i] != 0)
+		if (cmd_node->arg_subst[i] != 0)
 			substitute_value(cmd->node, i);
 		i++;
 	}

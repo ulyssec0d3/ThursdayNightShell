@@ -44,9 +44,9 @@ void	print_cmd_node(t_command_node *cmd_node)
 	i = 1;
 	j = 0;
 	printf("Cmd : %s\n", cmd_node->argument[0]);
-	while (cmd_node->argument_subst[0][j] != -2)
+	while (cmd_node->arg_subst[0][j] != -2)
 	{
-		printf("Cmd_subst : %i\n\n", cmd_node->argument_subst[0][j]);
+		printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[0][j]);
 		j++;
 	}
 	if (cmd_node->argument != NULL)
@@ -55,9 +55,9 @@ void	print_cmd_node(t_command_node *cmd_node)
 		{
 			j = 0;
 			printf("Argument[%i] : %s\n", i, cmd_node->argument[i]);
-			while (cmd_node->argument_subst[i][j] != -2)
+			while (cmd_node->arg_subst[i][j] != -2)
 			{
-				printf("Cmd_subst : %i\n\n", cmd_node->argument_subst[i][j]);
+				printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[i][j]);
 				j++;
 			}
 			i++;
