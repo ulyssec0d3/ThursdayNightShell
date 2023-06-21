@@ -6,40 +6,46 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:36:53 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:04:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:40:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// This function free the token after we worked on it
-// and set the pointer to the next token
-
-// void	eat_token(t_tokens **tokens)
+// void	build_tree(t_tokens **token, t_root **tree)
 // {
-// 	t_tokens	*tmp;
-
-// 	tmp = *tokens;
-// 	if (tokens == NULL)
-// 		return ;
-// 	*tmp = tmp->next;
-// 	// lst clear(token);
-// 	free(tmp);
-// }
-
-// Token is the list after lexing.
-// Tree is the list containing the tree.
-
-// void	build_tree(t_tokens **token, t_tree **tree)
-// {
-// 	while (*token)
+// 	while ((*token))
 // 	{
-// 		if (is_special_type(*token)->type == 1)
-// 			parse_special_type();
+// 		if ((*token)->next->type != 1)
+// 			parse_command(token, tree);
 // 		else
-// 			parse_word();
+// 			parse_pipe(&data_parsing, token);
 // 	}
 // }
 
-// void    parse_word(t_tokens **token, t_tree **tree)
-// {}
+// void	print_ast(t_root **tree)
+// {
+// 	int	i; // nb nodes
+
+// 	i = 0;
+// 	while (ast->next)
+// 	{
+// 		printf();
+// 	}
+// }
+
+// int j;
+
+// j = 0;
+// while (argument[j])
+// {
+// 	printf("Argument[%i] : %s\n", j, argument[j]);
+// 	j++;
+// }
+// j = 0;
+// while (redirections[j])
+// {
+// 	redirections[j] = 
+// 	printf("\n", redirections_type[j]);
+// 	j++;
+// }

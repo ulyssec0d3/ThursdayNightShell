@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:02:49 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:04:52 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:10:35 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_parenthesis(char c)
 }
 
 // CPT PARENTHESIS : This function returns 1 if the character is an opening
-//parenthesis, -1 for closing parenthesis and 0 if it isn't a parenthesis.
+// parenthesis, -1 for closing parenthesis and 0 if it isn't a parenthesis.
 
 int	cpt_parenthesis(char c)
 {
@@ -33,22 +33,22 @@ int	cpt_parenthesis(char c)
 	return (0);
 }
 
-// PARENTHESIS_MANAGEMENT : Starting from an opening parenthesis, 
-// searches for the corresponding closing parenthesis and return 
+// Is_in_parenthesis : Starting from an opening parenthesis, 
+// searches for the corresponding closing parenthesis and returns 
 // the size of the buffer to parse.
 
-int	parenthesis_management(t_data *data)
+int	is_in_parenthesis(char *str, int start)
 {
 	int	pos_tmp;
 	int	cpt;
 	int	size;
 
 	cpt = 1;
-	pos_tmp = data->pos + 1;
+	pos_tmp = start + 1;
 	size = 1;
-	while (data->line[pos_tmp] && cpt != 0)
+	while (str[pos_tmp] && cpt != 0)
 	{
-		cpt += cpt_parenthesis(data->line[pos_tmp]);
+		cpt += cpt_parenthesis(str[pos_tmp]);
 		size++;
 		pos_tmp++;
 	}

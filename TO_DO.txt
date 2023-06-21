@@ -1,6 +1,5 @@
 Things to do
-
-- Dans FIND_TYPE : gerer les &&, bien utiliser des strncmp.
+- Checker que j'envoie bien la bonne len dans le lexing.
 - Faire un type pour \0.
 - Reparser l'interieur des parentheses.
 - Gerer les dollars. if (line[i] == '$' && line[i + 1]???).

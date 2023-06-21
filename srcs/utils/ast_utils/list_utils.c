@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:30:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/05/18 15:07:00 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:33:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 	t_tokens	*tmp;
 
 	tmp = *lst;
-	if (!(*lst))
+	if (!*lst)
 		*lst = new;
 	else
 	{
