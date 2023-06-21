@@ -6,86 +6,15 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:25:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:48:51 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	nb_dollar(char *str)
-{
-	int	cpt;
-	int	i;
-
-	cpt = 0;
-	i = 0;
-	while (str[i])
-	{
-		cpt += is_dollar(str[i]);
-		i++;
-	}
-	return (cpt);
-}
-
-int	is_substitutable_save(char *str)
-{
-	int	i;
-	int	size;
-
-	i = 0;
-	while (str[i] && is_dollar(str[i]) == 0)
-		i++;
-	if (!str[i])
-	{
-		printf("Nothing to substitute here\n");
-		return (-2);
-	}
-	size = 0;
-	i++;
-	while (is_alpha(str[i]) == 1 || is_number(str[i]) == 1 || str[i] == 95)
-	{
-		size++;
-		i++;
-	}
-	return (size);
-}
-
-// IS_SUBSTITUTABLE : This function returns 0 if it finds a dollar in 
-// the string sent. Else, it returns the len of characters to substitute
-// behind the $. -2 = Nothing to substitute
-
-int	is_substitutable(char *str, int i_dollar)
-{
-	int	i;
-	int	cpt_dollar;
-	int	size;
-
-	i = 0;
-	cpt_dollar = 0;
-	size = 0;
-	while (cpt_dollar < i_dollar)
-	{
-		while (str[i] && is_dollar(str[i]) == 0)
-			i++;
-		if (!str[i])
-		{
-			printf("Nothing to substitute here\n");
-			return (-2);
-		}
-		i++;
-		cpt_dollar++;
-	}
-	while (str[i] && (is_alpha(str[i]) == 1 || is_number(str[i]) == 1 || str[i] == 95))
-	{
-		size++;
-		i++;
-	}
-	return (size);
-}
-
 // FILL_ARG :
 
-int	fill_arg(t_command_node *cmd_node, char *content, int i)
+int	fill_arg(t_cmd_node *cmd_node, char *content, int i)
 {
 	int	nb_subst;
 	int	j;
@@ -98,13 +27,14 @@ int	fill_arg(t_command_node *cmd_node, char *content, int i)
 	while (j < nb_subst)
 	{
 		cmd_node->arg_subst[i][j] = -5;
-		cmd_node->arg_subst[i][j] = is_substitutable(cmd_node->argument[i], j + 1);
+		cmd_node->arg_subst[i][j] = is_substitutable(cmd_node->argument[i],
+				j + 1);
 		j++;
 	}
 	return (1);
 }
 
-int	fill_redirection(t_command_node *cmd_node, char *content, int type, int i)
+int	fill_redirection_save(t_cmd_node *cmd_node, char *content, int type, int i)
 {
 	cmd_node->redir[i] = ft_strdup(content);
 	cmd_node->redir_type[i] = type;
@@ -112,7 +42,27 @@ int	fill_redirection(t_command_node *cmd_node, char *content, int type, int i)
 	return (1);
 }
 
-void	set_lcmd_lst_c(t_command_node *cmd_node, int i_arg, int i_redir)
+int	fill_redirection(t_cmd_node *cmd_node, char *content, int type, int i)
+{
+	int	nb_subst;
+	int	j;
+
+	j = 0;
+	nb_subst = nb_dollar(content);
+	cmd_node->redir[i] = ft_strdup(content);
+	cmd_node->redir_type[i] = type;
+	cmd_node->redir_sub[i] = malloc(sizeof (int) * (nb_subst + 1));
+	cmd_node->redir_sub[i][nb_subst] = -2;
+	while (j < nb_subst)
+	{
+		cmd_node->redir_sub[i][j] = -5;
+		cmd_node->redir_sub[i][j] = is_substitutable(cmd_node->redir[i], j + 1);
+		j++;
+	}
+	return (1);
+}
+
+void	set_last_c_null(t_cmd_node *cmd_node, int i_arg, int i_redir)
 {
 	if (cmd_node->argument != NULL)
 	{
@@ -123,10 +73,11 @@ void	set_lcmd_lst_c(t_command_node *cmd_node, int i_arg, int i_redir)
 	{
 		cmd_node->redir[i_redir] = NULL;
 		cmd_node->redir_type[i_redir] = 0;
+		cmd_node->redir_sub[i_redir] = 0;
 	}
 }
 
-void	get_arg(t_tokens **token, t_command_node *cmd_node)
+void	get_arg(t_tokens **token, t_cmd_node *cmd_node)
 {
 	int	i_arg;
 	int	i_redir;
@@ -142,5 +93,5 @@ void	get_arg(t_tokens **token, t_command_node *cmd_node)
 					(*token)->type, i_redir);
 		eat_token(token);
 	}
-	set_lcmd_lst_c(cmd_node, i_arg, i_redir);
+	set_last_c_null(cmd_node, i_arg, i_redir);
 }

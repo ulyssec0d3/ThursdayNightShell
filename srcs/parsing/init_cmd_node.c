@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_command_node.c                                :+:      :+:    :+:   */
+/*   init_cmd_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 // allouer une taille de 100int 
 
-void	set_command_node_to_null(t_command_node *cmd_node)
+void	set_cmd_node_to_null(t_cmd_node *cmd_node)
 {
 	cmd_node->argument = NULL;
 	cmd_node->arg_subst = NULL;
@@ -47,14 +47,14 @@ int	init_redir_tab(t_cmd_lst *cmd_lst, int i_redir)
 		cmd_lst->cmd_node->redir_type = malloc(sizeof (int) * (i_redir + 1));
 		if (cmd_lst->cmd_node->redir_type == NULL)
 			return (ERROR_MALLOC);
-		cmd_lst->cmd_node->redir_sub = malloc(sizeof (char *) * (i_redir + 1));
+		cmd_lst->cmd_node->redir_sub = malloc(sizeof (int *) * (i_redir + 1));
 		if (cmd_lst->cmd_node->redir_sub == NULL)
 			return (ERROR_MALLOC);
 	}
 	return (SUCCESS);
 }
 
-int	init_command_node(t_tokens **token, t_cmd_lst *cmd_lst)
+int	init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst)
 {
 	t_tokens		*tmp;
 	int				i_arg;
@@ -64,10 +64,10 @@ int	init_command_node(t_tokens **token, t_cmd_lst *cmd_lst)
 	flag = SUCCESS;
 	i_arg = 0;
 	i_redir = 0;
-	cmd_lst->cmd_node = malloc(sizeof(t_command_node));
+	cmd_lst->cmd_node = malloc(sizeof(t_cmd_node));
 	if (!(cmd_lst->cmd_node))
 		return (ERROR_MALLOC);
-	set_command_node_to_null(cmd_lst->cmd_node);
+	set_cmd_node_to_null(cmd_lst->cmd_node);
 	tmp = *token;
 	while (tmp && (*tmp).type != PIPE)
 	{

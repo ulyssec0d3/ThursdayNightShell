@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:39:19 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <limits.h>
 # include <stdint.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -40,7 +43,7 @@
 
 enum e_type_exec
 {
-	COMMAND_NODE,
+	CMD_NODE,
 	PIPE_NODE
 } ;
 
@@ -54,7 +57,7 @@ enum e_type_token
 	SIMPLE_IN,
 	SIMPLE_OUT,
 	DOUBLE_IN,
-	DOUBLE_OUT,
+	DOUBLE_OUT
 } ;
 
 enum e_error
@@ -106,20 +109,20 @@ struct s_tokens {
 // Command node : the node represents a simple command.
 // Root node : root node, where I start my program.
 
-typedef struct s_command_node				t_command_node;
+typedef struct s_cmd_node					t_cmd_node;
 typedef struct s_cmd_lst					t_cmd_lst;
 
-struct s_command_node {
+struct s_cmd_node {
 	char	**argument;
 	int		**arg_subst;
 	char	**redir;
 	int		*redir_type;
-	int		*redir_sub;
+	int		**redir_sub;
 };
 
 struct s_cmd_lst {
 	enum e_type_exec			type;
-	t_command_node				*cmd_node;
+	t_cmd_node					*cmd_node;
 	t_cmd_lst					*next;
 };
 
@@ -145,6 +148,8 @@ typedef struct s_expand
 //																//
 //////////////////////////////////////////////////////////////////
 
+void		prompt(char **env);
+
 // Main.c
 int			main(int argc, char **argv, char **env);
 void		check_line(t_data_lexing *data_lexing, char *str);
@@ -152,7 +157,7 @@ int			is_substitutable_save(char *str);
 
 // Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);
-void		print_cmd_node(t_command_node *cmd);
+void		print_cmd_node(t_cmd_node *cmd);
 void		print_cmd_lst(t_cmd_lst **cmd_lst);
 
 //////////////////////////////////////////////////////////////////
@@ -193,7 +198,7 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing);
 t_tokens	*add_new_token(char *content, int type);
 t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
 int			find_type(t_data_lexing **data_lexing);
-void		lexing(t_tokens **token, char **argv);
+void		lexing(t_tokens **token, char *argv);
 t_tokens	*new_token_pipe(void);
 
 // Parenthesis_management.c
@@ -223,21 +228,21 @@ int			is_metacharacter(char c);
 //////////////////////////////////////////////////////////////////
 
 // Parse_operator_type.c
-void		parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token);
+int			parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token);
 int			parse_command(t_cmd_lst **cmd_lst, t_tokens **token);
 
-// Init_command_node.c
-void		set_command_node_to_null(t_command_node *cmd_node);
+// Init_cmd_node.c
+void		set_cmd_node_to_null(t_cmd_node *cmd_node);
 int			init_arg_tab(t_cmd_lst *cmd_lst, int i_arg);
 int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
-int			init_command_node(t_tokens **token, t_cmd_lst *cmd_lst);
+int			init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst);
 int			is_substitutable(char *str, int i_dollar);
 
 // Get_arg.c
-int			fill_arg(t_command_node *cmd_node, char *content, int i);
-int			fill_redirection(t_command_node *cmd_node, char *content,
+int			fill_arg(t_cmd_node *cmd_node, char *content, int i);
+int			fill_redirection(t_cmd_node *cmd_node, char *content,
 				int type, int i);
-void		get_arg(t_tokens **token, t_command_node *cmd);
+void		get_arg(t_tokens **token, t_cmd_node *cmd);
 
 // Parsing.c
 void		ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new);
@@ -245,9 +250,10 @@ t_tokens	*ft_lstnew_cmd_lst_node(char *content);
 int			parsing(t_cmd_lst **cmd_lst, t_tokens **token);
 
 // Utils.c
+int			nb_dollar(char *str);
 void		eat_token(t_tokens **tokens);
 void		free_cmd_lst(t_cmd_lst **cmd_lst);
-void		free_command_node(t_command_node *cmd);
+void		free_cmd_node(t_cmd_node *cmd);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -302,7 +308,7 @@ t_tokens	*ft_lstnew(char *content);
 //////////////////////////////////////////////////////////////////
 
 // Init_structures.c 
-void		init_data_lexing_structure(t_data_lexing *data_lexing, char **argv);
+void		init_data_lexing_structure(t_data_lexing *data_lexing, char *argv);
 
 // Free_structures.c
 void		free_token_structure(t_tokens **tokens);

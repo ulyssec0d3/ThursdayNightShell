@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:08 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 22:21:22 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:18:54 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*extract_value(char **content, int size)
 	i = 0;
 }
 
-void	substitute_value(t_command_node *cmd_node, int i)
+void	substitute_value(t_cmd_node *cmd_node, int i)
 {
 	char	*variable;
 	char	*substitute;
@@ -73,7 +73,7 @@ void	substitute_value(t_command_node *cmd_node, int i)
 	search_and_replace(tree, variable, substitute);
 }
 
-int	substitute_arg(t_command_node *cmd_node)
+int	substitute_arg(t_cmd_node *cmd_node)
 {
 	int	i;
 
@@ -93,7 +93,7 @@ int	expand(t_cmd_lst **cmd_lst)
 	tmp = *cmd_lst;
 	while (tmp)
 	{
-		if (tmp->type == COMMAND_NODE)
+		if (tmp->type == cmd_node)
 			substitute_arg(tmp->cmd_node);
 		tmp = tmp->next;
 	}

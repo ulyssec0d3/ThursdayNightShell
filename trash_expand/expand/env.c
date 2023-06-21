@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 00:42:33 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:01:36 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:51:53 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	expand(t_cmd_lst **cmd_lst, char **env)
 		return (ERROR_MALLOC);
 	env_lst = NULL;
 	get_size_env(env, &env_lst);
-	// fill_env_lst(env, &env_lst);
+	fill_env_lst(env, &env_lst);
 	print_env_lst(&env_lst);
 	return (SUCCESS);
 }

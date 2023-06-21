@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_cmd_lst.c                                        :+:      :+:    :+:   */
+/*   print_cmd_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 23:02:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 13:29:15 by lduheron         ###   ########.fr       */
+/*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
+/*   Updated: 2023/06/22 00:11:07 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,26 @@ void	ft_print_lst_token(t_tokens *token)
 	}
 }
 
-void	print_cmd_node(t_command_node *cmd_node)
+void	print_cmd_node(t_cmd_node *cmd_node)
 {
 	int	i;
 	int	j;
 
 	i = 1;
 	j = 0;
-	printf("Cmd : %s\n", cmd_node->argument[0]);
-	while (cmd_node->arg_subst[0][j] != -2)
+	if (cmd_node == NULL)
 	{
-		printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[0][j]);
-		j++;
+		printf("Error: cmd_node is NULL\n");
+		return ;
+	}
+	if (cmd_node->argument)
+	{
+		printf("Cmd : %s\n", cmd_node->argument[0]);
+		while (cmd_node->arg_subst[0][j] != -2)
+		{
+			printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[0][j]);
+			j++;
+		}
 	}
 	if (cmd_node->argument != NULL)
 	{
@@ -57,7 +65,8 @@ void	print_cmd_node(t_command_node *cmd_node)
 			printf("Argument[%i] : %s\n", i, cmd_node->argument[i]);
 			while (cmd_node->arg_subst[i][j] != -2)
 			{
-				printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[i][j]);
+				printf("Cmd_subst[%i][%i] : %i\n\n", i, j,
+					cmd_node->arg_subst[i][j]);
 				j++;
 			}
 			i++;
@@ -68,10 +77,16 @@ void	print_cmd_node(t_command_node *cmd_node)
 	{
 		while (cmd_node->redir[i])
 		{
+			j = 0;
 			printf("Redirection[%i] : %s\n", i, cmd_node->redir[i]);
 			printf("Redirection_type[%i] : %i\n", i,
 				(cmd_node->redir_type[i]));
-			printf("redir_sub[%i] : %i\n\n", i, cmd_node->redir_sub[i]);
+			while (cmd_node->redir_sub[i][j] != -2)
+			{
+				printf("Redirection_sub[%i][%i] : %i\n\n", i, j,
+					cmd_node->redir_sub[i][j]);
+				j++;
+			}
 			i++;
 		}
 	}
@@ -89,7 +104,7 @@ void	print_cmd_lst(t_cmd_lst **cmd_lst)
 	{
 		printf(" ----- NODE %i ----- \n", i);
 		printf("type : %i\n", tmp->type);
-		if (tmp->type == COMMAND_NODE)
+		if (tmp->type == CMD_NODE)
 			print_cmd_node(tmp->cmd_node);
 		printf("\n\n");
 		if (!tmp->next)

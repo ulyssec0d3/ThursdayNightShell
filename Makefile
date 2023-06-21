@@ -25,8 +25,9 @@ SRCS        := \
 	lexing/parenthesis_management.c	\
 	lexing/quote_management.c	\
 	lexing/utils.c	\
+	parsing/free_parsing.c	\
 	parsing/get_arg.c	\
-	parsing/init_command_node.c	\
+	parsing/init_cmd_node.c	\
 	parsing/parse_operator_node.c	\
 	parsing/parsing.c	\
 	parsing/utils.c	\
@@ -51,7 +52,7 @@ DIR_DUP     = mkdir -p $(@D)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) -o $(NAME) -L/usr/local/lib -I/usr/local/include -lreadline 
 	$(info CREATED $(NAME))
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

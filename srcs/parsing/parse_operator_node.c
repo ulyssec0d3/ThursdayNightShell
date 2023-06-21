@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:07:06 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:05:26 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 23:37:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	parse_command(t_cmd_lst **cmd_lst, t_tokens **token)
 	tmp = malloc(sizeof(t_cmd_lst));
 	if (!tmp)
 		return (ERROR_MALLOC);
-	tmp->type = COMMAND_NODE;
+	tmp->type = CMD_NODE;
 	tmp->next = NULL;
 	tmp->cmd_node = NULL;
-	flag = init_command_node(token, tmp);
+	flag = init_cmd_node(token, tmp);
 	if (flag != SUCCESS)
 		return (flag);
 	get_arg(token, tmp->cmd_node);
@@ -31,7 +31,7 @@ int	parse_command(t_cmd_lst **cmd_lst, t_tokens **token)
 	return (SUCCESS);
 }
 
-void	parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token)
+int	parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token)
 {
 	t_cmd_lst	*tmp;
 
@@ -41,4 +41,5 @@ void	parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token)
 	tmp->next = NULL;
 	eat_token(token);
 	ft_lstadd_back_cmd_lst_node(cmd_lst, tmp);
+	return (SUCCESS);
 }

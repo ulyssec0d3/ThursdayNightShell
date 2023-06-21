@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 14:52:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:54:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	find_type(t_data_lexing **data_lexing)
 
 // LEXING FUNCTION : This function parses the line in tokens
 // and store them in a linked list.
-void	lexing(t_tokens **token, char **argv)
+void	lexing(t_tokens **token, char *argv)
 {
 	int				len;
 	t_data_lexing	data_lexing;
