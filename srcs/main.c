@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:05:10 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:22:38 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	main(int argc, char **argv, char **env)
 	// if (token)
 	// 	ft_print_lst_token(token);
 	check_syntax(&token);
-	// parsing(&cmd_lst, &token);
-	// print_cmd_lst(&cmd_lst);
+	parsing(&cmd_lst, &token);
+	print_cmd_lst(&cmd_lst);
 	(void)env;
 	// get_env(env);
 	// expand(&cmd_lst, env);

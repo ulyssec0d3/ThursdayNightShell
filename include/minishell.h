@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:05:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:28:08 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_cmd_lst					t_cmd_lst;
 
 struct s_command_node {
 	char	**argument;
-	int		*argument_subst;
+	int		**argument_subst;
 	char	**redir;
 	int		*redir_type;
 	int		*redir_sub;

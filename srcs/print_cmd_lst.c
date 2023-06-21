@@ -39,16 +39,27 @@ void	ft_print_lst_token(t_tokens *token)
 void	print_cmd_node(t_command_node *cmd_node)
 {
 	int	i;
+	int	j;
 
 	i = 1;
+	j = 0;
 	printf("Cmd : %s\n", cmd_node->argument[0]);
-	printf("Cmd_subst : %i\n\n", cmd_node->argument_subst[0]);
+	while (cmd_node->argument_subst[0][j])
+	{
+		printf("Cmd_subst : %i\n\n", cmd_node->argument_subst[0][j]);
+		j++;
+	}
 	if (cmd_node->argument != NULL)
 	{
 		while (cmd_node->argument[i])
 		{
+			j = 0;
 			printf("Argument[%i] : %s\n", i, cmd_node->argument[i]);
-			printf("Argument_subst[%i] : %d\n\n", i, cmd_node->argument_subst[i]);
+			while (cmd_node->argument_subst[i][j])
+			{
+				printf("Cmd_subst : %i\n\n", cmd_node->argument_subst[i][j]);
+				j++;
+			}
 			i++;
 		}
 	}

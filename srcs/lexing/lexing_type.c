@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/20 22:12:27 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:28:52 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,6 @@ t_tokens	*lexing_single_quote(t_data_lexing *data_lexing)
 	size = single_quote_management(data_lexing->line, data_lexing->pos);
 	return (new_token(data_lexing, WORD, size));
 }
-
-// t_tokens	*lexing_word_v1(t_data_lexing *data_lexing, int type)
-// {
-// 	int	flag_d_quote;
-// 	int	flag_s_quote;
-// 	int	i;
-// 	int	size;
-
-// 	flag_d_quote = 0;
-// 	flag_s_quote = 0;
-// 	i = data_lexing->pos;
-// 	size = 0;
-// 	while (data_lexing->line[i] && is_metacharacter(data_lexing->line[i]) == 0)
-// 	{
-// 		flag_d_quote += is_double_quote(data_lexing->line[i]);
-// 		flag_s_quote += is_single_quote(data_lexing->line[i]);
-// 		i++;
-// 		size++;
-// 	}
-// 	if ((flag_d_quote % 2) != 0 || (flag_s_quote % 2) != 0)
-// 	{
-// 		printf("minishell: error syntax (quote open)"); 
-// 		// flag == // RETURN
-// 	}
-// 	return (new_token(data_lexing, type, size));
-// }
 
 t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 {

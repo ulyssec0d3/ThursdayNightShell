@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:32:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 15:03:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:38:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	init_arg_tab(t_cmd_lst *cmd_lst, int i_arg)
 		cmd_lst->cmd_node->argument = malloc(sizeof (char *) * (i_arg + 1));
 		if (cmd_lst->cmd_node->argument == NULL)
 			return (ERROR_MALLOC);
-		cmd_lst->cmd_node->argument_subst = malloc(sizeof (int) * (i_arg + 1));
+		cmd_lst->cmd_node->argument_subst = malloc(sizeof (int *) * (i_arg + 1));
 		if (cmd_lst->cmd_node->argument_subst == NULL)
 			return (ERROR_MALLOC);
 	}
