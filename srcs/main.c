@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 15:38:50 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:55:45 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,29 @@ void	prompt(char **env)
 	t_cmd_lst	*cmd_lst;
 	char		*buffer;
 	int			err;
+	int			flag;
 
 	(void)env;
-	token = NULL;
+	buffer = NULL;
 	cmd_lst = NULL;
+	token = NULL;
 	err = 0;
+	flag = SUCCESS;
 	while (!err)
 	{
 		if (buffer)
 			free(buffer);
 		buffer = readline("DavidFinshell: ");
-		lexing(&token, buffer);
+		flag = lexing(&token, buffer);
 		// ft_print_lst_token(token);
-		check_syntax(&token);
-		parsing(&cmd_lst, &token);
+		flag = check_syntax(&token);
+		flag = parsing(&cmd_lst, &token);
 		print_cmd_lst(&cmd_lst);
 		if (buffer && *buffer)
 			add_history(buffer);
 	}
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	if (argc != 1)
@@ -105,4 +109,3 @@ int	main(int argc, char **argv, char **env)
 // free(cmd_lst);
 // dollar entre simple quote = pas de subst sauf si
 //  simple quote dans double quote.
-

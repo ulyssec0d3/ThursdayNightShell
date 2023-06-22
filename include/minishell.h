@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 15:39:05 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:52:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-//////////////////////////////////////////////////////////////////
-//																//
-//							FLAG ERROR							//
-//																//
-//////////////////////////////////////////////////////////////////
-
 // In or out quote.
 
 # define OUT 0
 # define IN 1
+
+# define ERROR_MALLOC -3
+# define ERROR_SYNTAX -2
+# define SUCCESS 1
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -58,13 +56,6 @@ enum e_type_token
 	SIMPLE_OUT,
 	DOUBLE_IN,
 	DOUBLE_OUT
-} ;
-
-enum e_error
-{
-	ERROR_MALLOC,
-	SUCCESS,
-	ERROR_SYNTAX
 } ;
 
 //////////////////////////////////////////////////////////////////
@@ -104,11 +95,6 @@ struct s_tokens {
 //																//
 //////////////////////////////////////////////////////////////////
 
-// Operator node represents a logical operator for instance |
-// left, right subexpression, operator type.
-// Command node : the node represents a simple command.
-// Root node : root node, where I start my program.
-
 typedef struct s_cmd_node					t_cmd_node;
 typedef struct s_cmd_lst					t_cmd_lst;
 
@@ -126,7 +112,7 @@ struct s_cmd_lst {
 	t_cmd_lst					*next;
 };
 
-// Expand_structures
+// Expand_structures ideas
 typedef struct s_env_lst
 {
 	char				*content;
@@ -148,32 +134,14 @@ typedef struct s_expand
 //																//
 //////////////////////////////////////////////////////////////////
 
-void		prompt(char **env);
-
 // Main.c
+void		prompt(char **env);
 int			main(int argc, char **argv, char **env);
 
 // Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);
 void		print_cmd_node(t_cmd_node *cmd);
 void		print_cmd_lst(t_cmd_lst **cmd_lst);
-
-//////////////////////////////////////////////////////////////////
-//																//
-//              			IN EXPAND DIR   		            //
-//																//
-//////////////////////////////////////////////////////////////////
-
-// Env.c
-int			expand(t_cmd_lst **cmd_lst, char **env);
-void		print_env_lst(t_env_lst **env_lst);
-int			get_size_env(char **env, t_env_lst **env_lst);
-void		ft_lstadd_back_env_lst(t_env_lst **env_lst, t_env_lst *new);
-
-// Expand.c
-char		*extract_value(char *str);
-void		substitute_value(t_cmd_lst *tree);
-int			search_substitute_variable(char *str);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -204,11 +172,11 @@ int			double_quote_management(char *line, int start);
 int			single_quote_management(char *line, int start);
 
 // Syntax.c
-void		check_line(t_data_lexing *data_lexing, char *str);
-int			check_open_d_quote(t_data_lexing *data_lexing, char *str, int i);
-int			check_open_s_quote(t_data_lexing *data_lexing, char *str, int i);
-void		check_redirection_content(t_tokens **token);
-void		check_syntax(t_tokens **tokens);
+int			check_line(char *str);
+int			check_open_d_quote(char *str, int i);
+int			check_open_s_quote(char *str, int i);
+int			check_redirection_content(t_tokens **token);
+int			check_syntax(t_tokens **tokens);
 
 // Utils.c
 int			get_content(char *dst, char *src, unsigned int size,
@@ -259,9 +227,9 @@ int			is_substitutable(char *str, int i_dollar);
 //////////////////////////////////////////////////////////////////
 
 // Error_management_in_parsing.c
-void		free_data_lexing(t_data_lexing *data_lexing);
-void		error_in_lexing(t_data_lexing *data_lexing, int code);
-void		error_syntax(t_tokens **tokens);
+int			error_malloc(t_data_lexing *data_lexing);
+int			error_in_line(t_data_lexing *data_lexing);
+int			error_syntax(t_tokens **tokens, int type);
 void		free_token_structure(t_tokens **tokens);
 void		ft_lstclear(t_tokens **lst);
 

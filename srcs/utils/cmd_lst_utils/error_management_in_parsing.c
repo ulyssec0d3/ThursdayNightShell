@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_management.c                                 :+:      :+:    :+:   */
+/*   error_management_in_parsing.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 15:34:00 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:44:38 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,32 @@ void	free_token_structure(t_tokens **tokens)
 	}
 }
 
-void	error_in_lexing(t_data_lexing *data_lexing, int code)
+int	error_malloc(t_data_lexing *data_lexing)
 {
-	if (code == ERROR_MALLOC)
-		printf("minishell: error malloc\n");
-	else if (code == ERROR_SYNTAX)
-		printf("minishell: syntax error near unexpected token ''\n");
+	printf("minishell: error malloc\n");
 	free(data_lexing->line);
-	exit(1);
+	return (ERROR_MALLOC);
 }
 
-void	error_syntax(t_tokens **tokens)
+int	error_in_line(t_data_lexing *data_lexing)
 {
+	free(data_lexing->line);
+	return (ERROR_MALLOC);
+}
+
+int	error_syntax(t_tokens **tokens, int type)
+{
+	if (type == PIPE)
+		printf("minishell: syntax error near unexpected token '|'\n");
+	else if (type == SIMPLE_IN)
+		printf("minishell: syntax error near unexpected token '<'\n");
+	else if (type == SIMPLE_OUT)
+		printf("minishell: syntax error near unexpected token '>'\n");
+	else if (type == DOUBLE_IN)
+		printf("minishell: syntax error near unexpected token '<<'\n");
+	else if (type == DOUBLE_IN)
+		printf("minishell: syntax error near unexpected token '>>'\n");
 	if (tokens)
 		free_token_structure(tokens);
-	printf("minishell: syntax error near unexpected token ''\n");
-	exit(1);
+	return (ERROR_SYNTAX);
 }
