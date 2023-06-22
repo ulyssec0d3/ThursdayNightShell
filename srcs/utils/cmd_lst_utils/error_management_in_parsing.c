@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 16:44:38 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:03:17 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ int	error_in_line(t_data_lexing *data_lexing)
 	return (ERROR_MALLOC);
 }
 
+int	free_data_lexing(t_data_lexing *data_lexing)
+{
+	free(data_lexing->line);
+	return (ERROR);
+}
+
 int	error_syntax(t_tokens **tokens, int type)
 {
 	if (type == PIPE)
@@ -62,7 +68,7 @@ int	error_syntax(t_tokens **tokens, int type)
 		printf("minishell: syntax error near unexpected token '>'\n");
 	else if (type == DOUBLE_IN)
 		printf("minishell: syntax error near unexpected token '<<'\n");
-	else if (type == DOUBLE_IN)
+	else if (type == DOUBLE_OUT)
 		printf("minishell: syntax error near unexpected token '>>'\n");
 	if (tokens)
 		free_token_structure(tokens);

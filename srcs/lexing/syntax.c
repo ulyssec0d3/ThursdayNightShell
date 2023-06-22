@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 16:50:32 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:54:54 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	check_open_s_quote(char *str, int i)
 		i++;
 	if (str[i] == '\0')
 	{
-		printf("minishell: syntax error single quotes\n");
-		return (ERROR_MALLOC);
+		printf("minishell: syntax error single quote\n");
+		return (ERROR_SYNTAX);
 	}
 	if (is_single_quote(str[i]) == 1)
 				i++;
@@ -91,8 +91,8 @@ int	check_open_d_quote(char *str, int i)
 		i++;
 	if (str[i] == '\0')
 	{
-		printf("minishell: syntax error double quotes\n");
-		return (ERROR_MALLOC);
+		printf("minishell: syntax error double quote\n");
+		return (ERROR_SYNTAX);
 	}
 	if (is_double_quote(str[i]) == 1)
 		i++;
@@ -115,8 +115,8 @@ int	check_line(char *str)
 			i = check_open_d_quote(str, i);
 		else
 			i++;
-		if (i == ERROR_MALLOC)
-			return (ERROR_MALLOC);
+		if (i == ERROR_SYNTAX)
+			return (ERROR_SYNTAX);
 	}
 	return (SUCCESS);
 }

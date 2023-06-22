@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:31:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 16:55:45 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:57:34 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ void	prompt(char **env)
 		if (buffer)
 			free(buffer);
 		buffer = readline("DavidFinshell: ");
-		flag = lexing(&token, buffer);
-		// ft_print_lst_token(token);
-		flag = check_syntax(&token);
-		flag = parsing(&cmd_lst, &token);
-		print_cmd_lst(&cmd_lst);
+		if (buffer && *buffer)
+		{
+			if (lexing(&token, buffer) == SUCCESS)
+				if (check_syntax(&token) == SUCCESS)
+					parsing(&cmd_lst, &token);
+			if (cmd_lst)
+				print_cmd_lst(&cmd_lst);
+		}
 		if (buffer && *buffer)
 			add_history(buffer);
 	}

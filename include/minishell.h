@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 16:52:30 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:35:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 # define ERROR_MALLOC -3
 # define ERROR_SYNTAX -2
+# define ERROR 0
 # define SUCCESS 1
 
 //////////////////////////////////////////////////////////////////
@@ -227,6 +228,7 @@ int			is_substitutable(char *str, int i_dollar);
 //////////////////////////////////////////////////////////////////
 
 // Error_management_in_parsing.c
+int	free_data_lexing(t_data_lexing *data_lexing);
 int			error_malloc(t_data_lexing *data_lexing);
 int			error_in_line(t_data_lexing *data_lexing);
 int			error_syntax(t_tokens **tokens, int type);
@@ -250,6 +252,7 @@ int			is_number(int c);
 int			is_pipe(char c);
 
 // Is_something_2.c
+int			is_forbidden(char c);
 int			is_sign(char c);
 int			is_space(char c);
 

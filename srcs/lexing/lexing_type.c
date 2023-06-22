@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 14:23:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:02:48 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,12 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 		return (lexing_double_quote(data_lexing));
 	else if (type == PIPE)
 		return (new_token_pipe());
+	else if (is_forbidden(data_lexing->line[data_lexing->pos] ) == 1)
+	{
+		printf("minishell: syntax error near unexpected token '%c'\n",
+			data_lexing->line[data_lexing->pos]);
+		return (0);
+	}
+	printf("minishell: error malloc\n");
 	return (0);
 }
