@@ -6,11 +6,27 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 23:35:55 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:39:07 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new)
+{
+	t_cmd_lst	*tmp;
+
+	tmp = NULL;
+	tmp = *cmd_lst;
+	if (!*cmd_lst)
+		*cmd_lst = new;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+}
 
 // EAT_TOKEN : This function free the token after we worked on it
 // and set the pointer to the next token
@@ -43,9 +59,10 @@ int	nb_dollar(char *str)
 	return (cpt);
 }
 
-// IS_SUBSTITUTABLE : This function returns 0 if it finds a dollar in 
-// the string sent. Else, it returns the len of characters to substitute
-// behind the $. -2 = Nothing to substitute
+// IS_SUBSTITUTABLE : This function returns -2 if the string doesn't contain
+// any dollar, -1, if there is a dollar that doesn't need to be substitute as
+// it is in quotes.Else, it returns the len of characters to substitute behind
+// the dollar sign.
 
 int	is_substitutable(char *str, int i_dollar)
 {

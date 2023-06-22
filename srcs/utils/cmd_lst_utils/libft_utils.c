@@ -6,24 +6,11 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:44:28 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/13 17:07:13 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:29:55 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_strchr(const char *s, int c)
-{
-	const unsigned char	cpy_c = (unsigned char)c;
-	size_t				i;
-
-	i = 0;
-	while (s[i] != cpy_c && s[i] != '\0')
-		++i;
-	if (s[i] == cpy_c)
-		return ((char *)(s + i));
-	return (NULL);
-}
 
 char	*ft_strdup(char *src)
 {

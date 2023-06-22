@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-// allouer une taille de 100int 
-
 void	set_cmd_node_to_null(t_cmd_node *cmd_node)
 {
 	cmd_node->argument = NULL;

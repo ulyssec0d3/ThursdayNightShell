@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 22:54:30 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:15:02 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
 	return (add_new_token(content, type));
 }
 
+// NEW TOKEN PIPE : Creates a new token for pipe without 
+// allocating memory for the character pipe as we consider
+// that the len and the types are transmitting enough informations already.
+
 t_tokens	*new_token_pipe(void)
 {
 	t_tokens	*new_elem;
@@ -93,14 +97,14 @@ int	find_type(t_data_lexing **data_lexing)
 
 // LEXING FUNCTION : This function parses the line in tokens
 // and store them in a linked list.
-void	lexing(t_tokens **token, char *argv)
+int	lexing(t_tokens **token, char *buffer)
 {
 	int				len;
 	t_data_lexing	data_lexing;
 	t_tokens		*tmp_token;
 
 	len = 0;
-	init_data_lexing_structure(&data_lexing, argv);
+	init_data_lexing_structure(&data_lexing, buffer);
 	check_line(&data_lexing, data_lexing.line);
 	data_lexing.flag = SUCCESS;
 	while (data_lexing.pos < data_lexing.len)
@@ -110,10 +114,14 @@ void	lexing(t_tokens **token, char *argv)
 			data_lexing.pos++;
 		tmp_token = which_new_token(&data_lexing);
 		if (tmp_token == 0)
+		{
 			error_in_lexing(&data_lexing, ERROR_MALLOC);
+			return (ERROR_MALLOC);
+		}
 		len = tmp_token->len;
 		ft_lstadd_back(token, tmp_token);
 		data_lexing.pos += len;
 	}
 	free(data_lexing.line);
+	return (SUCCESS);
 }

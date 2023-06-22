@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 23:15:35 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:23:57 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 }
 
 // WHICH NEW TOKEN : This function creates a token depending on the type
-// of the input. The double quote token cannot be implemented for now
-// as it would be considered as a new arg and my main only handle argv[1].
+// of the input.
 
 t_tokens	*which_new_token(t_data_lexing *data_lexing)
 {

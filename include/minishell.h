@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 23:39:19 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:39:05 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ enum e_type_token
 
 enum e_error
 {
-	SUCCESS,
 	ERROR_MALLOC,
+	SUCCESS,
 	ERROR_SYNTAX
 } ;
 
@@ -152,8 +152,6 @@ void		prompt(char **env);
 
 // Main.c
 int			main(int argc, char **argv, char **env);
-void		check_line(t_data_lexing *data_lexing, char *str);
-int			is_substitutable_save(char *str);
 
 // Print_cmd_lst.c
 void		ft_print_lst_token(t_tokens *token);
@@ -183,9 +181,6 @@ int			search_substitute_variable(char *str);
 //																//
 //////////////////////////////////////////////////////////////////
 
-// Error_syntax.c
-void		check_syntax(t_tokens **tokens);
-
 // Lexing_type.c
 t_tokens	*lexing_double_quote(t_data_lexing *data_lexing);
 t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
@@ -198,13 +193,8 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing);
 t_tokens	*add_new_token(char *content, int type);
 t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
 int			find_type(t_data_lexing **data_lexing);
-void		lexing(t_tokens **token, char *argv);
+int			lexing(t_tokens **token, char *argv);
 t_tokens	*new_token_pipe(void);
-
-// Parenthesis_management.c
-int			cpt_parenthesis(char c);
-int			is_parenthesis(char c);
-int			parenthesis_management(t_data_lexing *data_lexing);
 
 // Quote_management.c
 int			is_double_quote(char c);
@@ -213,13 +203,18 @@ int			is_quote(char c);
 int			double_quote_management(char *line, int start);
 int			single_quote_management(char *line, int start);
 
+// Syntax.c
+void		check_line(t_data_lexing *data_lexing, char *str);
+int			check_open_d_quote(t_data_lexing *data_lexing, char *str, int i);
+int			check_open_s_quote(t_data_lexing *data_lexing, char *str, int i);
+void		check_redirection_content(t_tokens **token);
+void		check_syntax(t_tokens **tokens);
+
 // Utils.c
 int			get_content(char *dst, char *src, unsigned int size,
 				unsigned int start);
+void		init_data_lexing_structure(t_data_lexing *data_lexing, char *argv);
 int			is_redirection(t_data_lexing *data_lexing);
-int			is_word(t_data_lexing *data_lexing);
-int			int_strchr(const char *s, int start, int c);
-int			is_metacharacter(char c);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -227,33 +222,35 @@ int			is_metacharacter(char c);
 //																//
 //////////////////////////////////////////////////////////////////
 
-// Parse_operator_type.c
-int			parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token);
-int			parse_command(t_cmd_lst **cmd_lst, t_tokens **token);
+// Free_parsing.c
+void		free_arg_in_node(t_cmd_node *cmd_node);
+void		free_redir_in_node(t_cmd_node *cmd_node);
+void		free_cmd_node(t_cmd_node *cmd_node);
+void		free_cmd_lst(t_cmd_lst **cmd_lst);
 
 // Init_cmd_node.c
 void		set_cmd_node_to_null(t_cmd_node *cmd_node);
 int			init_arg_tab(t_cmd_lst *cmd_lst, int i_arg);
 int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
 int			init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst);
-int			is_substitutable(char *str, int i_dollar);
 
 // Get_arg.c
 int			fill_arg(t_cmd_node *cmd_node, char *content, int i);
 int			fill_redirection(t_cmd_node *cmd_node, char *content,
 				int type, int i);
-void		get_arg(t_tokens **token, t_cmd_node *cmd);
+int			fill_cmd_node(t_tokens **token, t_cmd_node *cmd);
+void		set_last_c_null(t_cmd_node *cmd_node, int i_arg, int i_redir);
 
 // Parsing.c
-void		ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new);
-t_tokens	*ft_lstnew_cmd_lst_node(char *content);
+int			parse_command(t_cmd_lst **cmd_lst, t_tokens **token);
+int			parse_pipe(t_cmd_lst **cmd_lst, t_tokens **token);
 int			parsing(t_cmd_lst **cmd_lst, t_tokens **token);
 
 // Utils.c
-int			nb_dollar(char *str);
+void		ft_lstadd_back_cmd_lst_node(t_cmd_lst **cmd_lst, t_cmd_lst *new);
 void		eat_token(t_tokens **tokens);
-void		free_cmd_lst(t_cmd_lst **cmd_lst);
-void		free_cmd_node(t_cmd_node *cmd);
+int			nb_dollar(char *str);
+int			is_substitutable(char *str, int i_dollar);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -261,14 +258,16 @@ void		free_cmd_node(t_cmd_node *cmd);
 //																//
 //////////////////////////////////////////////////////////////////
 
-// Error_management.c
+// Error_management_in_parsing.c
 void		free_data_lexing(t_data_lexing *data_lexing);
 void		error_in_lexing(t_data_lexing *data_lexing, int code);
 void		error_syntax(t_tokens **tokens);
+void		free_token_structure(t_tokens **tokens);
+void		ft_lstclear(t_tokens **lst);
 
 //////////////////////////////////////////////////////////////////
 //																//
-//                 	  	IN cmd_lst UTILS DIR   	                    //
+//                 	  	IN CMD_LST UTILS DIR   	                //
 //																//
 //////////////////////////////////////////////////////////////////
 
@@ -278,41 +277,21 @@ char		*ft_strjoin(char *s1, char *s2);
 // Is_something.c
 int			is_alpha(int c);
 int			is_dollar(char c);
+int			is_metacharacter(char c);
+int			is_number(int c);
 int			is_pipe(char c);
+
+// Is_something_2.c
 int			is_sign(char c);
 int			is_space(char c);
-int			is_number(int c);
 
 // Libft_utils.c
-char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strlen(char *str);
 
-//////////////////////////////////////////////////////////////////
-//																//
-//               	  	IN LIST UTILS DIR   	                //
-//																//
-//////////////////////////////////////////////////////////////////
-
 // List_utils.c
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
-void		ft_lstadd_back2(t_tokens *lst, t_tokens new);
-int			ft_lstsize(t_tokens *lst);
 t_tokens	*ft_lstnew(char *content);
-
-//////////////////////////////////////////////////////////////////
-//																//
-//              	IN STRUCTURES MANAGEMENT DIR   	            //
-//																//
-//////////////////////////////////////////////////////////////////
-
-// Init_structures.c 
-void		init_data_lexing_structure(t_data_lexing *data_lexing, char *argv);
-
-// Free_structures.c
-void		free_token_structure(t_tokens **tokens);
-void		free_structures(t_tokens **tokens);
-void		ft_lstclear(t_tokens **lst);
 
 #endif

@@ -6,11 +6,15 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:08:36 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 14:53:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:22:52 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// CHECK REDIRECTION CONTENT : This function searches for syntax error related
+// to redirections such as redirections not related to any file or "<>", ">>>",
+// "<< <<" and ">|".
 
 void	check_redirection_content(t_tokens **token)
 {
@@ -28,6 +32,11 @@ void	check_redirection_content(t_tokens **token)
 		tmp = tmp->next;
 	}
 }
+
+// CHECK SYNTAX : This function searches for syntax error related
+// to the pipe command such as "|", "||", "cat |" and "| cat". It
+// also checks syntax error related to redirection calling
+// check_redirection_content funtion.
 
 void	check_syntax(t_tokens **token)
 {
@@ -53,6 +62,9 @@ void	check_syntax(t_tokens **token)
 	check_redirection_content(token);
 }
 
+// CHECK OPEN S QUOTE : This function ensures that the single quotes in the
+// given line are correctly closed.
+
 int	check_open_s_quote(t_data_lexing *data_lexing, char *str, int i)
 {
 	i++;
@@ -65,6 +77,9 @@ int	check_open_s_quote(t_data_lexing *data_lexing, char *str, int i)
 	return (i);
 }
 
+// CHECK OPEN D QUOTE : This function ensures that the double quotes in the
+// given line are correctly closed.
+
 int	check_open_d_quote(t_data_lexing *data_lexing, char *str, int i)
 {
 	i++;
@@ -76,6 +91,9 @@ int	check_open_d_quote(t_data_lexing *data_lexing, char *str, int i)
 		i++;
 	return (i);
 }
+
+// CHECK LINE : This function ensures that all quotes in the given
+// line are correctly closed.
 
 void	check_line(t_data_lexing *data_lexing, char *str)
 {

@@ -6,26 +6,11 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:30:00 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/21 14:59:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:30:36 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_lstsize(t_tokens *lst)
-{
-	int	size;
-
-	size = 0;
-	if (!(lst))
-		return (0);
-	while (lst)
-	{
-		lst = lst->next;
-		size++;
-	}
-	return (size);
-}
 
 void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 {
