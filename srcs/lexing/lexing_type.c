@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 18:02:48 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:31:42 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tokens	*lexing_double_quote(t_data_lexing *data_lexing)
 
 	size = double_quote_management(data_lexing->line, data_lexing->pos);
 	if (is_space(data_lexing->line[data_lexing->pos + size]) == 1)
-		return (new_token(data_lexing, WORD, size));
+		return (new_token_double_quote(data_lexing, size));
 	else
 	{
 		i = size + data_lexing->pos;
@@ -36,7 +36,7 @@ t_tokens	*lexing_double_quote(t_data_lexing *data_lexing)
 			size++;
 		}
 	}
-	return (new_token(data_lexing, WORD, size));
+	return (new_token_double_quote(data_lexing, size));
 }
 
 t_tokens	*lexing_single_quote(t_data_lexing *data_lexing)
@@ -46,7 +46,7 @@ t_tokens	*lexing_single_quote(t_data_lexing *data_lexing)
 
 	size = single_quote_management(data_lexing->line, data_lexing->pos);
 	if (is_space(data_lexing->line[data_lexing->pos + size]) == 1)
-		return (new_token(data_lexing, WORD, size));
+		return (new_token_single_quote(data_lexing, size));
 	else
 	{
 		i = size + data_lexing->pos;
@@ -61,7 +61,7 @@ t_tokens	*lexing_single_quote(t_data_lexing *data_lexing)
 			size++;
 		}
 	}
-	return (new_token(data_lexing, WORD, size));
+	return (new_token_single_quote(data_lexing, size));
 }
 
 t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
@@ -112,7 +112,7 @@ t_tokens	*which_new_token(t_data_lexing *data_lexing)
 		return (lexing_double_quote(data_lexing));
 	else if (type == PIPE)
 		return (new_token_pipe());
-	else if (is_forbidden(data_lexing->line[data_lexing->pos] ) == 1)
+	else if (is_forbidden(data_lexing->line[data_lexing->pos]) == 1)
 	{
 		printf("minishell: syntax error near unexpected token '%c'\n",
 			data_lexing->line[data_lexing->pos]);

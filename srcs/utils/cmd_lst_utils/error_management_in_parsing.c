@@ -6,23 +6,11 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 14:50:47 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 18:03:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:15:49 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_lstclear(t_tokens **lst)
-{
-	t_tokens	*tmp;
-
-	while (*lst && lst)
-	{
-		tmp = (*lst)->next;
-		free(*lst);
-		*lst = tmp;
-	}
-}
 
 // FREE TOKEN STRUCTURE : Free the elements of a t_tokens structure.
 

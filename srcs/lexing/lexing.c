@@ -6,14 +6,13 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 17:33:33 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:51:20 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // ADD NEW TOKEN : Creates a new token (Like a ft_lstnew but with type).
-
 t_tokens	*add_new_token(char *content, int type)
 {
 	t_tokens	*new_elem;
@@ -38,7 +37,6 @@ t_tokens	*add_new_token(char *content, int type)
 
 // NEW TOKEN : Create a new token when then input 
 // is not a word, a quote, or a parenthesis.
-
 t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
 {
 	char	*content;
@@ -105,9 +103,9 @@ int	lexing(t_tokens **token, char *buffer)
 	t_tokens		*tmp_token;
 
 	len = 0;
-	init_data_lexing_structure(&data_lexing, buffer);
-	if (check_line(data_lexing.line) == ERROR_SYNTAX)
+	if (check_line(buffer) == ERROR_SYNTAX)
 		return (error_in_line(&data_lexing));
+	init_data_lexing_structure(&data_lexing, buffer);
 	data_lexing.flag = SUCCESS;
 	while (data_lexing.pos < data_lexing.len)
 	{

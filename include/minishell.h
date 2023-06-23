@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 17:35:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:34:12 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,12 +228,11 @@ int			is_substitutable(char *str, int i_dollar);
 //////////////////////////////////////////////////////////////////
 
 // Error_management_in_parsing.c
-int	free_data_lexing(t_data_lexing *data_lexing);
+int			free_data_lexing(t_data_lexing *data_lexing);
 int			error_malloc(t_data_lexing *data_lexing);
 int			error_in_line(t_data_lexing *data_lexing);
 int			error_syntax(t_tokens **tokens, int type);
 void		free_token_structure(t_tokens **tokens);
-void		ft_lstclear(t_tokens **lst);
 
 //////////////////////////////////////////////////////////////////
 //																//
@@ -264,5 +263,9 @@ int			ft_strlen(char *str);
 // List_utils.c
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
 t_tokens	*ft_lstnew(char *content);
+
+t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size);
+t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size);
+void		quotes_trimming(char *buffer);
 
 #endif
