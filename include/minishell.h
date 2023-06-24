@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 18:28:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:19:43 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,8 @@ int			prepare_substitution(char *content, t_data_lexing **data_lexing);
 t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
 int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
 int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
-char		*adjust_content(t_data_lexing *data_lexing, char *content, int size);
+char		*adjust_content(t_data_lexing *data_lexing,
+				char *content, int size);
+char		*single_dollar_trimming(char *buffer);
 
 #endif

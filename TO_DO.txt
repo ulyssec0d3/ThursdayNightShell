@@ -1,6 +1,5 @@
 Things to do
--  echo test"sd".
-- test"'$'"
+-$'"$USER"'
 
 /// quote avancer jusau'a la suivamte() && || & sauf si entre quote
 pb : cmd1 argv$subsit\ute
@@ -20,5 +19,4 @@ RECURSIVE PARSING :
 SHUNTING YARD :
 // https://en.wikipedia.org/wiki/Shunting_yard_algorithm
 
-$"aef = aef
-$''
+
