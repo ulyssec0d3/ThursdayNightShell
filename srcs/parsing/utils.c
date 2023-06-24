@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:31:32 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 15:23:00 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:11:46 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	is_substitutable(char *str, int i_dollar)
 		i++;
 		cpt_dollar++;
 	}
+	if (str[i] == '?')
+		return (1);
 	while (str[i] && (is_alpha(str[i]) == 1
 			|| is_number(str[i]) == 1 || str[i] == 95))
 	{
