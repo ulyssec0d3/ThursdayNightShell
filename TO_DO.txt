@@ -1,12 +1,6 @@
 Things to do
-- env.
-- quote
-- Sortie d'erreur + free. // ajouter un flag d'erreur dans la def de data lexing  et ensuite dans while flag == SUCCESS
-- Free
-- Erreur syntax :
-        pb content redir. ">"
-        free quand error quote in lexing word
-        pipe error
+-  echo test"sd".
+- test"'$'"
 
 /// quote avancer jusau'a la suivamte() && || & sauf si entre quote
 pb : cmd1 argv$subsit\ute
@@ -25,3 +19,8 @@ RECURSIVE PARSING :
 
 SHUNTING YARD :
 // https://en.wikipedia.org/wiki/Shunting_yard_algorithm
+
+
+$?
+$"aef = aef
+$''

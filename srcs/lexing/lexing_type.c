@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:34:38 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/23 20:31:42 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:46:30 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,34 +90,4 @@ t_tokens	*lexing_word(t_data_lexing *data_lexing, int type)
 		size++;
 	}
 	return (new_token(data_lexing, type, size));
-}
-
-// WHICH NEW TOKEN : This function creates a token depending on the type
-// of the input.
-
-t_tokens	*which_new_token(t_data_lexing *data_lexing)
-{
-	int			type;
-
-	type = find_type(&data_lexing);
-	if (type == WORD)
-		return (lexing_word(data_lexing, WORD));
-	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
-		return (lexing_redirection(data_lexing, type, 1));
-	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
-		return (lexing_redirection(data_lexing, type, 2));
-	else if (type == SINGLE_QUOTE)
-		return (lexing_single_quote(data_lexing));
-	else if (type == DOUBLE_QUOTE)
-		return (lexing_double_quote(data_lexing));
-	else if (type == PIPE)
-		return (new_token_pipe());
-	else if (is_forbidden(data_lexing->line[data_lexing->pos]) == 1)
-	{
-		printf("minishell: syntax error near unexpected token '%c'\n",
-			data_lexing->line[data_lexing->pos]);
-		return (0);
-	}
-	printf("minishell: error malloc\n");
-	return (0);
 }

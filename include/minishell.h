@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/23 20:34:12 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/24 18:28:17 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,14 @@ struct s_data_lexing {
 	char	*line;
 	int		pos;
 	int		len;
+	int		*d_tab_tmp;
 };
 
 struct s_tokens {
 	enum e_type_token	type;
 	int					len;
 	char				*content;
+	int					*dollars_tab;
 	struct s_tokens		*next;
 };
 
@@ -150,20 +152,26 @@ void		print_cmd_lst(t_cmd_lst **cmd_lst);
 //																//
 //////////////////////////////////////////////////////////////////
 
+// New_token_quote.c
+t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size);
+t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size);
+void		quotes_trimming(char *buffer);
+
+// New_token.c
+t_tokens	*new_token_pipe(void);
+t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
+
 // Lexing_type.c
 t_tokens	*lexing_double_quote(t_data_lexing *data_lexing);
 t_tokens	*lexing_redirection(t_data_lexing *data_lexing, int type,
 				int size_redirection);
 t_tokens	*lexing_single_quote(t_data_lexing *data_lexing);
 t_tokens	*lexing_word(t_data_lexing *data_lexing, int type);
-t_tokens	*which_new_token(t_data_lexing *data_lexing);
 
 // Lexing.c
-t_tokens	*add_new_token(char *content, int type);
-t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size);
+t_tokens	*which_new_token(t_data_lexing *data_lexing);
 int			find_type(t_data_lexing **data_lexing);
 int			lexing(t_tokens **token, char *argv);
-t_tokens	*new_token_pipe(void);
 
 // Quote_management.c
 int			is_double_quote(char c);
@@ -204,9 +212,9 @@ int			init_redir_tab(t_cmd_lst *cmd_lst, int i_redir);
 int			init_cmd_node(t_tokens **token, t_cmd_lst *cmd_lst);
 
 // Get_arg.c
-int			fill_arg(t_cmd_node *cmd_node, char *content, int i);
-int			fill_redirection(t_cmd_node *cmd_node, char *content,
-				int type, int i);
+// int			fill_arg(t_cmd_node *cmd_node, char *content, int i);
+// int			fill_redirection(t_cmd_node *cmd_node, char *content,
+				// int type, int i);
 int			fill_cmd_node(t_tokens **token, t_cmd_node *cmd);
 void		set_last_c_null(t_cmd_node *cmd_node, int i_arg, int i_redir);
 
@@ -264,8 +272,10 @@ int			ft_strlen(char *str);
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
 t_tokens	*ft_lstnew(char *content);
 
-t_tokens	*new_token_double_quote(t_data_lexing *data_lexing, int size);
-t_tokens	*new_token_single_quote(t_data_lexing *data_lexing, int size);
-void		quotes_trimming(char *buffer);
+int			prepare_substitution(char *content, t_data_lexing **data_lexing);
+t_tokens	*add_new_token(t_data_lexing *data_lexing, char *content, int type);
+int			fill_arg(t_cmd_node *cmd_node, t_tokens **token, int i);
+int			fill_redirection(t_cmd_node *cmd_node, t_tokens **token, int i);
+char		*adjust_content(t_data_lexing *data_lexing, char *content, int size);
 
 #endif

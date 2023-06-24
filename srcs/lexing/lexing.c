@@ -6,71 +6,40 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:17:07 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/23 19:51:20 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:46:44 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// ADD NEW TOKEN : Creates a new token (Like a ft_lstnew but with type).
-t_tokens	*add_new_token(char *content, int type)
+// WHICH NEW TOKEN : This function creates a token depending on the type
+// of the input.
+
+t_tokens	*which_new_token(t_data_lexing *data_lexing)
 {
-	t_tokens	*new_elem;
+	int			type;
 
-	new_elem = malloc (sizeof(t_tokens));
-	if (new_elem == NULL)
-		return (NULL);
-	new_elem->type = type;
-	if (content != NULL)
+	type = find_type(&data_lexing);
+	if (type == WORD)
+		return (lexing_word(data_lexing, WORD));
+	else if (type == SIMPLE_IN || type == SIMPLE_OUT)
+		return (lexing_redirection(data_lexing, type, 1));
+	else if (type == DOUBLE_IN || type == DOUBLE_OUT)
+		return (lexing_redirection(data_lexing, type, 2));
+	else if (type == SINGLE_QUOTE)
+		return (lexing_single_quote(data_lexing));
+	else if (type == DOUBLE_QUOTE)
+		return (lexing_double_quote(data_lexing));
+	else if (type == PIPE)
+		return (new_token_pipe());
+	else if (is_forbidden(data_lexing->line[data_lexing->pos]) == 1)
 	{
-		new_elem->len = ft_strlen(content);
-		new_elem->content = ft_strdup(content);
+		printf("minishell: syntax error near unexpected token '%c'\n",
+			data_lexing->line[data_lexing->pos]);
+		return (0);
 	}
-	else
-	{
-		new_elem->len = 0;
-		new_elem->content = NULL;
-	}
-	new_elem->next = NULL;
-	return (new_elem);
-}
-
-// NEW TOKEN : Create a new token when then input 
-// is not a word, a quote, or a parenthesis.
-t_tokens	*new_token(t_data_lexing *data_lexing, int type, int size)
-{
-	char	*content;
-
-	content = NULL;
-	if (size > 0)
-	{
-		content = malloc(sizeof(char *) * (size + 1));
-		if (content == NULL)
-		{
-			free(content);
-			return (NULL);
-		}
-		get_content(content, data_lexing->line, size, data_lexing->pos);
-	}
-	return (add_new_token(content, type));
-}
-
-// NEW TOKEN PIPE : Creates a new token for pipe without 
-// allocating memory for the character pipe as we consider
-// that the len and the types are transmitting enough informations already.
-
-t_tokens	*new_token_pipe(void)
-{
-	t_tokens	*new_elem;
-
-	new_elem = malloc (sizeof(t_tokens));
-	if (new_elem == NULL)
-		return (NULL);
-	new_elem->type = PIPE;
-	new_elem->len = 1;
-	new_elem->content = NULL;
-	new_elem->next = NULL;
-	return (new_elem);
+	printf("minishell: error malloc\n");
+	return (0);
 }
 
 // FIND TYPE : Returns the type of the input.

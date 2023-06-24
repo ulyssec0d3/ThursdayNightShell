@@ -20,7 +20,8 @@ SRCS        := 											\
 	lexing/syntax.c										\
 	lexing/lexing_type.c     							\
 	lexing/lexing.c    									\
-	lexing/lexing_quote.c    									\
+	lexing/new_token_quote.c    						\
+	lexing/new_token.c    								\
 	lexing/quote_management.c							\
 	lexing/utils.c										\
 	parsing/free_parsing.c								\
