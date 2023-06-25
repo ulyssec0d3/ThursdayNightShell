@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ulevallo <ulevallo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:33:34 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/22 17:35:57 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/25 07:07:29 by ulevallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,5 +264,15 @@ int			ft_strlen(char *str);
 // List_utils.c
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
 t_tokens	*ft_lstnew(char *content);
+
+//////////////////////////////////////////////////////////////////
+//																//
+//						  BUILT-INS								//
+//																//
+//////////////////////////////////////////////////////////////////
+
+void		built_in_pwd(void);
+char		*get_pwd(void);
+char		*built_in_env(char **env);
 
 #endif
