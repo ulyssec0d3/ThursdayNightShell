@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:34:57 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 19:19:58 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/25 14:03:50 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*single_dollar_trimming(char *buffer)
 				}
 				buffer[j] = 0;
 			}
-			else if (is_single_quote(buffer[i]))
+			else if (is_single_quote(buffer[i + 1]))
 			{
 				j = i;
 				while (buffer[j])

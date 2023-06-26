@@ -6,7 +6,7 @@
 /*   By: lduheron <lduheron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:48:26 by lduheron          #+#    #+#             */
-/*   Updated: 2023/06/24 17:39:17 by lduheron         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:10:41 by lduheron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_cmd_node(t_cmd_node *cmd_node)
 	}
 	if (cmd_node->argument)
 	{
-		printf("Cmd : %s\n", cmd_node->argument[0]);
+		printf("Argument[0] : %s\n", cmd_node->argument[0]);
 		while (cmd_node->arg_subst[0][j] != -2)
 		{
 			printf("Cmd_subst : %i\n\n", cmd_node->arg_subst[0][j]);
